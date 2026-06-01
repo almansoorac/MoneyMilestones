@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Novated Lease vs Buy Calculator — MoneyMilestones</title>
+<meta name="description" content="Compare a novated lease against buying with a car loan in Australia: FBT, the EV exemption, GST and income-tax savings, the residual you owe, and your real after-tax cost.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
+    --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
+    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;flex:none}
+  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b span{color:var(--forest)}
+  nav.top{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+  nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+  nav.top a.active{background:var(--forest);color:#fff}
+  .hero{padding:26px 0 22px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:16ch}
+  h1 em{font-style:italic;color:var(--forest)}
+  .lede{font-size:1.06rem;color:var(--ink-soft);max-width:56ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:64ch}
+  .verify-flag svg{flex:none;margin-top:1px}
+  .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
+  @media(max-width:860px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;font-weight:700;display:grid;place-items:center;flex:none}
+  .panel-body{padding:20px 22px}
+  .field{margin-bottom:17px}
+  label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  .input-money{position:relative}
+  .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
+  input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .input-money input{padding-left:26px}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .pct{position:relative}
+  .pct span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600}
+  details.assume{margin-top:18px;border:1px dashed var(--line);border-radius:13px;background:var(--paper)}
+  details.assume summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:.85rem;font-weight:600;color:var(--forest-deep);display:flex;align-items:center;gap:8px}
+  details.assume summary::-webkit-details-marker{display:none}
+  details.assume summary .chev{margin-left:auto;transition:transform .2s}
+  details.assume[open] summary .chev{transform:rotate(180deg)}
+  .assume-body{padding:4px 16px 16px}
+  .assume-note{font-size:.78rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.45}
+
+  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
+  .result-panel .panel-head h2{color:#fff}
+  .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
+  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
+  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.4rem,7vw,3.3rem);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:6px 0 4px;color:#fff}
+  .bignum .cur{color:var(--ochre)}
+  .headline .sub{font-size:.9rem;color:#BFD4C8}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
+  .stat{background:#143A2F;padding:13px 15px}
+  .stat .k{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;margin-top:5px;color:#fff}
+  .bars{margin-top:24px}
+  .bars .blbl{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+  .barrow{margin-bottom:15px}
+  .barrow .bl{display:flex;justify-content:space-between;font-size:.85rem;color:#DCE9E1;margin-bottom:6px;font-weight:600}
+  .barrow .bl .amt{font-variant-numeric:tabular-nums}
+  .bar-track{height:26px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .bf-lease{background:linear-gradient(90deg,var(--ochre),#E8A951)}
+  .bf-buy{background:linear-gradient(90deg,#4A6A7A,#6E93A3)}
+  .bf-cash{background:linear-gradient(90deg,#7C6CA8,#9A8AC4)}
+  .tag-best{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ochre);color:#3A2406;padding:2px 7px;border-radius:5px;margin-left:8px;vertical-align:middle}
+  .note-line{margin-top:18px;font-size:.82rem;color:#BFD4C8;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
+  .note-line b{color:#fff}
+  .note-line.warn{background:rgba(180,84,63,.2);border:1px solid rgba(180,84,63,.4);color:#F2C9BF}
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
+  .btn-solid:hover{background:#E8A951}
+  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+  .guide{max-width:752px;margin:54px auto 0}
+  .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+  .prose strong{color:var(--ink);font-weight:700}
+  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout b{color:var(--forest-deep)}
+
+  .faq{max-width:752px;margin:48px auto 0}
+  .faq h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
+  .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
+  .faq details[open]{box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:1}
+  .faq summary .pm{width:22px;height:22px;flex:none;position:relative}
+  .faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;background:var(--forest);border-radius:2px;transition:.2s}
+  .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
+  .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
+  .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+
+  .hub{margin:50px 0 20px}
+  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
+  .mcard.live{border-color:var(--forest);box-shadow:var(--shadow)}
+  .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
+  .mcard.live .ic{background:var(--forest);color:#fff}
+  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+  .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
+  .badge.now{background:var(--forest);color:#fff}
+  .badge.soon{background:var(--paper-2);color:var(--ink-soft)}
+
+  footer{margin-top:46px;border-top:1px solid var(--line);padding:26px 0 50px}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .disc b{color:var(--ink);font-weight:700}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
+      <b>Money<span>Milestones</span></b>
+    </a>
+    <nav class="top">
+      <a href="index.html">Parental leave</a>
+      <a href="redundancy.html">Redundancy</a>
+      <a href="salary-sacrifice.html">Salary sacrifice</a>
+      <a href="novated-lease.html" class="active">Novated lease</a>
+      <a href="business-vehicle.html">Business car</a>
+      <a href="mortgage-payoff.html">Mortgage payoff</a>
+      <a href="articles.html">Articles</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Includes the EV FBT exemption · 2025-26</span>
+    <h1>Novated lease, or just <em>buy the car</em>?</h1>
+    <p class="lede">Salary packaging a car can save thousands — or quietly cost more once the residual lands. We compare three ways to get the car — a novated lease, a car loan, and paying cash — in real after-tax dollars over the whole term.</p>
+    <div class="verify-flag">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
+      <span><b>Prototype.</b> A simplified model of a complex area — it uses the Employee Contribution Method and the EV exemption, with editable rates. Provider quotes vary; always check a formal quote and the ATO before deciding.</span>
+    </div>
+  </section>
+
+  <div class="app">
+    <!-- INPUTS -->
+    <div class="panel">
+      <div class="panel-head"><span class="num">1</span><h2>The car &amp; you</h2></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="salary">Annual salary <span class="hint">(before tax)</span></label>
+          <div class="input-money"><input type="number" id="salary" value="120000" min="0" step="1000"></div>
+        </div>
+        <div class="field">
+          <label for="price">Car price <span class="hint">(drive-away, incl GST)</span></label>
+          <div class="input-money"><input type="number" id="price" value="60000" min="0" step="1000"></div>
+        </div>
+        <div class="field">
+          <label for="vehType">Vehicle type</label>
+          <select id="vehType">
+            <option value="ev">Electric / hydrogen (FBT-exempt if under $91,387)</option>
+            <option value="ice">Petrol, diesel or new PHEV (FBT applies)</option>
+          </select>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="term">Lease / loan term <span class="hint">(years)</span></label>
+            <select id="term"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option></select>
+          </div>
+          <div class="field">
+            <label for="rate">Finance rate <span class="hint">p.a.</span></label>
+            <div class="pct"><input type="number" id="rate" value="8.5" step="0.1"><span>%</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="running">Annual running costs <span class="hint">(fuel/charging, rego, insurance, servicing, tyres)</span></label>
+          <div class="input-money"><input type="number" id="running" value="4000" min="0" step="250"></div>
+        </div>
+        <div class="field">
+          <label for="opp">If you pay cash, what could that money earn? <span class="hint">p.a. — your offset, savings or investment rate</span></label>
+          <div class="pct"><input type="number" id="opp" value="6" step="0.1"><span>%</span></div>
+        </div>
+        <div class="toggles" style="display:flex;flex-direction:column;gap:11px;margin-top:4px">
+          <div class="toggle" style="display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.88rem;font-weight:500">
+            <span>I have a HELP/HECS debt</span>
+            <label class="switch" style="position:relative;width:42px;height:24px;flex:none"><input type="checkbox" id="help" style="opacity:0;width:0;height:0;position:absolute"><span class="slider" style="position:absolute;inset:0;background:#D8D2C4;border-radius:100px;transition:.2s;cursor:pointer"></span></label>
+          </div>
+        </div>
+
+        <details class="assume">
+          <summary>FBT, GST &amp; residual assumptions <span class="chev">▾</span></summary>
+          <div class="assume-body">
+            <p class="assume-note">2025-26 defaults. The residual auto-fills from the ATO minimum for your term; override if your lease differs.</p>
+            <div class="row2">
+              <div class="field"><label for="residual">Residual value</label><div class="pct"><input type="number" id="residual" value="28.13" step="0.01"><span>%</span></div></div>
+              <div class="field"><label for="statRate">FBT statutory rate</label><div class="pct"><input type="number" id="statRate" value="20" step="1"><span>%</span></div></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="gst">GST rate</label><div class="pct"><input type="number" id="gst" value="10" step="0.5"><span>%</span></div></div>
+              <div class="field"><label for="lct">EV exemption cap</label><div class="input-money"><input type="number" id="lct" value="91387" step="100"></div></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel result-panel">
+      <div class="panel-head"><span class="num">2</span><h2>Lease vs buy</h2></div>
+      <div class="panel-body">
+        <div class="headline">
+          <div class="small"><span id="winnerName">Novated lease</span> is cheapest over <span id="termLbl">5</span> years — about</div>
+          <div class="bignum"><span class="cur">$</span><span id="winnerVal">0</span></div>
+          <div class="sub" id="savingSub">— $<span id="winnerGap">0</span> less than the next-best option. You own the car either way.</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><div class="k">Novated lease</div><div class="v">$<span id="leaseCost">0</span></div></div>
+          <div class="stat"><div class="k">Car loan</div><div class="v">$<span id="buyCost">0</span></div></div>
+          <div class="stat"><div class="k">Pay cash</div><div class="v">$<span id="cashCost">0</span></div></div>
+          <div class="stat"><div class="k">Income tax saved (lease)</div><div class="v">$<span id="taxSaved">0</span></div></div>
+        </div>
+        <div class="bars">
+          <div class="blbl">Total after-tax cost over <span id="termLbl2">5</span> years (lower is better)</div>
+          <div class="barrow">
+            <div class="bl"><span>Novated lease<span class="tag-best" id="bestLease" style="display:none">Cheapest</span></span><span class="amt">$<span id="bLease">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-lease" id="barLease" style="width:0"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bl"><span>Buy with a car loan<span class="tag-best" id="bestBuy" style="display:none">Cheapest</span></span><span class="amt">$<span id="bBuy">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-buy" id="barBuy" style="width:0"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bl"><span>Pay cash<span class="tag-best" id="bestCash" style="display:none">Cheapest</span></span><span class="amt">$<span id="bCash">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-cash" id="barCash" style="width:0"></div></div>
+          </div>
+        </div>
+        <div class="note-line" id="noteLine"></div>
+        <div class="result-actions">
+          <button class="btn btn-solid" id="pdfBtn">↓ Download comparison (PDF)</button>
+          <button class="btn btn-ghost" id="shareBtn">⛓ Copy share link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUIDE -->
+  <article class="guide">
+    <span class="kicker">The guide</span>
+    <h2 class="gtitle">How a novated lease really compares to buying</h2>
+    <div class="byline">
+      <span class="av">MM</span>
+      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
+      <span class="vstamp">✓ Figures to be verified vs ATO</span>
+    </div>
+    <div class="prose">
+      <p>A novated lease lets your employer pay your car costs from your salary, mostly before tax. That pre-tax treatment, plus not paying GST on the car or its running costs, is where the savings come from. But there's a catch at the end — the residual — and the maths swings hard depending on whether the car is an electric vehicle.</p>
+
+      <h3>The electric-vehicle game-changer</h3>
+      <p>Eligible electric and hydrogen vehicles priced under the fuel-efficient luxury-car threshold (<strong>$91,387 for 2025-26</strong>) are <strong>exempt from Fringe Benefits Tax</strong>. That's the difference between a good deal and a great one: with no FBT, the <em>entire</em> lease — finance and running costs — comes out of pre-tax salary, and you skip the post-tax contribution that petrol and diesel cars need. It's why an EV novated lease can save many thousands a year, while an equivalent petrol car saves far less.</p>
+
+      <h3>What petrol and diesel cars face</h3>
+      <p>For a non-exempt car, the lease would normally attract FBT. To avoid that, providers use the <strong>Employee Contribution Method</strong>: you pay part of the cost — roughly 20% of the car's value each year — from <em>post-tax</em> dollars, which cancels the FBT but also eats into the tax benefit. New plug-in hybrids lost their exemption from 1 April 2025, so they're treated like petrol cars here.</p>
+
+      <h3>Don't forget the residual</h3>
+      <p>At the end of the lease you owe a <strong>residual</strong> — a set percentage of the car's value (28.13% for a five-year term), paid from after-tax dollars, with GST on top. To genuinely compare against buying, you have to count it: in this calculator both paths end with you owning the car, so the residual is included in the lease cost. The risk worth knowing: if the car's used value has fallen below the residual — a real possibility for EVs as prices drop — you wear the shortfall.</p>
+
+      <div class="callout">
+        <b>Timing note.</b> From 1 April 2027, the full EV FBT exemption tightens — EVs above $75,000 (up to the threshold) move to a 25% discount rather than a full exemption, and the concession winds down further from 2029. Leases entered before each change are generally grandfathered, so if an EV lease stacks up for you, the timing of when you commit can matter.
+      </div>
+
+      <h3>And what about just paying cash?</h3>
+      <p>If you have the savings, paying cash avoids all interest — but it isn't free. The money you sink into the car could have stayed in your offset account or an investment, so the fair comparison counts that <strong>opportunity cost</strong>. Set the rate to what your cash would otherwise earn (your offset or mortgage rate is a sensible proxy). When that rate is low, cash often wins; when it's high, financing and keeping your money working can come out ahead. That's why this tool puts all three side by side rather than declaring one universal winner.</p>
+
+      <h3>How we calculate this</h3>
+      <ul>
+        <li><strong>Lease cost</strong> = finance (amortised to the residual) plus running costs, with GST removed; the pre-tax part is converted to after-tax dollars using your marginal rate (via the same engine the rest of the site uses), the ECM part stays post-tax, and the residual is added at the end.</li>
+        <li><strong>Buy cost</strong> = a car loan over the same term on the full GST-inclusive price, plus running costs — all from after-tax dollars.</li>
+        <li>Both finish owning the car, so its end value cancels out of the comparison.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
+    <details><summary><span class="q">Is a novated lease worth it?</span><span class="pm"></span></summary>
+      <div class="a">For an eligible EV under the luxury-car threshold, very often yes — the FBT exemption makes the whole lease pre-tax and the savings can be large. For petrol or diesel cars the benefit is smaller because of the post-tax employee contribution, and the residual at the end can erode it. Compare your own numbers above.</div></details>
+    <details><summary><span class="q">What is the residual on a novated lease?</span><span class="pm"></span></summary>
+      <div class="a">It's a lump sum you owe at the end of the lease, set by the ATO as a percentage of the car's value — 28.13% for a five-year term, rising for shorter terms. You pay it from after-tax dollars (with GST) to keep the car, so it must be counted in any honest comparison.</div></details>
+    <details><summary><span class="q">Which electric cars are FBT-exempt?</span><span class="pm"></span></summary>
+      <div class="a">Battery-electric and hydrogen fuel-cell vehicles first used on or after 1 July 2022 and priced below the fuel-efficient luxury-car threshold ($91,387 for 2025-26). New plug-in hybrids stopped qualifying from 1 April 2025. If the car ever exceeded the threshold at first sale, it's permanently ineligible.</div></details>
+    <details><summary><span class="q">Do I save GST on a novated lease?</span><span class="pm"></span></summary>
+      <div class="a">Yes. Because your employer leases the car, the GST on the purchase price and on running costs is generally claimed back, so you effectively pay the GST-exclusive amounts. There's a cap on the GST credit for more expensive cars.</div></details>
+    <details><summary><span class="q">Is it better to pay cash for a car?</span><span class="pm"></span></summary>
+      <div class="a">Paying cash avoids interest, but the money is then tied up in a depreciating asset instead of earning a return or sitting in your offset. This calculator counts that opportunity cost, so cash competes fairly against financing — it tends to win when your savings rate is low and lose when it's high.</div></details>
+    <details><summary><span class="q">What happens to my lease if I change jobs?</span><span class="pm"></span></summary>
+      <div class="a">The lease is yours — it "novates" to a new employer if they offer salary packaging, or reverts to you to pay directly (losing the pre-tax benefit) until then. It's a key risk to weigh if your job feels uncertain.</div></details>
+  </section>
+
+  <!-- HUB -->
+  <section class="hub">
+    <h3>Your next milestone</h3>
+    <p class="sub">The same engine powers every calculation here — one income picture, every life event it touches.</p>
+    <div class="cards">
+      <a class="mcard live" href="index.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.5"/><path d="M4 16c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Parental leave pay</h4>
+        <p>Take-home, super and the income gap across your leave.</p>
+      </a>
+      <a class="mcard live" href="redundancy.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 7h12v9H4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h4>Redundancy payout</h4>
+        <p>Entitlement, the tax-free portion and net pay in hand.</p>
+      </a>
+      <a class="mcard live" href="salary-sacrifice.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Salary sacrifice vs take-home</h4>
+        <p>Into super, onto the mortgage, or kept as cash — compared.</p>
+      </a>
+      <a class="mcard live" href="novated-lease.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M5 13h10v3H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="16" r="1.3" fill="currentColor"/><circle cx="13" cy="16" r="1.3" fill="currentColor"/></svg></div>
+        <h4>Novated lease vs buy</h4>
+        <p>The real after-tax cost of packaging your next car.</p>
+      </a>
+      <a class="mcard live" href="business-vehicle.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M4 13h12v3H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Business car finance</h4><p>Chattel mortgage, lease or cash for a work vehicle.</p></a>
+      <a class="mcard live" href="mortgage-payoff.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Pay off your mortgage faster</h4><p>Extra repayments and offset, years and interest saved.</p></a>
+    </div>
+  </section>
+
+  <section style="margin:16px 0 0">
+    <a href="ev-novated-lease-worth-it.html" style="display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ochre);border-radius:16px;padding:17px 20px;text-decoration:none;color:inherit;box-shadow:var(--shadow)">
+      <span style="flex:none;width:40px;height:40px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--forest)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3h7l3 3v11H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6.5h3M7.5 9.5h5M7.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      <span style="flex:1"><span style="display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ochre)">Related guide</span><span style="display:block;font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;color:var(--ink);margin-top:2px">Is an EV novated lease worth it in 2025-26?</span></span>
+      <span style="flex:none;color:var(--forest);font-weight:700;font-size:.9rem;white-space:nowrap">Read &rarr;</span>
+    </a>
+  </section>
+
+  <footer>
+    <div class="disc">
+      <b>General information only — not financial, tax or legal advice.</b> This calculator is a simplified comparison using the figures you enter and 2025-26 settings (the EV FBT exemption and $91,387 threshold, a 20% statutory FBT value handled via the Employee Contribution Method, 10% GST, and ATO minimum residuals). It does not capture every fee, the GST credit cap on expensive cars, the operating-cost FBT method, reportable fringe benefits effects on other entitlements, lease establishment costs, or provider margins. Real novated-lease quotes differ. Always obtain a formal quote, confirm rules at <b>ato.gov.au</b>, and speak with a registered tax agent or licensed adviser before committing.
+    </div>
+    <div class="foot-meta">
+      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>Methodology: pre-tax lease (finance + running, GST-removed) via marginal tax engine, ECM for non-exempt cars, plus residual; vs car loan on full price.</span>
+    </div>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is a novated lease worth it?","acceptedAnswer":{"@type":"Answer","text":"For an eligible EV under the luxury-car threshold it often is, because the FBT exemption makes the whole lease pre-tax. For petrol or diesel cars the benefit is smaller due to the post-tax employee contribution, and the end-of-lease residual can erode it."}},
+    {"@type":"Question","name":"What is the residual on a novated lease?","acceptedAnswer":{"@type":"Answer","text":"A lump sum owed at the end of the lease, set by the ATO as a percentage of the car's value — 28.13% for a five-year term. It is paid from after-tax dollars with GST, so it must be counted in any comparison."}},
+    {"@type":"Question","name":"Which electric cars are FBT-exempt in Australia?","acceptedAnswer":{"@type":"Answer","text":"Battery-electric and hydrogen vehicles first used on or after 1 July 2022 and priced below the fuel-efficient luxury-car threshold ($91,387 for 2025-26). New plug-in hybrids stopped qualifying from 1 April 2025."}},
+    {"@type":"Question","name":"Do I save GST on a novated lease?","acceptedAnswer":{"@type":"Answer","text":"Yes. Because the employer leases the car, GST on the purchase price and running costs is generally claimed back, so you effectively pay GST-exclusive amounts, subject to a GST credit cap on expensive cars."}},
+    {"@type":"Question","name":"What happens to my novated lease if I change jobs?","acceptedAnswer":{"@type":"Answer","text":"The lease moves with you — it novates to a new employer if they offer salary packaging, or reverts to you to pay directly without the pre-tax benefit until then."}}
+  ]
+}
+</script>
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  const $=id=>document.getElementById(id);
+  const AUD0=new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
+  let LAST={};
+
+  const BRACKETS=[{min:0,max:18200,rate:0},{min:18200,max:45000,rate:0.16},{min:45000,max:135000,rate:0.30},{min:135000,max:190000,rate:0.37},{min:190000,max:Infinity,rate:0.45}];
+  const MEDICARE=0.02;
+  function tax(t){let x=0;for(const b of BRACKETS){if(t>b.min)x+=(Math.min(t,b.max)-b.min)*b.rate;}return x;}
+  function helpRepay(inc){if(inc>=179286)return inc*0.10;if(inc>125000)return 8700+0.17*(inc-125000);if(inc>67000)return 0.15*(inc-67000);return 0;}
+  function net(income,h){return income - tax(income) - income*MEDICARE - (h?helpRepay(income):0);}
+  function pmt(P,r,n,balloon){if(r===0)return (P-balloon)/n;const d=Math.pow(1+r,-n);return (P-balloon*d)*r/(1-d);}
+  const RESID={1:65.63,2:56.25,3:46.88,4:37.50,5:28.13};
+
+  let lastTerm=null;
+  function calc(){
+    const salary=+$('salary').value||0;
+    const price=+$('price').value||0;
+    const isEV=$('vehType').value==='ev';
+    const term=parseInt($('term').value,10)||5;
+    const r=(+$('rate').value||0)/100;
+    const running=Math.max(0,+$('running').value||0);
+    const hasHelp=$('help').checked;
+    const statRate=(+$('statRate').value||0)/100;
+    const gst=(+$('gst').value||0)/100;
+    const lct=+$('lct').value||Infinity;
+
+    if(term!==lastTerm){if(RESID[term]!==undefined)$('residual').value=RESID[term];lastTerm=term;}
+    const residualPct=(+$('residual').value||0)/100;
+
+    const exempt=isEV && price<=lct;
+
+    // Lease side
+    const gstCredit=Math.min(price/11, 6334);
+    const financed=Math.max(0, price-gstCredit);          // GST removed (capped credit)
+    const residualExGst=financed*residualPct;
+    const residualPayout=residualExGst*(1+gst);            // GST applies at payout, after-tax
+    const leaseFin=pmt(financed, r, term, residualExGst);  // annual, amortised to residual
+    const runningLease=running/(1+gst);                    // GST claimed back
+    const bundle=leaseFin+runningLease;
+    const ecm=exempt?0:price*statRate;                     // post-tax contribution to zero FBT
+    const postTax=Math.min(ecm,bundle);
+    const preTax=Math.max(0,bundle-postTax);
+    const preTaxCost=net(salary,hasHelp)-net(salary-preTax,hasHelp); // after-tax cost of pre-tax part
+    const annualNetLease=preTaxCost+postTax;
+    const taxSavedAnnual=preTax-preTaxCost;
+    const leaseCost=annualNetLease*term+residualPayout;
+
+    // Buy side (car loan over same term, own outright)
+    const loanPMT=pmt(price, r, term, 0);
+    const buyCost=(loanPMT+running)*term;
+
+    const opp=(+$('opp').value||0)/100;
+    const cashCost=price + running*term + price*(Math.pow(1+opp,term)-1);
+
+    // Winner (lowest total cost)
+    const opts=[['Novated lease',leaseCost,'Lease'],['Car loan',buyCost,'Buy'],['Paying cash',cashCost,'Cash']];
+    opts.sort((a,b)=>a[1]-b[1]);
+    const gap=opts[1][1]-opts[0][1];
+
+    LAST={salary,price,isEV,exempt,term,ratePct:+$('rate').value,running,oppPct:+$('opp').value,hasHelp,leaseCost,buyCost,cashCost,winner:opts[0][0],gap,taxSaved:taxSavedAnnual*term,residualPayout,ecm};
+
+    $('termLbl').textContent=term;$('termLbl2').textContent=term;
+    $('leaseCost').textContent=AUD0.format(leaseCost);
+    $('buyCost').textContent=AUD0.format(buyCost);
+    $('cashCost').textContent=AUD0.format(cashCost);
+    $('taxSaved').textContent=AUD0.format(taxSavedAnnual*term);
+
+    $('winnerName').textContent=opts[0][0];
+    $('winnerVal').textContent=AUD0.format(opts[0][1]);
+    $('winnerGap').textContent=AUD0.format(gap);
+
+    const max=Math.max(leaseCost,buyCost,cashCost,1);
+    $('bLease').textContent=AUD0.format(leaseCost);
+    $('bBuy').textContent=AUD0.format(buyCost);
+    $('bCash').textContent=AUD0.format(cashCost);
+    $('barLease').style.width=Math.max(3,leaseCost/max*100)+'%';
+    $('barBuy').style.width=Math.max(3,buyCost/max*100)+'%';
+    $('barCash').style.width=Math.max(3,cashCost/max*100)+'%';
+    const cheapest=opts[0][2];
+    $('bestLease').style.display=cheapest==='Lease'?'inline-block':'none';
+    $('bestBuy').style.display=cheapest==='Buy'?'inline-block':'none';
+    $('bestCash').style.display=cheapest==='Cash'?'inline-block':'none';
+
+    const nl=$('noteLine');
+    if(isEV && price>lct){nl.className='note-line warn';nl.innerHTML='<b>Over the EV cap.</b> At $'+AUD0.format(price)+' this car is above the $'+AUD0.format(lct)+' fuel-efficient threshold, so it is <b>not</b> FBT-exempt — we\u2019ve applied the employee contribution like a petrol car. Under the cap it would save much more.';}
+    else if(exempt){nl.className='note-line';nl.innerHTML='<b>FBT-exempt EV.</b> The whole lease is pre-tax, which drives most of the saving. Remember the $'+AUD0.format(residualPayout)+' residual is due at the end from after-tax dollars — and used-EV values can fall below it.';}
+    else{nl.className='note-line';nl.innerHTML='<b>Non-exempt car.</b> A post-tax contribution (~'+AUD0.format(ecm)+'/yr) offsets FBT, which trims the benefit. The $'+AUD0.format(residualPayout)+' residual is also due at the end from after-tax dollars.';}
+  }
+  document.querySelectorAll('input,select').forEach(e=>{e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+  let toastT;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+
+  const FIELDS=['salary','price','vehType','term','rate','running','opp','help','residual','statRate','gst','lct'];
+  function readParams(){const p=new URLSearchParams(location.search);FIELDS.forEach(f=>{if(!p.has(f))return;const el=$(f);if(!el)return;if(el.type==='checkbox')el.checked=p.get(f)==='1';else el.value=p.get(f);});}
+  function buildLink(){const p=new URLSearchParams();FIELDS.forEach(f=>{const el=$(f);if(!el)return;p.set(f,el.type==='checkbox'?(el.checked?'1':'0'):el.value);});return location.origin+location.pathname+'?'+p.toString();}
+  function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Share link copied');}catch(e){toast('Copy failed — link in address bar');}document.body.removeChild(ta);}
+  $('shareBtn').addEventListener('click',()=>{const link=buildLink();try{history.replaceState(null,'',link);}catch(e){}if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(link).then(()=>toast('Share link copied to clipboard')).catch(()=>fallbackCopy(link));else fallbackCopy(link);});
+
+  $('pdfBtn').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});let y=58;
+    doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(30,37,34);doc.text('Novated lease vs buy',40,y);y+=18;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Prepared with MoneyMilestones · '+new Date().toLocaleDateString('en-AU'),40,y);y+=30;
+    doc.setFillColor(234,242,236);doc.roundedRect(40,y,515,66,8,8,'F');
+    doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Over '+LAST.term+' years, the cheapest option is '+LAST.winner,58,y+24);
+    const winVal=LAST.winner==='Novated lease'?LAST.leaseCost:(LAST.winner==='Car loan'?LAST.buyCost:LAST.cashCost);
+    doc.setFont('helvetica','bold');doc.setFontSize(19);doc.setTextColor(27,94,75);doc.text('$'+AUD0.format(winVal)+'  ·  $'+AUD0.format(LAST.gap)+' less than next best',58,y+50);y+=94;
+    function r(k,v){doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,65,59);doc.text(k,40,y);doc.setFont('helvetica','bold');doc.setTextColor(30,37,34);doc.text(String(v),555,y,{align:'right'});doc.setDrawColor(231,222,206);doc.line(40,y+9,555,y+9);y+=27;}
+    r('Car price (incl GST)','$'+AUD0.format(LAST.price));
+    r('Vehicle',(LAST.isEV?(LAST.exempt?'EV — FBT-exempt':'EV — over cap, FBT applies'):'Petrol/diesel — FBT applies'));
+    r('Term / finance rate',LAST.term+' yrs / '+LAST.ratePct+'%');
+    r('Novated lease — total cost','$'+AUD0.format(LAST.leaseCost));
+    r('Car loan — total cost','$'+AUD0.format(LAST.buyCost));
+    r('Pay cash — total cost (opp. '+LAST.oppPct+'%)','$'+AUD0.format(LAST.cashCost));
+    r('Income tax saved (lease)','$'+AUD0.format(LAST.taxSaved));
+    r('Residual due at end (after-tax)','$'+AUD0.format(LAST.residualPayout));
+    y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
+    const disc='General information only — not financial, tax or legal advice. A simplified comparison using 2025-26 settings (EV FBT exemption under $91,387, 20% statutory value via the Employee Contribution Method, 10% GST, ATO minimum residual). Excludes some fees, the GST credit cap, the operating-cost method, and provider margins. Obtain a formal quote and confirm at ato.gov.au.';
+    doc.text(doc.splitTextToSize(disc,515),40,y);
+    doc.save('novated-lease-vs-buy.pdf');toast('Comparison downloaded');
+  });
+
+  /* Init */
+  readParams();
+  lastTerm=parseInt($('term').value,10)||5;
+  if($('residual').value==='28.13' && RESID[lastTerm]!==undefined){$('residual').value=RESID[lastTerm];}
+  calc();
+})();
+</script>
+</body>
+</html>

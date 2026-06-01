@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parental Leave Pay Calculator — MoneyMilestones</title>
+<meta name="description" content="Work out your take-home pay during parental leave in Australia, including government Paid Parental Leave, employer top-up and super — built for the 1 July 2026 rules.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FBF7EF;
+    --paper-2:#F4EEE2;
+    --card:#FFFFFF;
+    --ink:#1E2522;
+    --ink-soft:#5A615A;
+    --line:#E7DECE;
+    --forest:#1B5E4B;
+    --forest-deep:#13473A;
+    --ochre:#D98A2B;
+    --ochre-soft:#F6E7CF;
+    --rose:#B4543F;
+    --mint:#EAF2EC;
+    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Hanken Grotesk',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);
+    background-attachment:fixed;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* ---------- Header ---------- */
+  header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  nav.top{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+  nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+  nav.top a.active{background:var(--forest);color:#fff}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;flex:none}
+  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b span{color:var(--forest)}
+  .tagline{font-size:.78rem;color:var(--ink-soft);margin-left:auto;text-align:right;max-width:230px;line-height:1.35}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:30px 0 22px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);
+    font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:14ch}
+  h1 em{font-style:italic;color:var(--forest)}
+  .lede{font-size:1.06rem;color:var(--ink-soft);max-width:54ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);
+    border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:60ch}
+  .verify-flag svg{flex:none;margin-top:1px}
+
+  /* ---------- App grid ---------- */
+  .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
+  @media(max-width:860px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;
+    font-weight:700;display:grid;place-items:center;flex:none}
+  .panel-body{padding:20px 22px}
+
+  .field{margin-bottom:17px}
+  .field:last-child{margin-bottom:0}
+  label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  .input-money{position:relative}
+  .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
+  input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);
+    border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .input-money input{padding-left:26px}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+
+  .toggles{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+  .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.88rem;font-weight:500}
+  .switch{position:relative;width:42px;height:24px;flex:none}
+  .switch input{opacity:0;width:0;height:0;position:absolute}
+  .slider{position:absolute;inset:0;background:#D8D2C4;border-radius:100px;transition:.2s;cursor:pointer}
+  .slider::before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .switch input:checked + .slider{background:var(--forest)}
+  .switch input:checked + .slider::before{transform:translateX(18px)}
+
+  details.assume{margin-top:18px;border:1px dashed var(--line);border-radius:13px;background:var(--paper)}
+  details.assume summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:.85rem;font-weight:600;color:var(--forest-deep);display:flex;align-items:center;gap:8px}
+  details.assume summary::-webkit-details-marker{display:none}
+  details.assume summary .chev{margin-left:auto;transition:transform .2s}
+  details.assume[open] summary .chev{transform:rotate(180deg)}
+  .assume-body{padding:4px 16px 16px}
+  .assume-note{font-size:.78rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.45}
+
+  /* ---------- Results ---------- */
+  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
+  .result-panel .panel-head h2{color:#fff}
+  .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
+  .headline{padding:6px 0 2px}
+  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
+  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.4rem,7vw,3.4rem);font-weight:600;letter-spacing:-.02em;line-height:1;margin:6px 0 4px;color:#fff}
+  .bignum .cur{color:var(--ochre)}
+  .headline .sub{font-size:.9rem;color:#BFD4C8}
+
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
+  .stat{background:#143A2F;padding:14px 15px}
+  .stat .k{font-size:.74rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;display:flex;align-items:center;gap:6px}
+  .stat .v{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;margin-top:5px;color:#fff}
+  .stat .v small{font-family:'Hanken Grotesk';font-size:.78rem;color:#9DBBAD;font-weight:500}
+
+  .bars{margin-top:22px}
+  .bars .bl{display:flex;justify-content:space-between;font-size:.82rem;color:#BFD4C8;margin-bottom:6px;font-weight:500}
+  .bar-track{height:30px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden;margin-bottom:14px;position:relative}
+  .bar-fill{height:100%;border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1);display:flex;align-items:center;padding-left:11px;font-size:.82rem;font-weight:700;color:#fff;white-space:nowrap}
+  .bf-normal{background:linear-gradient(90deg,#3E8E73,#5BAE90)}
+  .bf-leave{background:linear-gradient(90deg,var(--ochre),#E8A951);color:#3A2406}
+
+  .timeline{margin-top:6px}
+  .tl-label{font-size:.78rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:9px}
+  .tl-bar{display:flex;height:22px;border-radius:7px;overflow:hidden;gap:2px;background:transparent}
+  .tl-seg{height:100%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700}
+  .tl-emp{background:#5BAE90;color:#0E3329}
+  .tl-ppl{background:var(--ochre);color:#3A2406}
+  .tl-legend{display:flex;gap:16px;margin-top:9px;font-size:.76rem;color:#BFD4C8}
+  .tl-legend span{display:inline-flex;align-items:center;gap:6px}
+  .tl-dot{width:9px;height:9px;border-radius:2px}
+
+  .elig{margin-top:18px;font-size:.82rem;padding:11px 14px;border-radius:11px;display:none;gap:8px;align-items:flex-start}
+  .elig.warn{display:flex;background:rgba(180,84,63,.18);border:1px solid rgba(180,84,63,.4);color:#F2C9BF}
+  .elig.ok{display:flex;background:rgba(91,174,144,.15);border:1px solid rgba(91,174,144,.35);color:#C6E2D4}
+
+  /* ---------- Guide / article ---------- */
+  .guide{max-width:752px;margin:54px auto 0}
+  .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+  .prose strong{color:var(--ink);font-weight:700}
+  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout b{color:var(--forest-deep)}
+  .example{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:24px 0;box-shadow:var(--shadow)}
+  .example .ex-h{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;margin-bottom:12px;display:flex;align-items:center;gap:9px}
+  .example .ex-h .tag{font-family:'Hanken Grotesk';font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ochre-soft);color:#7A4E13;padding:3px 8px;border-radius:6px}
+  .example table{width:100%;border-collapse:collapse;font-size:.92rem}
+  .example td{padding:8px 0;border-bottom:1px solid var(--line);color:#3A413B}
+  .example td:last-child{text-align:right;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .example tr:last-child td{border-bottom:none;padding-top:12px;font-size:1.02rem}
+  .example tr:last-child td:last-child{color:var(--forest)}
+
+  /* ---------- FAQ ---------- */
+  .faq{max-width:752px;margin:48px auto 0}
+  .faq h2.gtitle{margin-bottom:18px}
+  .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
+  .faq details[open]{box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:1}
+  .faq summary .pm{width:22px;height:22px;flex:none;position:relative}
+  .faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;background:var(--forest);border-radius:2px;transition:.2s}
+  .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
+  .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
+  .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+
+  /* ---------- Hub / next milestones ---------- */
+  .hub{margin:48px 0 20px}
+  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
+  .mcard.live{border-color:var(--forest);box-shadow:var(--shadow)}
+  .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
+  .mcard.live .ic{background:var(--forest);color:#fff}
+  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+  .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
+  .badge.now{background:var(--forest);color:#fff}
+  .badge.soon{background:var(--paper-2);color:var(--ink-soft)}
+
+  /* ---------- Footer ---------- */
+  footer{margin-top:46px;border-top:1px solid var(--line);padding:26px 0 50px}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .disc b{color:var(--ink);font-weight:700}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
+  .foot-meta a{color:var(--forest);text-decoration:none}
+  /* ---------- Result actions ---------- */
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
+  .btn-solid:hover{background:#E8A951}
+  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+  .btn-soft{background:var(--mint);color:var(--forest-deep);border-color:#D5E5D9}
+  .btn-soft:hover{background:#DCEBE0}
+
+  /* ---------- Compare ---------- */
+  .compare{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:24px;margin-top:24px}
+  .cmp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:18px}
+  .cmp-head h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;letter-spacing:-.01em;margin-bottom:5px}
+  .cmp-head p{font-size:.92rem;color:var(--ink-soft);max-width:56ch}
+  .cmp-actions{display:flex;gap:10px;flex:none}
+  .cmp-empty{font-size:.9rem;color:var(--ink-soft);background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:16px}
+  .cmp-table{width:100%;border-collapse:collapse;font-size:.92rem}
+  .cmp-table th{text-align:left;font-weight:700;color:var(--ink);padding:10px 12px;border-bottom:2px solid var(--line);font-size:.82rem}
+  .cmp-table th .muted,.cmp-table .muted{color:var(--ink-soft);font-weight:400}
+  .cmp-table td{padding:11px 12px;border-bottom:1px solid var(--line);color:#3A413B;font-variant-numeric:tabular-nums}
+  .cmp-table td.lbl{font-weight:600;color:var(--ink)}
+  .cmp-table td.diff{font-weight:700;color:var(--forest)}
+  .cmp-table tr:last-child td{border-bottom:none}
+
+  /* ---------- Downloads ---------- */
+  .dl{max-width:752px;margin:50px auto 0}
+  .dl-head{margin-bottom:18px}
+  .dl-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:640px){.dl-cards{grid-template-columns:1fr}}
+  .dl-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:13px;box-shadow:var(--shadow)}
+  .dl-ic{width:42px;height:42px;border-radius:12px;background:var(--mint);color:var(--forest);display:grid;place-items:center;font-size:1.3rem;font-weight:700}
+  .dl-card h4{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem;margin-bottom:4px}
+  .dl-card p{font-size:.86rem;color:var(--ink-soft);line-height:1.45}
+  .dl-card .btn{margin-top:auto;text-align:center}
+  .dl-card .btn-solid{background:var(--forest);color:#fff;border-color:var(--forest)}
+  .dl-card .btn-solid:hover{background:var(--forest-deep)}
+
+  /* ---------- Toast ---------- */
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 34 34" fill="none">
+        <rect width="34" height="34" rx="9" fill="#1B5E4B"/>
+        <path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/>
+      </svg>
+      <b>Money<span>Milestones</span></b>
+    </a>
+    <nav class="top">
+      <a href="index.html" class="active">Parental leave</a>
+      <a href="redundancy.html">Redundancy</a>
+      <a href="salary-sacrifice.html">Salary sacrifice</a>
+      <a href="novated-lease.html">Novated lease</a>
+      <a href="business-vehicle.html">Business car</a>
+      <a href="mortgage-payoff.html">Mortgage payoff</a>
+      <a href="articles.html">Articles</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Updated for the 1 July 2026 PPL rules</span>
+    <h1>What's my <em>take-home</em> while I'm on parental leave?</h1>
+    <p class="lede">Model your real income across the whole leave period — government Paid Parental Leave, your employer's top-up, the tax, and the super you keep building. See the gap before it arrives.</p>
+    <div class="verify-flag">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
+      <span><b>Prototype.</b> Every government rate below is shown as an editable assumption, not hidden in the code. Confirm current figures against Services Australia and the ATO before relying on a result.</span>
+    </div>
+  </section>
+
+  <div class="app">
+    <!-- INPUTS -->
+    <div class="panel">
+      <div class="panel-head"><span class="num">1</span><h2>Your situation</h2></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="salary">Your annual salary <span class="hint">(before tax)</span></label>
+          <div class="input-money"><input type="number" id="salary" value="95000" min="0" step="1000"></div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="cycle">Normal pay cycle</label>
+            <select id="cycle">
+              <option value="26">Fortnightly</option>
+              <option value="52">Weekly</option>
+              <option value="12">Monthly</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="incSuper">Salary includes super?</label>
+            <select id="incSuper"><option value="0">No (super on top)</option><option value="1">Yes (package)</option></select>
+          </div>
+        </div>
+
+        <div style="height:1px;background:var(--line);margin:6px 0 17px"></div>
+
+        <div class="field">
+          <label for="empWeeks">Employer-paid parental leave <span class="hint">(weeks at top-up)</span></label>
+          <div class="row2">
+            <input type="number" id="empWeeks" value="12" min="0" step="1">
+            <div style="position:relative"><input type="number" id="empPct" value="100" min="0" max="100" step="5"><span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600">%</span></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pplWeeks">Government PPL weeks <span class="hint">(26 from 1 Jul 2026)</span></label>
+          <input type="number" id="pplWeeks" value="26" min="0" step="1">
+        </div>
+
+        <div class="field">
+          <label for="unpaidWeeks">Additional unpaid leave <span class="hint">(weeks, optional)</span></label>
+          <input type="number" id="unpaidWeeks" value="0" min="0" step="1">
+        </div>
+
+        <div class="toggles">
+          <div class="toggle"><span>Employer pays super on its paid leave</span>
+            <label class="switch"><input type="checkbox" id="empSuper" checked><span class="slider"></span></label></div>
+          <div class="toggle"><span>I have a HELP/HECS debt</span>
+            <label class="switch"><input type="checkbox" id="help"><span class="slider"></span></label></div>
+        </div>
+
+        <details class="assume">
+          <summary>Government rates &amp; assumptions <span class="chev">▾</span></summary>
+          <div class="assume-body">
+            <p class="assume-note">These default to the figures circulating for FY2025-26 / 1 July 2026, but they change and sources differ. Edit them to match the current official numbers.</p>
+            <div class="field">
+              <label for="pplRate">PPL weekly rate <span class="hint">(National Minimum Wage basis)</span></label>
+              <div class="input-money"><input type="number" id="pplRate" value="948.10" step="0.10"></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="pplSuper">Super on PPL %</label><div style="position:relative"><input type="number" id="pplSuper" value="12" step="0.5"><span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600">%</span></div></div>
+              <div class="field"><label for="normSuper">Your super rate %</label><div style="position:relative"><input type="number" id="normSuper" value="12" step="0.5"><span style="position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600">%</span></div></div>
+            </div>
+            <div class="field">
+              <label for="incomeTest">PPL individual income test <span class="hint">(eligibility cap)</span></label>
+              <div class="input-money"><input type="number" id="incomeTest" value="168865" step="1000"></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel result-panel">
+      <div class="panel-head"><span class="num">2</span><h2>Your leave, by the numbers</h2></div>
+      <div class="panel-body">
+        <div class="headline">
+          <div class="small">Taking <span id="totWeeks">38</span> weeks of leave reduces your take-home this financial year by about</div>
+          <div class="bignum"><span class="cur">$</span><span id="gap">0</span></div>
+          <div class="sub">versus working the full year — figured on your whole-year income, not a flat marginal rate.</div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat"><div class="k">Net received on leave</div><div class="v">$<span id="leaveNet">0</span></div></div>
+          <div class="stat"><div class="k">Super still building</div><div class="v">$<span id="superLeave">0</span></div></div>
+          <div class="stat"><div class="k">Normal fortnight (net)</div><div class="v">$<span id="normFn">0</span></div></div>
+          <div class="stat"><div class="k">Avg leave fortnight</div><div class="v">$<span id="leaveFn">0</span></div></div>
+        </div>
+
+        <div class="bars">
+          <div class="bl"><span>Normal fortnightly take-home</span><span id="normFnLbl">$0</span></div>
+          <div class="bar-track"><div class="bar-fill bf-normal" id="barNormal" style="width:100%"></div></div>
+          <div class="bl"><span>Average fortnight during leave</span><span id="leaveFnLbl">$0</span></div>
+          <div class="bar-track"><div class="bar-fill bf-leave" id="barLeave" style="width:40%"></div></div>
+        </div>
+
+        <div class="timeline">
+          <div class="tl-label">Your leave timeline</div>
+          <div class="tl-bar" id="tlBar"></div>
+          <div class="tl-legend">
+            <span><span class="tl-dot" style="background:#5BAE90"></span>Employer-paid</span>
+            <span><span class="tl-dot" style="background:var(--ochre)"></span>Government PPL</span>
+          </div>
+        </div>
+
+        <div class="elig" id="elig"></div>
+        <div class="result-actions">
+          <button class="btn btn-solid" id="pdfBtn">↓ Download pay plan (PDF)</button>
+          <button class="btn btn-ghost" id="shareBtn">⛓ Copy share link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARE -->
+  <section class="compare">
+    <div class="cmp-head">
+      <div>
+        <h3>Compare two scenarios</h3>
+        <p>Thinking about 6 months versus 12? Full employer top-up versus none? Capture one set of numbers, change the inputs above, then capture another — and see them side by side.</p>
+      </div>
+      <div class="cmp-actions">
+        <button class="btn btn-soft" id="setA">Capture as A</button>
+        <button class="btn btn-soft" id="setB">Capture as B</button>
+      </div>
+    </div>
+    <div id="cmpResult"></div>
+  </section>
+
+  <!-- GUIDE -->
+  <article class="guide">
+    <span class="kicker">The guide</span>
+    <h2 class="gtitle">How your pay actually works on parental leave in 2026</h2>
+    <div class="byline">
+      <span class="av">MM</span>
+      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
+      <span class="vstamp">✓ Figures to be verified vs Services Australia &amp; ATO</span>
+    </div>
+
+    <div class="prose">
+      <p>Going on parental leave rarely means a single, simple pay packet. For most Australian families the income during leave is stitched together from two separate sources that are paid differently, taxed differently, and start and stop at different times. Understanding how they fit together is the difference between a confident plan and a nasty surprise three months in.</p>
+
+      <h3>The two income streams</h3>
+      <p>The first is the <strong>government's Paid Parental Leave (PPL)</strong>, paid by Services Australia at the National Minimum Wage rate. It's the floor almost every eligible working parent can stand on, regardless of who they work for. The second is your <strong>employer's paid parental leave</strong> — an entirely separate, optional benefit that varies enormously between workplaces, from nothing at all to several months at full pay. Some employers pay theirs at the same time as the government scheme, others before or after. Our calculator treats them as sequential, which is the simplest way to see the total shape of your leave.</p>
+
+      <h3>What's changing from 1 July 2026</h3>
+      <p>Two shifts matter for anyone planning leave around that date:</p>
+      <ul>
+        <li>Government PPL reaches its <strong>full 26 weeks</strong> (130 days), the final step of a staged expansion that began at 18 weeks back in 2011.</li>
+        <li>The government now pays <strong>superannuation on top of PPL</strong> — a change designed to chip away at the retirement-savings gap that parents, most often mothers, carry after time out of the workforce.</li>
+      </ul>
+      <p>Both parents can share the 26 weeks, with a portion reserved for each on a "use it or lose it" basis to encourage both to take time off. Single parents can access the full entitlement.</p>
+
+      <h3>Don't forget: PPL is taxable</h3>
+      <p>Government PPL counts as assessable income and is taxed through the normal PAYG system, just like wages. That trips people up, because the headline weekly figure is a <em>before-tax</em> number. Your actual end-of-year tax depends on your <strong>total income for the whole financial year</strong> — so if you work part of the year and take leave for the rest, your average tax rate usually falls. Our prototype deliberately estimates tax at your normal marginal rate, which is the cautious assumption: the real figure is often a little kinder.</p>
+
+      <h3>The super angle</h3>
+      <p>With super now payable on government PPL, and many employers also paying super on their own paid leave, the retirement hit from taking time off is smaller than it used to be — but it's rarely zero. Seeing the super you'll still accrue (and what you'd have accrued working) helps you decide whether a voluntary catch-up contribution later is worth it.</p>
+
+      <div class="example">
+        <div class="ex-h">A worked example <span class="tag">illustration only</span></div>
+        <table>
+          <tr><td>Salary $95,000 · 12 weeks employer-paid at 100%</td><td>≈ $19,500 net</td></tr>
+          <tr><td>26 weeks government PPL (before tax)</td><td>≈ $24,650</td></tr>
+          <tr><td>Less estimated tax on PPL</td><td>− est.</td></tr>
+          <tr><td>Super still building over the 38 weeks</td><td>≈ $5,200</td></tr>
+          <tr><td>Take-home gap vs working the same period</td><td>see your result</td></tr>
+        </table>
+      </div>
+
+      <h3>How to plan for the gap</h3>
+      <ul>
+        <li><strong>Map the timeline, not just the total.</strong> The lean stretch is usually the government-PPL months after any employer top-up ends — that's where a buffer matters most.</li>
+        <li><strong>Build a buffer before the baby arrives.</strong> Even small fortnightly savings in the months beforehand soften the lowest-income weeks.</li>
+        <li><strong>Check your employer policy in writing.</strong> Weeks, pay rate, and whether they pay super on it are the three numbers that move your result the most.</li>
+        <li><strong>Revisit your HECS/HELP and any salary-sacrifice arrangements,</strong> since a lower income year changes both.</li>
+      </ul>
+
+      <div class="callout">
+        <b>How we calculate this.</b> We model your whole financial year — the weeks you work plus your paid and unpaid leave — and apply the resident income-tax brackets (the Stage 3 structure), the 2% Medicare levy, and, if you have a debt, HELP/HECS repayments under the 2025-26 marginal system (the $67,000 threshold). Comparing your full-year take-home with and without leave is more accurate than taxing leave at a flat marginal rate. We assume the leave sits within one financial year, and we don't model the Medicare levy low-income reduction or surcharge, or family income tests beyond the single cap shown. Government rates are editable assumptions — always confirm current figures with Services Australia and the ATO.
+      </div>
+    </div>
+  </article>
+
+  <!-- DOWNLOADS -->
+  <section class="dl">
+    <div class="dl-head"><span class="kicker">Free resources</span><h2 class="gtitle">Take the plan with you</h2></div>
+    <div class="dl-cards">
+      <div class="dl-card">
+        <div class="dl-ic">✓</div>
+        <div class="dl-body"><h4>Parental leave financial checklist</h4><p>A printable, tick-as-you-go list covering eligibility, money, paperwork and your return to work.</p></div>
+        <button class="btn btn-solid" id="dlChecklist">Download PDF</button>
+      </div>
+      <div class="dl-card">
+        <div class="dl-ic">✎</div>
+        <div class="dl-body"><h4>Notify-your-employer letter template</h4><p>An editable Word letter to formally give notice of your parental leave — just fill in the brackets.</p></div>
+        <button class="btn btn-solid" id="dlLetter">Download Word</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
+
+    <details><summary><span class="q">How many weeks of paid parental leave can I get in 2026?</span><span class="pm"></span></summary>
+      <div class="a">From 1 July 2026, government Paid Parental Leave reaches 26 weeks (130 days), shareable between eligible parents. That's separate from any paid parental leave your employer offers, which can stack on top. Confirm the current entitlement on the Services Australia website.</div></details>
+
+    <details><summary><span class="q">How much is government Paid Parental Leave per week?</span><span class="pm"></span></summary>
+      <div class="a">PPL is paid at the National Minimum Wage, which is reviewed each year on 1 July, so the exact weekly amount changes annually. Enter the current rate in the calculator's assumptions to keep your estimate accurate.</div></details>
+
+    <details><summary><span class="q">Is Paid Parental Leave taxed?</span><span class="pm"></span></summary>
+      <div class="a">Yes. Government PPL is taxable income paid through PAYG, so tax is withheld like normal wages. Your final tax depends on your total income for the financial year — if you only work part of the year, your average rate is usually lower than during a full working year.</div></details>
+
+    <details><summary><span class="q">Do I get superannuation while on parental leave?</span><span class="pm"></span></summary>
+      <div class="a">Super is now paid on government PPL, and many employers also pay super on their own paid parental leave (though not all do). Check your employer's policy — whether they pay super on paid leave is one of the biggest swing factors in your long-term outcome.</div></details>
+
+    <details><summary><span class="q">Can I get both my employer's paid leave and government PPL?</span><span class="pm"></span></summary>
+      <div class="a">Usually yes — they're separate entitlements and many families receive both. Employers differ on whether the two run at the same time or one after the other, which changes your week-by-week cash flow even if the total is similar.</div></details>
+
+    <details><summary><span class="q">Can my partner and I share the leave?</span><span class="pm"></span></summary>
+      <div class="a">The 26 weeks can be shared between eligible parents, with a portion reserved for each parent on a "use it or lose it" basis. Both parents generally need to meet the work and income tests for their own share. Single parents can access the full amount.</div></details>
+
+    <details><summary><span class="q">Is there an income limit for PPL?</span><span class="pm"></span></summary>
+      <div class="a">Yes — eligibility is means-tested against an individual income test, with a family income test as an alternative path. The thresholds are reviewed each year, so check the current figures with Services Australia. The calculator flags when your income is above the cap you enter.</div></details>
+
+    <details><summary><span class="q">Does parental leave affect my HECS/HELP repayments?</span><span class="pm"></span></summary>
+      <div class="a">It can — and this calculator now models it. Compulsory HELP repayments use a marginal system from 2025-26: nothing below $67,000, then 15% on income above that (and 17% on income above $125,000). A lower-income leave year usually means smaller repayments. Tick the HELP/HECS option to include it in your result.</div></details>
+
+    <details><summary><span class="q">Can I work while receiving PPL?</span><span class="pm"></span></summary>
+      <div class="a">Generally you can't work on days you're paid PPL, with limited exceptions such as "keeping in touch" days that let you stay connected to your workplace without losing payments. The rules are specific, so confirm them with Services Australia before returning to any work.</div></details>
+  </section>
+
+  <!-- HUB -->
+
+  <section class="hub">
+    <h3>Your next milestone</h3>
+    <p class="sub">The same engine powers every calculation here — one income picture, every life event it touches.</p>
+    <div class="cards">
+      <a class="mcard live" href="index.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.5"/><path d="M4 16c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Parental leave pay</h4>
+        <p>Take-home, super and the income gap across your leave.</p>
+      </a>
+      <a class="mcard live" href="redundancy.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 7h12v9H4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h4>Redundancy payout</h4>
+        <p>Entitlement, the tax-free portion and net pay in hand.</p>
+      </a>
+      <a class="mcard live" href="salary-sacrifice.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Salary sacrifice vs take-home</h4>
+        <p>Into super, onto the mortgage, or kept as cash — compared.</p>
+      </a>
+      <a class="mcard live" href="novated-lease.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M5 13h10v3H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="16" r="1.3" fill="currentColor"/><circle cx="13" cy="16" r="1.3" fill="currentColor"/></svg></div>
+        <h4>Novated lease vs buy</h4>
+        <p>The real after-tax cost of packaging your next car.</p>
+      </a>
+      <a class="mcard live" href="business-vehicle.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M4 13h12v3H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Business car finance</h4><p>Chattel mortgage, lease or cash for a work vehicle.</p></a>
+      <a class="mcard live" href="mortgage-payoff.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Pay off your mortgage faster</h4><p>Extra repayments and offset, years and interest saved.</p></a>
+    </div>
+  </section>
+
+  <section style="margin:16px 0 0">
+    <a href="ppl-changes-2026.html" style="display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ochre);border-radius:16px;padding:17px 20px;text-decoration:none;color:inherit;box-shadow:var(--shadow)">
+      <span style="flex:none;width:40px;height:40px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--forest)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3h7l3 3v11H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6.5h3M7.5 9.5h5M7.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      <span style="flex:1"><span style="display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ochre)">Related guide</span><span style="display:block;font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;color:var(--ink);margin-top:2px">Paid Parental Leave in 2026: what changes on 1 July</span></span>
+      <span style="flex:none;color:var(--forest);font-weight:700;font-size:.9rem;white-space:nowrap">Read &rarr;</span>
+    </a>
+  </section>
+
+  <footer>
+    <div class="disc">
+      <b>General information only — not financial, tax or legal advice.</b> This calculator estimates your take-home across a single financial year using the figures you enter. It applies the resident income-tax brackets, the 2% Medicare levy and (optionally) HELP/HECS repayments under the 2025-26 marginal system. It does not model the Medicare levy low-income reduction or surcharge, family income tests beyond the single cap shown, leave that spans two financial years, or your employer's specific policy. Paid Parental Leave is administered by Services Australia and taxed through PAYG. Always confirm current rates with <b>servicesaustralia.gov.au</b> and <b>ato.gov.au</b>, and speak with a registered tax agent or financial adviser before making decisions.
+    </div>
+    <div class="foot-meta">
+      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>Methodology: whole-financial-year income tax (Stage 3 brackets) + 2% Medicare levy + HELP/HECS (2025-26 marginal system). <a href="#">How we calculate →</a></span>
+    </div>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  const $ = id => document.getElementById(id);
+  const AUD0 = new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
+  let LAST={};
+
+  // Resident tax — Stage 3 brackets (effective 2024-25 onward). Editable in code; flagged in UI.
+  const BRACKETS=[
+    {min:0,max:18200,rate:0},
+    {min:18200,max:45000,rate:0.16},
+    {min:45000,max:135000,rate:0.30},
+    {min:135000,max:190000,rate:0.37},
+    {min:190000,max:Infinity,rate:0.45}
+  ];
+  const MEDICARE=0.02;
+
+  function tax(t){let x=0;for(const b of BRACKETS){if(t>b.min)x+=(Math.min(t,b.max)-b.min)*b.rate;}return x;}
+  function marginal(t){let r=0;for(const b of BRACKETS){if(t>b.min)r=b.rate;}return r+MEDICARE;}
+  // HELP/HECS compulsory repayment — 2025-26 marginal system (threshold $67,000).
+  function helpRepay(inc){if(inc>=179286)return inc*0.10;if(inc>125000)return 8700+0.17*(inc-125000);if(inc>67000)return 0.15*(inc-67000);return 0;}
+  // Annual take-home: income tax + 2% Medicare (+ HELP if applicable).
+  function net(income,withHelp){return income - tax(income) - income*MEDICARE - (withHelp?helpRepay(income):0);}
+
+  function calc(){
+    const salaryIn = +$('salary').value||0;
+    const incSuper = $('incSuper').value==='1';
+    const normSuper = (+$('normSuper').value||0)/100;
+    // base = taxable salary (super excluded)
+    const base = incSuper ? salaryIn/(1+normSuper) : salaryIn;
+
+    const empWeeks = Math.max(0,+$('empWeeks').value||0);
+    const empPct = (+$('empPct').value||0)/100;
+    const pplWeeks = Math.max(0,+$('pplWeeks').value||0);
+    const unpaidWeeks = Math.max(0,+$('unpaidWeeks').value||0);
+    const pplRate = +$('pplRate').value||0;
+    const pplSuper = (+$('pplSuper').value||0)/100;
+    const empSuperOn = $('empSuper').checked;
+    const hasHelp = $('help').checked;
+    const incomeTest = +$('incomeTest').value||Infinity;
+
+    const leaveWeeks = empWeeks+pplWeeks+unpaidWeeks;
+    const workingWeeks = Math.max(0, Math.min(52, 52-leaveWeeks));
+    const normWeeklyGross = base/52;
+    const empWeeklyGross = normWeeklyGross*empPct;
+
+    // Full financial-year incomes (single FY assumed)
+    const workIncome = workingWeeks*normWeeklyGross;
+    const leaveYearIncome = workIncome + empWeeks*empWeeklyGross + pplWeeks*pplRate;
+
+    // Accurate net via progressive tax on whole-year totals
+    const netNormalYear = net(base, hasHelp);
+    const netLeaveYear  = net(leaveYearIncome, hasHelp);
+    const netWorkOnly   = net(workIncome, hasHelp);
+
+    const gap = Math.max(0, netNormalYear - netLeaveYear);    // true take-home reduction this FY
+    const leaveNet = Math.max(0, netLeaveYear - netWorkOnly); // net actually received during the leave weeks
+    const grossDuringLeave = empWeeks*empWeeklyGross + pplWeeks*pplRate;
+
+    const normFn = (netNormalYear/52)*2;
+    const leaveFn = leaveWeeks>0 ? (leaveNet/leaveWeeks)*2 : 0;
+
+    // Super still building during the paid leave weeks
+    const superEmp = empSuperOn ? empWeeks*empWeeklyGross*normSuper : 0;
+    const superPPL = pplWeeks*pplRate*pplSuper;
+    const superLeave = superEmp+superPPL;
+
+    LAST={salary:salaryIn,incSuper,base,empWeeks,empPct,pplWeeks,unpaidWeeks,pplRate,pplSuper,normSuper,empSuperOn,help:hasHelp,incomeTest,cycle:$('cycle').value,totalWeeks:leaveWeeks,gap,leaveNet,grossDuringLeave,superLeave,normFn,leaveFn};
+
+    // Paint
+    $('totWeeks').textContent = leaveWeeks;
+    $('gap').textContent = AUD0.format(gap);
+    $('leaveNet').textContent = AUD0.format(leaveNet);
+    $('superLeave').textContent = AUD0.format(superLeave);
+    $('normFn').textContent = AUD0.format(normFn);
+    $('leaveFn').textContent = AUD0.format(leaveFn);
+    $('normFnLbl').textContent = '$'+AUD0.format(normFn);
+    $('leaveFnLbl').textContent = '$'+AUD0.format(leaveFn);
+    const pct = normFn>0 ? Math.min(100,Math.max(4,(leaveFn/normFn)*100)) : 0;
+    $('barLeave').style.width = pct+'%';
+
+    // Timeline
+    const tl=$('tlBar');tl.innerHTML='';
+    if(leaveWeeks>0){
+      if(empWeeks>0){const s=document.createElement('div');s.className='tl-seg tl-emp';s.style.flex=empWeeks;s.textContent=empWeeks+'w';tl.appendChild(s);}
+      if(pplWeeks>0){const s=document.createElement('div');s.className='tl-seg tl-ppl';s.style.flex=pplWeeks;s.textContent=pplWeeks+'w';tl.appendChild(s);}
+      if(unpaidWeeks>0){const s=document.createElement('div');s.className='tl-seg';s.style.background='#D8D2C4';s.style.color='#5A615A';s.style.flex=unpaidWeeks;s.textContent=unpaidWeeks+'w';tl.appendChild(s);}
+    }
+
+    // Eligibility flag
+    const el=$('elig');
+    if(base>incomeTest){
+      el.className='elig warn';
+      el.innerHTML='<span>⚠</span><span>Your taxable income is above the PPL individual income test ($'+AUD0.format(incomeTest)+'). You may not be eligible for government PPL — verify with Services Australia.</span>';
+    } else {
+      el.className='elig ok';
+      el.innerHTML='<span>✓</span><span>Your income is within the individual income test shown. Eligibility also depends on the work test and residency rules — check the full criteria.</span>';
+    }
+  }
+
+  document.querySelectorAll('input,select').forEach(e=>{
+    e.addEventListener('input',calc);e.addEventListener('change',calc);
+  });
+
+  /* ---- Toast ---- */
+  let toastT;
+  function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+
+  /* ---- Shareable link (read + build) ---- */
+  const FIELDS=['salary','cycle','incSuper','empWeeks','empPct','pplWeeks','unpaidWeeks','empSuper','help','pplRate','pplSuper','normSuper','incomeTest'];
+  function readParams(){
+    const p=new URLSearchParams(location.search);
+    FIELDS.forEach(f=>{if(!p.has(f))return;const el=$(f);if(!el)return;
+      if(el.type==='checkbox')el.checked=p.get(f)==='1';else el.value=p.get(f);});
+  }
+  function buildLink(){
+    const p=new URLSearchParams();
+    FIELDS.forEach(f=>{const el=$(f);if(!el)return;p.set(f,el.type==='checkbox'?(el.checked?'1':'0'):el.value);});
+    return location.origin+location.pathname+'?'+p.toString();
+  }
+  function fallbackCopy(text){const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Share link copied');}catch(e){toast('Copy failed — link is in the address bar');}document.body.removeChild(ta);}
+  $('shareBtn').addEventListener('click',()=>{
+    const link=buildLink();
+    try{history.replaceState(null,'',link);}catch(e){}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(link).then(()=>toast('Share link copied to clipboard')).catch(()=>fallbackCopy(link));}
+    else fallbackCopy(link);
+  });
+
+  /* ---- PDF pay plan ---- */
+  $('pdfBtn').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});
+    let y=58;
+    doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(30,37,34);
+    doc.text('Your parental-leave pay plan',40,y);y+=18;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);
+    doc.text('Prepared with MoneyMilestones · '+new Date().toLocaleDateString('en-AU'),40,y);y+=30;
+    doc.setFillColor(234,242,236);doc.roundedRect(40,y,515,66,8,8,'F');
+    doc.setFontSize(10);doc.setTextColor(90,97,90);
+    doc.text('Over your '+LAST.totalWeeks+'-week leave, your take-home is estimated to drop by',58,y+24);
+    doc.setFont('helvetica','bold');doc.setFontSize(24);doc.setTextColor(27,94,75);
+    doc.text('$'+AUD0.format(LAST.gap),58,y+52);y+=94;
+    function row(k,v){doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,65,59);doc.text(k,40,y);
+      doc.setFont('helvetica','bold');doc.setTextColor(30,37,34);doc.text(String(v),555,y,{align:'right'});
+      doc.setDrawColor(231,222,206);doc.line(40,y+9,555,y+9);y+=27;}
+    row('Annual salary (before tax)','$'+AUD0.format(LAST.salary));
+    row('Employer-paid leave',LAST.empWeeks+' wks at '+Math.round(LAST.empPct*100)+'%');
+    row('Government PPL',LAST.pplWeeks+' wks at $'+AUD0.format(LAST.pplRate)+'/wk');
+    row('Net income during leave','$'+AUD0.format(LAST.leaveNet));
+    row('Super still building','$'+AUD0.format(LAST.superLeave));
+    row('Normal fortnight (net)','$'+AUD0.format(LAST.normFn));
+    row('Average fortnight during leave','$'+AUD0.format(LAST.leaveFn));
+    y+=12;
+    doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
+    const disc='General information only — not financial, tax or legal advice. Estimates use resident income-tax brackets plus the 2% Medicare levy applied at your marginal rate, and do not model HELP/HECS, the Medicare levy reduction or surcharge, or full financial-year income effects. Confirm current rates with servicesaustralia.gov.au and ato.gov.au.';
+    doc.text(doc.splitTextToSize(disc,515),40,y);
+    doc.save('parental-leave-pay-plan.pdf');toast('Pay plan downloaded');
+  });
+
+  /* ---- Compare two scenarios ---- */
+  let snapA=null,snapB=null;
+  function snapshot(){return{label:'$'+AUD0.format(LAST.salary)+' · '+LAST.empWeeks+'+'+LAST.pplWeeks+'w',totalWeeks:LAST.totalWeeks,gap:LAST.gap,leaveNet:LAST.leaveNet,superLeave:LAST.superLeave,leaveFn:LAST.leaveFn};}
+  function signed(d,weeks){if(d===0)return'No change';const s=d>0?'+ ':'− ';return weeks?(s+Math.abs(d)+' wk'):(s+'$'+AUD0.format(Math.abs(d)));}
+  function renderCompare(){
+    const box=$('cmpResult');
+    if(!snapA&&!snapB){box.innerHTML='<p class="cmp-empty">Set your inputs above, then capture Scenario A. Change the inputs and capture Scenario B to compare them side by side.</p>';return;}
+    const rows=[['Leave length','totalWeeks',v=>v+' weeks',true],['Take-home gap','gap',v=>'$'+AUD0.format(v)],['Net received','leaveNet',v=>'$'+AUD0.format(v)],['Super building','superLeave',v=>'$'+AUD0.format(v)],['Avg leave fortnight','leaveFn',v=>'$'+AUD0.format(v)]];
+    let h='<table class="cmp-table"><thead><tr><th></th><th>Scenario A'+(snapA?' <span class="muted">('+snapA.label+')</span>':' <span class="muted">(not set)</span>')+'</th><th>Scenario B'+(snapB?' <span class="muted">('+snapB.label+')</span>':' <span class="muted">(not set)</span>')+'</th><th>Difference</th></tr></thead><tbody>';
+    rows.forEach(([label,key,fmt,weeks])=>{
+      const a=snapA?fmt(snapA[key]):'—';const b=snapB?fmt(snapB[key]):'—';
+      let diff='—';if(snapA&&snapB)diff=signed(snapB[key]-snapA[key],weeks);
+      h+='<tr><td class="lbl">'+label+'</td><td>'+a+'</td><td>'+b+'</td><td class="diff">'+diff+'</td></tr>';
+    });
+    h+='</tbody></table>';box.innerHTML=h;
+  }
+  $('setA').addEventListener('click',()=>{snapA=snapshot();renderCompare();toast('Saved as Scenario A');});
+  $('setB').addEventListener('click',()=>{snapB=snapshot();renderCompare();toast('Saved as Scenario B');});
+
+  /* ---- Checklist PDF ---- */
+  $('dlChecklist').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});
+    let y=58;doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(19);doc.setTextColor(30,37,34);
+    doc.text('Parental leave: financial checklist',40,y);y+=20;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);
+    doc.text('A MoneyMilestones planning tool — work through these before your leave begins.',40,y);y+=26;
+    const sections=[
+      ['Before you tell your employer',['Confirm your eligibility for government PPL (work test and income test)','Read your employer\u2019s parental leave policy: weeks, pay rate and super','Note whether employer leave runs alongside or after government PPL']],
+      ['Money to sort',['Estimate your take-home across the whole leave using the calculator','Build a buffer for the lower-income government PPL weeks','Review direct debits, subscriptions and bills you could pause','Decide on a salary-sacrifice or super catch-up plan for later']],
+      ['Paperwork',['Lodge your PPL claim with Services Australia within the timeframe','Give your employer written notice (use our letter template)','Register your child\u2019s birth before claiming PPL','Update your bank and myGov details']],
+      ['Looking ahead',['Check the impact on your HELP/HECS repayments for the year','Plan your return-to-work date and any flexible-work request','Diarise key dates: claim deadlines and your return date']]
+    ];
+    sections.forEach(([head,items])=>{
+      if(y>760){doc.addPage();y=58;}
+      doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(27,94,75);doc.text(head,40,y);y+=18;
+      doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(40,45,42);
+      items.forEach(it=>{if(y>800){doc.addPage();y=58;}
+        doc.setDrawColor(27,94,75);doc.setLineWidth(1);doc.rect(42,y-9,11,11);
+        const lines=doc.splitTextToSize(it,470);doc.text(lines,62,y);y+=(lines.length*14)+8;});
+      y+=10;
+    });
+    doc.save('parental-leave-financial-checklist.pdf');toast('Checklist downloaded');
+  });
+
+  /* ---- Employer notice letter (.doc) ---- */
+  $('dlLetter').addEventListener('click',()=>{
+    const html='<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40"><head><meta charset="utf-8"></head>'+
+      '<body style="font-family:Calibri,Arial,sans-serif;font-size:11pt;line-height:1.5;color:#1E2522">'+
+      '<p>[Your name]<br>[Your address]<br>[Date]</p>'+
+      '<p>[Manager name]<br>[Company name]</p>'+
+      '<p><b>Re: Notice of intention to take parental leave</b></p>'+
+      '<p>Dear [Manager name],</p>'+
+      '<p>I am writing to formally notify you of my intention to take parental leave following the [birth / adoption] of my child, who is due / expected on [date].</p>'+
+      '<p>I intend for my parental leave to commence on [start date] and, based on my current plans, to return to work on [return date]. I understand this may be adjusted in line with company policy and my entitlements, and I am happy to discuss the details with you.</p>'+
+      '<p>To help us plan a smooth handover, I would appreciate confirmation of the following:</p>'+
+      '<ul><li>My entitlement to employer-paid parental leave (weeks and pay rate)</li><li>Whether superannuation is paid during my paid leave</li><li>How any employer-paid leave interacts with the government Paid Parental Leave scheme</li><li>Arrangements for &ldquo;keeping in touch&rdquo; days, if applicable</li></ul>'+
+      '<p>Please let me know what documentation you require and I will provide it promptly. I am committed to a thorough handover of my responsibilities before my leave begins.</p>'+
+      '<p>Thank you for your support. I look forward to discussing the arrangements with you.</p>'+
+      '<p>Kind regards,<br>[Your name]<br>[Position]</p>'+
+      '<hr><p style="font-size:9pt;color:#5A615A"><i>Template provided by MoneyMilestones as general information only — not legal advice. Check your award, enterprise agreement, employment contract and the Fair Work notice requirements for your situation.</i></p>'+
+      '</body></html>';
+    const blob=new Blob(['\ufeff',html],{type:'application/msword'});
+    const url=URL.createObjectURL(blob);const a=document.createElement('a');
+    a.href=url;a.download='parental-leave-notice-letter-template.doc';document.body.appendChild(a);a.click();
+    document.body.removeChild(a);URL.revokeObjectURL(url);toast('Letter template downloaded');
+  });
+
+  /* ---- Init ---- */
+  readParams();
+  calc();
+  renderCompare();
+})();
+</script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {"@type":"Question","name":"How many weeks of paid parental leave can I get in 2026?","acceptedAnswer":{"@type":"Answer","text":"From 1 July 2026, government Paid Parental Leave reaches 26 weeks (130 days), shareable between eligible parents, and separate from any paid parental leave your employer offers. Confirm the current entitlement with Services Australia."}},
+    {"@type":"Question","name":"How much is government Paid Parental Leave per week?","acceptedAnswer":{"@type":"Answer","text":"PPL is paid at the National Minimum Wage, reviewed each year on 1 July, so the weekly amount changes annually. Check the current rate with Services Australia."}},
+    {"@type":"Question","name":"Is Paid Parental Leave taxed?","acceptedAnswer":{"@type":"Answer","text":"Yes. Government PPL is taxable income paid through PAYG. Your final tax depends on your total income for the financial year, so working only part of the year usually lowers your average rate."}},
+    {"@type":"Question","name":"Do I get superannuation while on parental leave?","acceptedAnswer":{"@type":"Answer","text":"Super is now paid on government PPL, and many employers also pay super on their own paid parental leave, though not all do. Check your employer's policy."}},
+    {"@type":"Question","name":"Can I get both my employer's paid leave and government PPL?","acceptedAnswer":{"@type":"Answer","text":"Usually yes. They are separate entitlements and many families receive both. Employers differ on whether the two run concurrently or one after the other."}},
+    {"@type":"Question","name":"Can my partner and I share the leave?","acceptedAnswer":{"@type":"Answer","text":"The 26 weeks can be shared between eligible parents, with a portion reserved for each on a use-it-or-lose-it basis. Single parents can access the full amount."}},
+    {"@type":"Question","name":"Is there an income limit for PPL?","acceptedAnswer":{"@type":"Answer","text":"Yes. Eligibility is means-tested against an individual income test, with a family income test as an alternative. Thresholds are reviewed yearly, so check current figures with Services Australia."}},
+    {"@type":"Question","name":"Does parental leave affect my HECS/HELP repayments?","acceptedAnswer":{"@type":"Answer","text":"It can, and this calculator models it. From 2025-26 HELP uses a marginal system: nothing below $67,000, then 15% on income above that and 17% above $125,000. A lower-income leave year usually means smaller repayments."}},
+    {"@type":"Question","name":"Can I work while receiving PPL?","acceptedAnswer":{"@type":"Answer","text":"Generally you cannot work on days you are paid PPL, with limited exceptions such as keeping-in-touch days. Confirm the rules with Services Australia."}}
+  ]
+}
+</script>
+</body>
+</html>

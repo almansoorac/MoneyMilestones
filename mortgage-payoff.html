@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pay Off Your Mortgage Faster Calculator — MoneyMilestones</title>
+<meta name="description" content="See how much sooner you could be mortgage-free and how much interest you'd save with extra repayments, fortnightly payments, an offset account or a lump sum. Australian home-loan calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
+    --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
+    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;flex:none}
+  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b span{color:var(--forest)}
+  nav.top{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+  nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+  nav.top a.active{background:var(--forest);color:#fff}
+  .hero{padding:26px 0 22px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:16ch}
+  h1 em{font-style:italic;color:var(--forest)}
+  .lede{font-size:1.06rem;color:var(--ink-soft);max-width:56ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:62ch}
+  .verify-flag svg{flex:none;margin-top:1px}
+  .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
+  @media(max-width:860px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;font-weight:700;display:grid;place-items:center;flex:none}
+  .panel-body{padding:20px 22px}
+  .field{margin-bottom:17px}
+  label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  .input-money{position:relative}
+  .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
+  input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .input-money input{padding-left:26px}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .pct{position:relative}
+  .pct span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600}
+  .seg{display:flex;gap:4px;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:4px}
+  .seg button{flex:1;font-family:inherit;font-size:.86rem;font-weight:600;color:var(--ink-soft);background:transparent;border:none;border-radius:9px;padding:9px 8px;cursor:pointer;transition:.15s}
+  .seg button.active{background:var(--forest);color:#fff}
+  .seg button:not(.active):hover{background:var(--mint);color:var(--forest-deep)}
+  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
+  .result-panel .panel-head h2{color:#fff}
+  .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
+  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
+  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.2rem,6.2vw,3.1rem);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:6px 0 4px;color:#fff}
+  .bignum .cur{color:var(--ochre)}
+  .headline .sub{font-size:.9rem;color:#BFD4C8}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
+  .stat{background:#143A2F;padding:13px 15px}
+  .stat .k{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;margin-top:5px;color:#fff}
+  .chart-wrap{margin-top:22px}
+  .chart-lbl{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px}
+  .chart-legend{display:flex;gap:16px;margin-top:10px;font-size:.78rem;color:#BFD4C8}
+  .chart-legend span{display:inline-flex;align-items:center;gap:6px}
+  .lg-dot{width:14px;height:3px;border-radius:2px;display:inline-block}
+  svg.chart{width:100%;height:auto;display:block}
+  .note-line{margin-top:18px;font-size:.82rem;color:#BFD4C8;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
+  .note-line b{color:#fff}
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
+  .btn-solid:hover{background:#E8A951}
+  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+  .guide{max-width:752px;margin:54px auto 0}
+  .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+  .prose strong{color:var(--ink);font-weight:700}
+  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout b{color:var(--forest-deep)}
+  .faq{max-width:752px;margin:48px auto 0}
+  .faq h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
+  .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
+  .faq details[open]{box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:1}
+  .faq summary .pm{width:22px;height:22px;flex:none;position:relative}
+  .faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;background:var(--forest);border-radius:2px;transition:.2s}
+  .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
+  .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
+  .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+  .hub{margin:50px 0 20px}
+  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
+  .mcard.live{border-color:var(--forest);box-shadow:var(--shadow)}
+  .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
+  .mcard.live .ic{background:var(--forest);color:#fff}
+  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+  .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
+  .badge.now{background:var(--forest);color:#fff}
+  footer{margin-top:46px;border-top:1px solid var(--line);padding:26px 0 50px}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .disc b{color:var(--ink);font-weight:700}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
+      <b>Money<span>Milestones</span></b>
+    </a>
+    <nav class="top">
+      <a href="index.html">Parental leave</a>
+      <a href="redundancy.html">Redundancy</a>
+      <a href="salary-sacrifice.html">Salary sacrifice</a>
+      <a href="novated-lease.html">Novated lease</a>
+      <a href="business-vehicle.html">Business car</a>
+      <a href="mortgage-payoff.html" class="active">Mortgage payoff</a>
+      <a href="articles.html">Articles</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Extra repayments · fortnightly · offset</span>
+    <h1>Pay off your mortgage <em>years sooner</em>.</h1>
+    <p class="lede">Small changes to how you repay can shave years off your loan and tens of thousands off the interest. See what extra repayments, fortnightly payments, an offset or a lump sum would do to your home loan.</p>
+    <div class="verify-flag">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
+      <span><b>Estimates only.</b> Real loans have fees, rate changes and repayment rules that vary by lender. Use this to compare strategies, then confirm the detail with your lender or a broker.</span>
+    </div>
+  </section>
+
+  <div class="app">
+    <!-- INPUTS -->
+    <div class="panel">
+      <div class="panel-head"><span class="num">1</span><h2>Your home loan</h2></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="balance">Loan balance</label>
+          <div class="input-money"><input type="number" id="balance" value="600000" min="0" step="5000"></div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="rate">Interest rate <span class="hint">p.a.</span></label>
+            <div class="pct"><input type="number" id="rate" value="6.0" step="0.05"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="term">Years remaining</label>
+            <input type="number" id="term" value="25" min="1" max="40" step="1">
+          </div>
+        </div>
+        <input type="hidden" id="mode" value="extra">
+        <div class="field">
+          <label>Strategy</label>
+          <div class="seg" id="modeSeg">
+            <button type="button" data-mode="extra" class="active">Extra repayments</button>
+            <button type="button" data-mode="shorter">Shorter term</button>
+          </div>
+        </div>
+
+        <div id="extraFields">
+          <div class="field">
+            <label for="freq">Repayment frequency</label>
+            <select id="freq"><option value="monthly">Monthly</option><option value="fortnightly">Fortnightly (half the monthly amount)</option></select>
+          </div>
+          <div class="field">
+            <label for="extra">Extra per repayment <span class="hint" id="extraHint">— on top, each month</span></label>
+            <div class="input-money"><input type="number" id="extra" value="200" min="0" step="50"></div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="annualExtra">Extra once a year <span class="hint">(e.g. tax refund)</span></label>
+              <div class="input-money"><input type="number" id="annualExtra" value="0" min="0" step="1000"></div>
+            </div>
+            <div class="field">
+              <label for="annualExtraYears">For how many years</label>
+              <input type="number" id="annualExtraYears" value="5" min="0" max="40" step="1">
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <label for="offset">Offset balance <span class="hint">(optional)</span></label>
+              <div class="input-money"><input type="number" id="offset" value="0" min="0" step="1000"></div>
+            </div>
+            <div class="field">
+              <label for="lump">Lump sum now <span class="hint">(optional)</span></label>
+              <div class="input-money"><input type="number" id="lump" value="0" min="0" step="1000"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="shorterFields" style="display:none">
+          <div class="field">
+            <label for="newTerm">New (shorter) loan term <span class="hint">— years, less than your current term</span></label>
+            <input type="number" id="newTerm" value="20" min="1" max="40" step="1">
+          </div>
+          <div class="callout" style="margin:0">Shortening the term raises your required repayment but locks in a faster payoff. We'll show the new repayment and the interest you'd save.</div>
+        </div>
+
+        <div class="callout" style="margin:6px 0 0">Your current minimum repayment is about <b>$<span id="minRepay">0</span>/month</b>. Switching to fortnightly pays half of that every two weeks — which sneaks in an extra month's worth each year.</div>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel result-panel">
+      <div class="panel-head"><span class="num">2</span><h2>Your head start</h2></div>
+      <div class="panel-body">
+        <div class="headline">
+          <div class="small">With this plan you could be mortgage-free</div>
+          <div class="bignum"><span id="yearsSaved">0</span> <span id="yearsUnit">years sooner</span></div>
+          <div class="sub">saving about <b style="color:#fff">$<span id="intSaved">0</span></b> in interest.</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><div class="k">Interest saved</div><div class="v">$<span id="intSaved2">0</span></div></div>
+          <div class="stat"><div class="k">Time saved</div><div class="v" id="timeSaved">0 yrs</div></div>
+          <div class="stat"><div class="k">New payoff</div><div class="v" id="newPayoff">0 yrs</div></div>
+          <div class="stat"><div class="k" id="stat4k">Total interest (plan)</div><div class="v" id="planInt">$0</div></div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-lbl">Loan balance over time</div>
+          <div id="chart"></div>
+          <div class="chart-legend">
+            <span><span class="lg-dot" style="background:#7FA99B"></span>Current plan</span>
+            <span><span class="lg-dot" style="background:#E8A951"></span>Your faster plan</span>
+          </div>
+        </div>
+        <div class="note-line" id="noteLine"></div>
+        <div class="result-actions">
+          <button class="btn btn-solid" id="pdfBtn">↓ Download payoff plan (PDF)</button>
+          <button class="btn btn-ghost" id="shareBtn">⛓ Copy share link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUIDE -->
+  <article class="guide">
+    <span class="kicker">The guide</span>
+    <h2 class="gtitle">Four ways to clear your mortgage faster</h2>
+    <div class="byline">
+      <span class="av">MM</span>
+      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered adviser</span>
+      <span class="vstamp">✓ Estimates — verify with your lender</span>
+    </div>
+    <div class="prose">
+      <p>A home loan is the biggest interest bill most people ever face, and because interest compounds daily on the balance, anything that gets the balance down sooner pays off twice over. None of these moves require earning more — just repaying a little differently.</p>
+
+      <h3>1. Extra repayments</h3>
+      <p>Every dollar above your minimum comes straight off the principal, so you stop paying interest on it for the rest of the loan. Even a modest amount each month, kept up over years, can bring your payoff date forward dramatically — try nudging the "extra" field above and watch the chart.</p>
+
+      <h3>2. Switch monthly to fortnightly</h3>
+      <p>This is the quiet trick. There are 12 months but 26 fortnights in a year. If you pay <strong>half your monthly repayment every fortnight</strong>, you make the equivalent of <strong>13 monthly payments a year instead of 12</strong> — an extra month's worth, almost without noticing. On a typical loan that alone can cut several years and tens of thousands in interest.</p>
+
+      <h3>3. Use an offset account</h3>
+      <p>Money in an offset account reduces the balance you're charged interest on, dollar for dollar, while staying available to you. Parking your savings and salary there is one of the most efficient things you can do — it's like earning your mortgage rate, tax-free, without locking the money away.</p>
+
+      <h3>4. Throw lump sums at it</h3>
+      <p>A tax refund, bonus or inheritance applied to the principal early has an outsized effect, because it removes interest for every year that follows. The earlier in the loan, the bigger the impact.</p>
+
+      <div class="callout">
+        <b>Offset vs redraw.</b> An offset account keeps your extra money as your own savings beside the loan; redraw puts extra repayments into the loan and lets you pull them back later. Both cut interest, but offset is usually more flexible and keeps the funds clearly yours. Check your loan offers the feature you're relying on — and whether extra repayments are allowed without penalty on a fixed rate.
+      </div>
+
+      <h3>How we calculate this</h3>
+      <ul>
+        <li>We work out your minimum repayment from your balance, rate and years remaining, then simulate the loan period by period.</li>
+        <li>Your <strong>current plan</strong> is the minimum monthly repayment to the end of the term; your <strong>faster plan</strong> adds your chosen frequency, extra repayments, offset and lump sum.</li>
+        <li>The difference is your interest saved and the time you cut off — shown on the chart as two balance curves.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
+    <details><summary><span class="q">Do fortnightly repayments really pay off a loan faster?</span><span class="pm"></span></summary>
+      <div class="a">Yes — if you pay half your monthly amount every fortnight. Because there are 26 fortnights but only 12 months, you end up paying the equivalent of 13 monthly repayments a year, and that extra payment goes straight onto the principal. It's one of the simplest ways to shave years off a loan.</div></details>
+    <details><summary><span class="q">Is it better to put money in an offset or make extra repayments?</span><span class="pm"></span></summary>
+      <div class="a">Both reduce interest by the same amount dollar-for-dollar. An offset keeps the money as accessible savings beside the loan; extra repayments (with redraw) lock it into the loan but can usually be pulled back. Offset is generally more flexible; extra repayments can suit those who prefer not to see the money.</div></details>
+    <details><summary><span class="q">Should I pay down my mortgage or invest / add to super?</span><span class="pm"></span></summary>
+      <div class="a">Paying the mortgage is a guaranteed, tax-free return at your loan rate, while investing or super may return more but carries risk and (for super) locks the money away. Our salary-sacrifice tool compares these side by side if you want to weigh them up.</div></details>
+    <details><summary><span class="q">Can I make extra repayments on a fixed-rate loan?</span><span class="pm"></span></summary>
+      <div class="a">Often only up to a capped amount each year, with break costs or fees beyond that. Variable loans usually allow unlimited extra repayments. Check your loan's terms before relying on a strategy here.</div></details>
+    <details><summary><span class="q">Will extra repayments lower my monthly repayment?</span><span class="pm"></span></summary>
+      <div class="a">Usually no — they shorten the loan term instead, while your scheduled repayment stays the same. Some lenders let you recalculate to a lower repayment, but the default effect is paying the loan off sooner.</div></details>
+  </section>
+
+  <!-- HUB -->
+  <section class="hub">
+    <h3>Your next milestone</h3>
+    <p class="sub">The same engine powers every calculation here — one income picture, every life event it touches.</p>
+    <div class="cards">
+      <a class="mcard live" href="index.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.5"/><path d="M4 16c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Parental leave pay</h4><p>Take-home, super and the income gap across your leave.</p></a>
+      <a class="mcard live" href="redundancy.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 7h12v9H4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg></div><h4>Redundancy payout</h4><p>Entitlement, the tax-free portion and net pay in hand.</p></a>
+      <a class="mcard live" href="salary-sacrifice.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Salary sacrifice vs take-home</h4><p>Into super, onto the mortgage, or kept as cash — compared.</p></a>
+      <a class="mcard live" href="novated-lease.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M5 13h10v3H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="16" r="1.3" fill="currentColor"/><circle cx="13" cy="16" r="1.3" fill="currentColor"/></svg></div><h4>Novated lease vs buy</h4><p>Lease, loan or cash for your personal car — compared.</p></a>
+      <a class="mcard live" href="business-vehicle.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M4 13h12v3H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Business car finance</h4><p>Chattel mortgage, lease or cash for a work vehicle.</p></a>
+      <a class="mcard live" href="mortgage-payoff.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Pay off your mortgage faster</h4><p>Extra repayments and offset, years and interest saved.</p></a>
+    </div>
+  </section>
+
+  <section style="margin:16px 0 0">
+    <a href="pay-off-mortgage-sooner.html" style="display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ochre);border-radius:16px;padding:17px 20px;text-decoration:none;color:inherit;box-shadow:var(--shadow)">
+      <span style="flex:none;width:40px;height:40px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--forest)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3h7l3 3v11H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6.5h3M7.5 9.5h5M7.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      <span style="flex:1"><span style="display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ochre)">Related guide</span><span style="display:block;font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;color:var(--ink);margin-top:2px">5 ways to pay off your mortgage years sooner</span></span>
+      <span style="flex:none;color:var(--forest);font-weight:700;font-size:.9rem;white-space:nowrap">Read &rarr;</span>
+    </a>
+  </section>
+
+  <footer>
+    <div class="disc">
+      <b>General information only — not financial advice.</b> This calculator estimates your repayments and interest from the figures you enter, simulating the loan period by period at a constant rate. It assumes a standard principal-and-interest loan and does not model rate changes, fees, redraw or offset rules specific to your lender, fixed-rate repayment caps or break costs, or the timing of interest charging within a period. Always confirm the detail with your lender or a licensed mortgage broker before acting. Consider whether a strategy suits your circumstances.
+    </div>
+    <div class="foot-meta">
+      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>Methodology: minimum P&amp;I repayment derived from balance, rate and term; period-by-period simulation with extra repayments, fortnightly frequency, offset and lump sum.</span>
+    </div>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Do fortnightly repayments really pay off a mortgage faster?","acceptedAnswer":{"@type":"Answer","text":"Yes, if you pay half your monthly amount every fortnight. Because there are 26 fortnights but 12 months, you make the equivalent of 13 monthly repayments a year, and the extra goes straight onto the principal."}},
+    {"@type":"Question","name":"Is it better to use an offset account or make extra repayments?","acceptedAnswer":{"@type":"Answer","text":"Both reduce interest dollar-for-dollar. An offset keeps the money as accessible savings beside the loan; extra repayments with redraw lock it in but can usually be withdrawn. Offset is generally more flexible."}},
+    {"@type":"Question","name":"Should I pay down my mortgage or invest?","acceptedAnswer":{"@type":"Answer","text":"Paying the mortgage is a guaranteed tax-free return at your loan rate, while investing or super may return more but carries risk and can lock the money away. The right choice depends on your rate, timeframe and risk tolerance."}},
+    {"@type":"Question","name":"Can I make extra repayments on a fixed-rate home loan?","acceptedAnswer":{"@type":"Answer","text":"Often only up to an annual cap, with break costs or fees beyond that. Variable loans usually allow unlimited extra repayments. Check your loan terms first."}},
+    {"@type":"Question","name":"Do extra repayments lower my monthly repayment?","acceptedAnswer":{"@type":"Answer","text":"Usually they shorten the loan term rather than reduce the repayment. Some lenders let you recalculate to a lower repayment, but the default effect is paying the loan off sooner."}}
+  ]
+}
+</script>
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  const $=id=>document.getElementById(id);
+  const AUD0=new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
+  let LAST={};
+
+  function monthlyPayment(P,annual,years){const r=annual/12,n=Math.round(years*12);if(n<=0)return P;if(r===0)return P/n;return P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);}
+  function simulate(P,annual,ppy,periodPay,offset,annualExtra,annualExtraYears){
+    annualExtra=annualExtra||0; annualExtraYears=annualExtraYears||0;
+    const pr=annual/ppy; let bal=P,interest=0,periods=0; const maxP=70*ppy; const bals=[];
+    while(bal>0.01 && periods<maxP){
+      const charge=Math.max(0,bal-offset)*pr;
+      interest+=charge;
+      bal=bal+charge-periodPay;
+      periods++;
+      if(annualExtra>0 && periods%ppy===0 && (periods/ppy)<=annualExtraYears){bal-=annualExtra;}
+      bals.push(Math.max(0,bal));
+      if(charge>=periodPay && periods>3 && annualExtra<=0){break;} // non-amortising guard
+    }
+    return {periods,interest,ppy,bals,paidOff:bal<=0.01};
+  }
+
+  function buildChart(base,plan,P,maxYears){
+    const W=600,H=250,padL=58,padR=14,padT=14,padB=30;
+    const plotW=W-padL-padR, plotH=H-padT-padB;
+    const my=Math.max(maxYears,1);
+    const X=yr=>padL+(yr/my)*plotW;
+    const Y=v=>padT+(1-v/P)*plotH;
+    function path(bals,ppy){let d='M '+X(0).toFixed(1)+' '+Y(P).toFixed(1);for(let i=0;i<bals.length;i++){const yr=(i+1)/ppy;if(yr>my+0.01)break;d+=' L '+X(yr).toFixed(1)+' '+Y(bals[i]).toFixed(1);}return d;}
+    let grid='';
+    for(let g=0;g<=4;g++){const v=P*g/4;const yy=Y(v).toFixed(1);grid+='<line x1="'+padL+'" y1="'+yy+'" x2="'+(W-padR)+'" y2="'+yy+'" stroke="rgba(255,255,255,.10)" stroke-width="1"/>';grid+='<text x="'+(padL-8)+'" y="'+(+yy+4)+'" text-anchor="end" fill="#9DBBAD" font-size="10" font-family="Hanken Grotesk,sans-serif">$'+AUD0.format(v)+'</text>';}
+    const xt=Math.ceil(my/5);let xlab='';
+    for(let yr=0;yr<=my+0.001;yr+=Math.max(5,xt)){xlab+='<text x="'+X(yr).toFixed(1)+'" y="'+(H-10)+'" text-anchor="middle" fill="#9DBBAD" font-size="10" font-family="Hanken Grotesk,sans-serif">'+Math.round(yr)+'y</text>';}
+    return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'+grid+xlab+
+      '<path d="'+path(base.bals,base.ppy)+'" fill="none" stroke="#7FA99B" stroke-width="2.5" stroke-linejoin="round"/>'+
+      '<path d="'+path(plan.bals,plan.ppy)+'" fill="none" stroke="#E8A951" stroke-width="2.5" stroke-linejoin="round"/>'+
+      '</svg>';
+  }
+
+  function fmtYrs(years){const y=Math.floor(years);const m=Math.round((years-y)*12);if(y<=0&&m<=0)return '0';if(y<=0)return m+' mth'+(m===1?'':'s');if(m<=0)return y+' yr'+(y===1?'':'s');return y+'y '+m+'m';}
+
+  function calc(){
+    const P=+$('balance').value||0;
+    const annual=(+$('rate').value||0)/100;
+    const term=Math.max(1,+$('term').value||1);
+    const mode=$('mode').value;
+    const freq=$('freq').value;
+    const extra=Math.max(0,+$('extra').value||0);
+    const annualExtra=Math.max(0,+$('annualExtra').value||0);
+    const annualExtraYears=Math.max(0,+$('annualExtraYears').value||0);
+    const offset=Math.max(0,+$('offset').value||0);
+    const lump=Math.max(0,+$('lump').value||0);
+    const newTerm=Math.max(1,+$('newTerm').value||1);
+
+    $('extraHint').textContent = freq==='fortnightly' ? '— on top, each fortnight' : '— on top, each month';
+
+    const M=monthlyPayment(P,annual,term);
+    $('minRepay').textContent=AUD0.format(M);
+
+    // Current plan (baseline): minimum monthly to current term
+    const base=simulate(P,annual,12,M,0);
+    const baseYears=base.periods/12;
+
+    let plan, planYears, Mnew=M, repayIncrease=0;
+    if(mode==='shorter'){
+      Mnew=monthlyPayment(P,annual,newTerm);
+      repayIncrease=Math.max(0,Mnew-M);
+      plan=simulate(P,annual,12,Mnew,0);
+      planYears=plan.periods/12;
+    } else {
+      const ppy = freq==='fortnightly'?26:12;
+      const periodBase = freq==='fortnightly'? M/2 : M;
+      plan=simulate(Math.max(0,P-lump),annual,ppy,periodBase+extra,offset,annualExtra,annualExtraYears);
+      planYears=plan.periods/ppy;
+    }
+
+    const validShorter = mode==='shorter' ? (newTerm<term) : true;
+    const yearsSaved=validShorter?Math.max(0,baseYears-planYears):0;
+    const intSaved=validShorter?Math.max(0,base.interest-plan.interest):0;
+
+    LAST={P,ratePct:+$('rate').value,term,mode,freq,extra,annualExtra,annualExtraYears,offset,lump,newTerm,M,Mnew,repayIncrease,baseYears,planYears,yearsSaved,baseInt:base.interest,planInt:plan.interest,intSaved};
+
+    const yWhole=Math.floor(yearsSaved);const mWhole=Math.round((yearsSaved-yWhole)*12);
+    $('yearsSaved').textContent = yearsSaved<1 ? (mWhole) : yWhole;
+    $('yearsUnit').textContent = yearsSaved<1 ? ('month'+(mWhole===1?'':'s')+' sooner') : ('year'+(yWhole===1?'':'s')+' sooner');
+    $('intSaved').textContent=AUD0.format(intSaved);
+    $('intSaved2').textContent=AUD0.format(intSaved);
+    $('timeSaved').textContent=fmtYrs(yearsSaved);
+    $('newPayoff').textContent=fmtYrs(planYears);
+
+    // 4th stat adapts to mode
+    if(mode==='shorter'){$('stat4k').textContent='New repayment';$('planInt').textContent='$'+AUD0.format(Mnew)+'/mo';}
+    else{$('stat4k').textContent='Total interest (plan)';$('planInt').textContent='$'+AUD0.format(plan.interest);}
+
+    $('chart').innerHTML=buildChart(base,plan,P,baseYears);
+
+    const nl=$('noteLine');
+    if(mode==='shorter'){
+      if(newTerm>=term){nl.innerHTML='<b>Pick a shorter term.</b> Enter a new term below your current '+term+' years to see the higher repayment it needs and the interest you\u2019d save.';}
+      else{nl.innerHTML='<b>Worth it?</b> Cutting from '+term+' to '+newTerm+' years lifts your repayment to about <b>$'+AUD0.format(Mnew)+'/month</b> (+$'+AUD0.format(repayIncrease)+'), but clears the loan '+fmtYrs(yearsSaved)+' sooner and saves about $'+AUD0.format(intSaved)+' in interest.';}
+    } else if(intSaved<1){
+      nl.innerHTML='<b>This is your current path.</b> Add an extra repayment, an annual top-up, switch to fortnightly, or add an offset to see how much faster you could finish.';
+    } else {
+      let bits=[];if(freq==='fortnightly')bits.push('paying fortnightly');if(extra>0)bits.push('$'+AUD0.format(extra)+' extra each '+(freq==='fortnightly'?'fortnight':'month'));if(annualExtra>0)bits.push('$'+AUD0.format(annualExtra)+'/year for '+annualExtraYears+' year'+(annualExtraYears===1?'':'s'));if(offset>0)bits.push('a $'+AUD0.format(offset)+' offset');if(lump>0)bits.push('a $'+AUD0.format(lump)+' lump sum');
+      nl.innerHTML='<b>Nice.</b> By '+ (bits.length?bits.join(', '):'repaying a little differently') +', you clear the loan in about '+fmtYrs(planYears)+' instead of '+fmtYrs(baseYears)+' — keeping roughly $'+AUD0.format(intSaved)+' of interest in your pocket.';
+    }
+  }
+
+  function applyMode(){
+    const mode=$('mode').value;
+    $('extraFields').style.display = mode==='shorter'?'none':'block';
+    $('shorterFields').style.display = mode==='shorter'?'block':'none';
+    document.querySelectorAll('#modeSeg button').forEach(b=>b.classList.toggle('active', b.dataset.mode===mode));
+  }
+  document.querySelectorAll('#modeSeg button').forEach(b=>b.addEventListener('click',()=>{$('mode').value=b.dataset.mode;applyMode();calc();}));
+  document.querySelectorAll('input,select').forEach(e=>{e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+  let toastT;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+  const FIELDS=['balance','rate','term','mode','freq','extra','annualExtra','annualExtraYears','offset','lump','newTerm'];
+  function readParams(){const p=new URLSearchParams(location.search);FIELDS.forEach(f=>{if(!p.has(f))return;const el=$(f);if(!el)return;el.value=p.get(f);});}
+  function buildLink(){const p=new URLSearchParams();FIELDS.forEach(f=>{const el=$(f);if(!el)return;p.set(f,el.value);});return location.origin+location.pathname+'?'+p.toString();}
+  function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Share link copied');}catch(e){toast('Copy failed — link in address bar');}document.body.removeChild(ta);}
+  $('shareBtn').addEventListener('click',()=>{const link=buildLink();try{history.replaceState(null,'',link);}catch(e){}if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(link).then(()=>toast('Share link copied to clipboard')).catch(()=>fallbackCopy(link));else fallbackCopy(link);});
+
+  $('pdfBtn').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});let y=58;
+    doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(30,37,34);doc.text('Your mortgage payoff plan',40,y);y+=18;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Prepared with MoneyMilestones · '+new Date().toLocaleDateString('en-AU'),40,y);y+=30;
+    doc.setFillColor(234,242,236);doc.roundedRect(40,y,515,66,8,8,'F');
+    doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('With this plan you could be mortgage-free sooner and save',58,y+24);
+    doc.setFont('helvetica','bold');doc.setFontSize(22);doc.setTextColor(27,94,75);doc.text('$'+AUD0.format(LAST.intSaved)+' in interest',58,y+52);y+=94;
+    function r(k,v){doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,65,59);doc.text(k,40,y);doc.setFont('helvetica','bold');doc.setTextColor(30,37,34);doc.text(String(v),555,y,{align:'right'});doc.setDrawColor(231,222,206);doc.line(40,y+9,555,y+9);y+=27;}
+    r('Loan balance','$'+AUD0.format(LAST.P));
+    r('Interest rate / years remaining',LAST.ratePct+'% / '+LAST.term);
+    r('Minimum repayment','$'+AUD0.format(LAST.M)+'/month');
+    r('Strategy', LAST.mode==='shorter'
+      ? ('Shorten '+LAST.term+'→'+LAST.newTerm+' yrs (repayment $'+AUD0.format(LAST.Mnew)+'/mo)')
+      : ((LAST.freq==='fortnightly'?'Fortnightly':'Monthly')+(LAST.extra>0?' + $'+AUD0.format(LAST.extra)+' extra':'')+(LAST.annualExtra>0?' + $'+AUD0.format(LAST.annualExtra)+'/yr × '+LAST.annualExtraYears:'')+(LAST.offset>0?' + $'+AUD0.format(LAST.offset)+' offset':'')+(LAST.lump>0?' + $'+AUD0.format(LAST.lump)+' lump':'')) );
+    r('Payoff: current vs plan',fmtYrs(LAST.baseYears)+' → '+fmtYrs(LAST.planYears));
+    r('Interest: current vs plan','$'+AUD0.format(LAST.baseInt)+' → $'+AUD0.format(LAST.planInt));
+    r('Interest saved','$'+AUD0.format(LAST.intSaved));
+    y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
+    const disc='General information only — not financial advice. Estimates assume a standard principal-and-interest loan at a constant rate and exclude fees, rate changes, lender-specific offset/redraw and fixed-rate rules. Confirm with your lender or a licensed mortgage broker before acting.';
+    doc.text(doc.splitTextToSize(disc,515),40,y);
+    doc.save('mortgage-payoff-plan.pdf');toast('Plan downloaded');
+  });
+
+  /* Init */
+  readParams();
+  applyMode();
+  calc();
+})();
+</script>
+</body>
+</html>

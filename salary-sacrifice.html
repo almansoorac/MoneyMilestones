@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salary Sacrifice vs Take-Home vs Mortgage — MoneyMilestones</title>
+<meta name="description" content="Should you salary sacrifice into super, pay down the mortgage, or keep the cash? Compare the tax saved now and the projected value over time, for Australia 2025-26.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
+    --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
+    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;flex:none}
+  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b span{color:var(--forest)}
+  nav.top{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+  nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+  nav.top a.active{background:var(--forest);color:#fff}
+  .hero{padding:26px 0 22px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:16ch}
+  h1 em{font-style:italic;color:var(--forest)}
+  .lede{font-size:1.06rem;color:var(--ink-soft);max-width:56ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:62ch}
+  .verify-flag svg{flex:none;margin-top:1px}
+  .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
+  @media(max-width:860px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;font-weight:700;display:grid;place-items:center;flex:none}
+  .panel-body{padding:20px 22px}
+  .field{margin-bottom:17px}
+  label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  .input-money{position:relative}
+  .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
+  input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .input-money input{padding-left:26px}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  input[type=range]{width:100%;accent-color:var(--forest);margin-top:4px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .pct{position:relative}
+  .pct span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600}
+  .amt-live{font-family:'Fraunces',serif;font-weight:600;color:var(--forest);font-size:1.05rem}
+  .toggles{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+  .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.88rem;font-weight:500}
+  .switch{position:relative;width:42px;height:24px;flex:none}
+  .switch input{opacity:0;width:0;height:0;position:absolute}
+  .slider{position:absolute;inset:0;background:#D8D2C4;border-radius:100px;transition:.2s;cursor:pointer}
+  .slider::before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .switch input:checked + .slider{background:var(--forest)}
+  .switch input:checked + .slider::before{transform:translateX(18px)}
+  details.assume{margin-top:18px;border:1px dashed var(--line);border-radius:13px;background:var(--paper)}
+  details.assume summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:.85rem;font-weight:600;color:var(--forest-deep);display:flex;align-items:center;gap:8px}
+  details.assume summary::-webkit-details-marker{display:none}
+  details.assume summary .chev{margin-left:auto;transition:transform .2s}
+  details.assume[open] summary .chev{transform:rotate(180deg)}
+  .assume-body{padding:4px 16px 16px}
+  .assume-note{font-size:.78rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.45}
+
+  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
+  .result-panel .panel-head h2{color:#fff}
+  .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
+  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
+  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.2rem,6.4vw,3.1rem);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:6px 0 4px;color:#fff}
+  .bignum .cur{color:var(--ochre)}
+  .headline .sub{font-size:.9rem;color:#BFD4C8}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
+  .stat{background:#143A2F;padding:13px 15px}
+  .stat .k{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;margin-top:5px;color:#fff}
+  .stat .v.warn{color:#F2C9BF}
+
+  .bars{margin-top:24px}
+  .bars .blbl{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+  .barrow{margin-bottom:15px}
+  .barrow .bl{display:flex;justify-content:space-between;font-size:.85rem;color:#DCE9E1;margin-bottom:6px;font-weight:600}
+  .barrow .bl .amt{font-variant-numeric:tabular-nums}
+  .bar-track{height:26px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .bf-super{background:linear-gradient(90deg,var(--ochre),#E8A951)}
+  .bf-mort{background:linear-gradient(90deg,#3E8E73,#5BAE90)}
+  .bf-cash{background:linear-gradient(90deg,#4A6A7A,#6E93A3)}
+  .tag-best{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ochre);color:#3A2406;padding:2px 7px;border-radius:5px;margin-left:8px;vertical-align:middle}
+
+  .note-line{margin-top:18px;font-size:.82rem;color:#BFD4C8;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
+  .note-line b{color:#fff}
+  .note-line.warn{background:rgba(180,84,63,.2);border:1px solid rgba(180,84,63,.4);color:#F2C9BF}
+
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
+  .btn-solid:hover{background:#E8A951}
+  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+  .guide{max-width:752px;margin:54px auto 0}
+  .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+  .prose strong{color:var(--ink);font-weight:700}
+  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout b{color:var(--forest-deep)}
+
+  .faq{max-width:752px;margin:48px auto 0}
+  .faq h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
+  .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
+  .faq details[open]{box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:1}
+  .faq summary .pm{width:22px;height:22px;flex:none;position:relative}
+  .faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;background:var(--forest);border-radius:2px;transition:.2s}
+  .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
+  .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
+  .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+
+  .hub{margin:50px 0 20px}
+  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
+  .mcard.live{border-color:var(--forest);box-shadow:var(--shadow)}
+  .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
+  .mcard.live .ic{background:var(--forest);color:#fff}
+  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+  .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
+  .badge.now{background:var(--forest);color:#fff}
+  .badge.soon{background:var(--paper-2);color:var(--ink-soft)}
+
+  footer{margin-top:46px;border-top:1px solid var(--line);padding:26px 0 50px}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .disc b{color:var(--ink);font-weight:700}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
+      <b>Money<span>Milestones</span></b>
+    </a>
+    <nav class="top">
+      <a href="index.html">Parental leave</a>
+      <a href="redundancy.html">Redundancy</a>
+      <a href="salary-sacrifice.html" class="active">Salary sacrifice</a>
+      <a href="novated-lease.html">Novated lease</a>
+      <a href="business-vehicle.html">Business car</a>
+      <a href="mortgage-payoff.html">Mortgage payoff</a>
+      <a href="articles.html">Articles</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Super vs mortgage vs cash · 2025-26</span>
+    <h1>Sacrifice to super, pay the mortgage, or <em>keep the cash</em>?</h1>
+    <p class="lede">Put a dollar figure to the oldest question in Australian personal finance. See the tax you save right now, and what each choice could be worth down the track.</p>
+    <div class="verify-flag">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
+      <span><b>Projections, not promises.</b> Returns are assumptions you set, not guarantees, and super is locked away until you retire. Treat this as a way to compare options, not a forecast.</span>
+    </div>
+  </section>
+
+  <div class="app">
+    <!-- INPUTS -->
+    <div class="panel">
+      <div class="panel-head"><span class="num">1</span><h2>Your decision</h2></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="salary">Annual salary <span class="hint">(before tax)</span></label>
+          <div class="input-money"><input type="number" id="salary" value="120000" min="0" step="1000"></div>
+        </div>
+        <div class="field">
+          <label for="amount">Amount to redirect each year <span class="hint">— <span class="amt-live" id="amtLive">$10,000</span></span></label>
+          <input type="range" id="amount" value="10000" min="0" max="30000" step="500">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="years">Years to project</label>
+            <input type="number" id="years" value="20" min="1" max="50" step="1">
+          </div>
+          <div class="field">
+            <label for="ret">Expected return <span class="hint">p.a.</span></label>
+            <div class="pct"><input type="number" id="ret" value="7" step="0.5"><span>%</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="mort">Your mortgage interest rate <span class="hint">p.a.</span></label>
+          <div class="pct"><input type="number" id="mort" value="6" step="0.1"><span>%</span></div>
+        </div>
+        <div class="toggles">
+          <div class="toggle"><span>I have a HELP/HECS debt</span>
+            <label class="switch"><input type="checkbox" id="help"><span class="slider"></span></label></div>
+        </div>
+
+        <details class="assume">
+          <summary>Super &amp; tax assumptions (2025-26) <span class="chev">▾</span></summary>
+          <div class="assume-body">
+            <p class="assume-note">Defaults reflect 2025-26 super settings. Returns are illustrative — adjust to your own expectations.</p>
+            <div class="row2">
+              <div class="field"><label for="contribTax">Super contributions tax</label><div class="pct"><input type="number" id="contribTax" value="15" step="0.5"><span>%</span></div></div>
+              <div class="field"><label for="earnTax">Super earnings tax</label><div class="pct"><input type="number" id="earnTax" value="15" step="0.5"><span>%</span></div></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="cap">Concessional cap</label><div class="input-money"><input type="number" id="cap" value="30000" step="500"></div></div>
+              <div class="field"><label for="sgRate">Employer super (SG)</label><div class="pct"><input type="number" id="sgRate" value="12" step="0.5"><span>%</span></div></div>
+            </div>
+            <div class="field"><label for="div293">Division 293 threshold <span class="hint">(extra 15% tax above this income)</span></label><div class="input-money"><input type="number" id="div293" value="250000" step="5000"></div></div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel result-panel">
+      <div class="panel-head"><span class="num">2</span><h2>The comparison</h2></div>
+      <div class="panel-body">
+        <div class="headline">
+          <div class="small"><span id="winnerName">Salary sacrifice</span> comes out ahead — after <span id="yrsLbl">20</span> years, about</div>
+          <div class="bignum"><span class="cur">$</span><span id="winnerVal">0</span></div>
+          <div class="sub" id="winnerSub">vs the next-best option.</div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat"><div class="k">Into super this year</div><div class="v">$<span id="superNow">0</span></div></div>
+          <div class="stat"><div class="k">As take-home this year</div><div class="v">$<span id="cashNow">0</span></div></div>
+          <div class="stat"><div class="k">Tax saved / year</div><div class="v">$<span id="taxSaved">0</span></div></div>
+          <div class="stat"><div class="k">Concessional headroom</div><div class="v" id="headroomStat">$0</div></div>
+        </div>
+
+        <div class="bars">
+          <div class="blbl">Projected value after <span id="yrsLbl2">20</span> years</div>
+          <div class="barrow">
+            <div class="bl"><span>Salary sacrifice to super<span class="tag-best" id="bestSuper" style="display:none">Best</span></span><span class="amt">$<span id="vSuper">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-super" id="barSuper" style="width:0"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bl"><span>Extra mortgage repayments<span class="tag-best" id="bestMort" style="display:none">Best</span></span><span class="amt">$<span id="vMort">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-mort" id="barMort" style="width:0"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bl"><span>Take-home, invested<span class="tag-best" id="bestCash" style="display:none">Best</span></span><span class="amt">$<span id="vCash">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-cash" id="barCash" style="width:0"></div></div>
+          </div>
+        </div>
+
+        <div class="note-line" id="noteLine"></div>
+
+        <div class="result-actions">
+          <button class="btn btn-solid" id="pdfBtn">↓ Download comparison (PDF)</button>
+          <button class="btn btn-ghost" id="shareBtn">⛓ Copy share link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUIDE -->
+  <article class="guide">
+    <span class="kicker">The guide</span>
+    <h2 class="gtitle">Super, mortgage or cash: how to think about it</h2>
+    <div class="byline">
+      <span class="av">MM</span>
+      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
+      <span class="vstamp">✓ Figures to be verified vs ATO</span>
+    </div>
+    <div class="prose">
+      <p>When you have spare capacity in your budget, three doors open: send it to super before tax, throw it at the mortgage, or keep it as take-home. There's no single right answer — it depends on your tax rate, your mortgage rate, your timeframe, and how much you value being able to touch the money. Here's the logic the calculator runs.</p>
+
+      <h3>Why salary sacrifice is tax-efficient</h3>
+      <p>Money you salary sacrifice into super is taxed at a flat <strong>15%</strong> on the way in, instead of your marginal rate — which for many earners is 30% or more once you include the Medicare levy. That gap is an immediate, guaranteed saving. The catch is that the money is <strong>preserved</strong>: you generally can't touch it until you reach your preservation age (60) and retire. So super tends to win on the numbers but loses on flexibility.</p>
+
+      <h3>Why paying the mortgage is quietly powerful</h3>
+      <p>Every dollar off your mortgage saves you the loan's interest rate, and that saving is effectively <strong>tax-free and guaranteed</strong>. With rates where they are, that can be a higher certain return than a risky investment — and if the money sits in an offset account, you keep access to it. For many households, the mortgage is the calm, sensible middle path.</p>
+
+      <h3>Why you might just keep the cash</h3>
+      <p>Take-home is taxed at your marginal rate, and if you invest it outside super the earnings are taxed too — so it's the least tax-efficient on paper. But it's <strong>completely liquid</strong>. If you might need the money for a house deposit, a career break, or simply peace of mind, that flexibility can be worth more than a few percentage points.</p>
+
+      <div class="callout">
+        <b>Watch the concessional cap.</b> Your salary sacrifice plus your employer's compulsory super both count toward the annual concessional contributions cap ($30,000 for 2025-26). Go over it and the excess is taxed at your marginal rate, wiping out the benefit. And if your income plus contributions exceeds the Division 293 threshold ($250,000), your contributions are taxed at 30%, not 15% — the calculator flags both.
+      </div>
+
+      <h3>How we calculate this</h3>
+      <ul>
+        <li><strong>Tax saved now</strong> compares your take-home with and without the sacrifice, using the resident brackets, Medicare and (if ticked) HELP/HECS — so it captures the full benefit.</li>
+        <li><strong>Super projection</strong> grows your after-contributions-tax amount each year at your return, less super earnings tax.</li>
+        <li><strong>Mortgage projection</strong> grows your after-tax cash at the loan rate, tax-free.</li>
+        <li><strong>Invested projection</strong> grows your after-tax cash at your return, less tax on earnings at your marginal rate.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
+    <details><summary><span class="q">Is salary sacrificing into super worth it?</span><span class="pm"></span></summary>
+      <div class="a">For most people on a marginal rate above 15%, it saves tax immediately and usually produces the largest long-term balance. The trade-off is access: the money is locked in super until you retire. If you might need it sooner, the mortgage or cash may suit better.</div></details>
+    <details><summary><span class="q">How much can I salary sacrifice?</span><span class="pm"></span></summary>
+      <div class="a">Concessional (before-tax) contributions are capped at $30,000 for 2025-26, and that includes your employer's compulsory super. Going over the cap means the excess is taxed at your marginal rate. The calculator shows your remaining headroom.</div></details>
+    <details><summary><span class="q">Is paying down the mortgage better than super?</span><span class="pm"></span></summary>
+      <div class="a">It depends on your mortgage rate versus your expected after-tax return, and how much you value access to the money. Paying the mortgage is a guaranteed, tax-free return at your loan rate; super offers tax advantages but locks the money away. Adjust the inputs to compare your own numbers.</div></details>
+    <details><summary><span class="q">What is Division 293 tax?</span><span class="pm"></span></summary>
+      <div class="a">If your income plus concessional super contributions exceeds $250,000, an extra 15% tax applies to some or all of your contributions — so they're effectively taxed at 30% instead of 15%. It reduces, but usually doesn't eliminate, the benefit of sacrificing.</div></details>
+    <details><summary><span class="q">Can I access salary-sacrificed super early?</span><span class="pm"></span></summary>
+      <div class="a">Generally no. Super is preserved until you reach your preservation age (60 for anyone born after June 1964) and meet a condition of release such as retiring. That lack of access is the main reason some people favour the mortgage or keeping cash instead.</div></details>
+  </section>
+
+  <!-- HUB -->
+  <section class="hub">
+    <h3>Your next milestone</h3>
+    <p class="sub">The same engine powers every calculation here — one income picture, every life event it touches.</p>
+    <div class="cards">
+      <a class="mcard live" href="index.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.5"/><path d="M4 16c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Parental leave pay</h4>
+        <p>Take-home, super and the income gap across your leave.</p>
+      </a>
+      <a class="mcard live" href="redundancy.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 7h12v9H4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h4>Redundancy payout</h4>
+        <p>Entitlement, the tax-free portion and net pay in hand.</p>
+      </a>
+      <a class="mcard live" href="salary-sacrifice.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Salary sacrifice vs take-home</h4>
+        <p>Into super, onto the mortgage, or kept as cash — compared.</p>
+      </a>
+      <a class="mcard live" href="novated-lease.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M5 13h10v3H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="16" r="1.3" fill="currentColor"/><circle cx="13" cy="16" r="1.3" fill="currentColor"/></svg></div>
+        <h4>Novated lease vs buy</h4>
+        <p>The real after-tax cost of packaging your next car.</p>
+      </a>
+      <a class="mcard live" href="business-vehicle.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M4 13h12v3H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Business car finance</h4><p>Chattel mortgage, lease or cash for a work vehicle.</p></a>
+      <a class="mcard live" href="mortgage-payoff.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Pay off your mortgage faster</h4><p>Extra repayments and offset, years and interest saved.</p></a>
+    </div>
+  </section>
+
+  <section style="margin:16px 0 0">
+    <a href="salary-sacrifice-vs-mortgage.html" style="display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ochre);border-radius:16px;padding:17px 20px;text-decoration:none;color:inherit;box-shadow:var(--shadow)">
+      <span style="flex:none;width:40px;height:40px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--forest)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3h7l3 3v11H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6.5h3M7.5 9.5h5M7.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      <span style="flex:1"><span style="display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ochre)">Related guide</span><span style="display:block;font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;color:var(--ink);margin-top:2px">Salary sacrifice to super, or pay off the mortgage?</span></span>
+      <span style="flex:none;color:var(--forest);font-weight:700;font-size:.9rem;white-space:nowrap">Read &rarr;</span>
+    </a>
+  </section>
+
+  <footer>
+    <div class="disc">
+      <b>General information only — not financial, tax or legal advice.</b> This calculator produces projections based on the figures and return assumptions you enter; actual investment and super returns vary and are not guaranteed. It applies the resident income-tax brackets, the 2% Medicare levy, optional HELP/HECS, and a simplified super model (contributions and earnings tax, the concessional cap and Division 293). It does not account for your full circumstances, other contributions, fees, the timing of cash flows within a year, or changes in law. Super is preserved until you meet a condition of release. Always confirm current rules with <b>ato.gov.au</b> and speak with a licensed financial adviser before acting.
+    </div>
+    <div class="foot-meta">
+      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>Methodology: marginal tax saving (Stage 3 + Medicare + HELP) and compound projections with super, mortgage and marginal-tax drag.</span>
+    </div>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Is salary sacrificing into super worth it?","acceptedAnswer":{"@type":"Answer","text":"For most people on a marginal rate above 15% it saves tax immediately and usually produces the largest long-term balance. The trade-off is that the money is locked in super until you retire."}},
+    {"@type":"Question","name":"How much can I salary sacrifice?","acceptedAnswer":{"@type":"Answer","text":"Concessional (before-tax) contributions are capped at $30,000 for 2025-26, including your employer's compulsory super. Exceeding the cap means the excess is taxed at your marginal rate."}},
+    {"@type":"Question","name":"Is paying down the mortgage better than super?","acceptedAnswer":{"@type":"Answer","text":"It depends on your mortgage rate versus your expected after-tax return and how much you value access. Paying the mortgage is a guaranteed tax-free return at your loan rate; super offers tax advantages but locks the money away."}},
+    {"@type":"Question","name":"What is Division 293 tax?","acceptedAnswer":{"@type":"Answer","text":"If your income plus concessional super contributions exceeds $250,000, an extra 15% tax applies to some or all of your contributions, taxing them at 30% instead of 15%."}},
+    {"@type":"Question","name":"Can I access salary-sacrificed super early?","acceptedAnswer":{"@type":"Answer","text":"Generally no. Super is preserved until you reach your preservation age (60 for anyone born after June 1964) and meet a condition of release such as retiring."}}
+  ]
+}
+</script>
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  const $=id=>document.getElementById(id);
+  const AUD0=new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
+  let LAST={};
+
+  const BRACKETS=[{min:0,max:18200,rate:0},{min:18200,max:45000,rate:0.16},{min:45000,max:135000,rate:0.30},{min:135000,max:190000,rate:0.37},{min:190000,max:Infinity,rate:0.45}];
+  const MEDICARE=0.02;
+  function tax(t){let x=0;for(const b of BRACKETS){if(t>b.min)x+=(Math.min(t,b.max)-b.min)*b.rate;}return x;}
+  function marginal(t){let r=0;for(const b of BRACKETS){if(t>b.min)r=b.rate;}return r+MEDICARE;}
+  function helpRepay(inc){if(inc>=179286)return inc*0.10;if(inc>125000)return 8700+0.17*(inc-125000);if(inc>67000)return 0.15*(inc-67000);return 0;}
+  function net(income,h){return income - tax(income) - income*MEDICARE - (h?helpRepay(income):0);}
+  function fv(c,r,n){return r===0?c*n:c*((Math.pow(1+r,n)-1)/r);} // annuity, contributions end of year
+
+  function calc(){
+    const salary=+$('salary').value||0;
+    const amount=Math.max(0,+$('amount').value||0);
+    const n=Math.max(1,+$('years').value||1);
+    const ret=(+$('ret').value||0)/100;
+    const mort=(+$('mort').value||0)/100;
+    const hasHelp=$('help').checked;
+    const contribTaxBase=(+$('contribTax').value||0)/100;
+    const earnTax=(+$('earnTax').value||0)/100;
+    const cap=+$('cap').value||0;
+    const sgRate=(+$('sgRate').value||0)/100;
+    const div293=+$('div293').value||Infinity;
+
+    $('amtLive').textContent='$'+AUD0.format(amount);
+    $('yrsLbl').textContent=n;$('yrsLbl2').textContent=n;
+
+    // Division 293: contributions taxed at +15% above threshold
+    const incomeForD293 = salary; // simplified: taxable income (+ contributions) ~ salary
+    const contribTax = (incomeForD293 + amount > div293) ? Math.min(0.30, contribTaxBase+0.15) : contribTaxBase;
+
+    const superNow = amount*(1-contribTax);
+    const cashNow = net(salary,hasHelp) - net(salary-amount,hasHelp); // after-tax income foregone/kept
+    const taxSaved = Math.max(0, superNow - cashNow);
+
+    const mr = marginal(salary); // marginal incl medicare (for investment earnings drag)
+    const netSuperReturn = ret*(1-earnTax);
+    const netInvestReturn = ret*(1-mr);
+
+    const vSuper = fv(superNow, netSuperReturn, n);
+    const vMort  = fv(cashNow, mort, n);
+    const vCash  = fv(cashNow, netInvestReturn, n);
+
+    const sg = salary*sgRate;
+    const headroom = cap - sg - amount;
+
+    LAST={salary,amount,n,retPct:+$('ret').value,mortPct:+$('mort').value,hasHelp,contribTaxPct:Math.round(contribTax*100),superNow,cashNow,taxSaved,vSuper,vMort,vCash,headroom,sg,cap};
+
+    $('superNow').textContent=AUD0.format(superNow);
+    $('cashNow').textContent=AUD0.format(cashNow);
+    $('taxSaved').textContent=AUD0.format(taxSaved);
+    const hs=$('headroomStat');
+    if(headroom<0){hs.textContent='Over by $'+AUD0.format(-headroom);hs.className='v warn';}
+    else{hs.textContent='$'+AUD0.format(headroom);hs.className='v';}
+
+    // Bars
+    const max=Math.max(vSuper,vMort,vCash,1);
+    $('vSuper').textContent=AUD0.format(vSuper);
+    $('vMort').textContent=AUD0.format(vMort);
+    $('vCash').textContent=AUD0.format(vCash);
+    $('barSuper').style.width=Math.max(2,vSuper/max*100)+'%';
+    $('barMort').style.width=Math.max(2,vMort/max*100)+'%';
+    $('barCash').style.width=Math.max(2,vCash/max*100)+'%';
+
+    // Winner
+    const opts=[['Salary sacrifice',vSuper,'bestSuper'],['Extra mortgage repayments',vMort,'bestMort'],['Take-home invested',vCash,'bestCash']];
+    opts.sort((a,b)=>b[1]-a[1]);
+    ['bestSuper','bestMort','bestCash'].forEach(id=>$(id).style.display='none');
+    $(opts[0][2]).style.display='inline-block';
+    $('winnerName').textContent=opts[0][0];
+    $('winnerVal').textContent=AUD0.format(opts[0][1]);
+    $('winnerSub').textContent='vs about $'+AUD0.format(opts[1][1])+' from '+opts[1][0].toLowerCase()+'.';
+
+    // Note
+    const nl=$('noteLine');
+    if(headroom<0){nl.className='note-line warn';nl.innerHTML='<b>Over the cap.</b> Your employer super (~$'+AUD0.format(sg)+') plus this sacrifice exceeds the $'+AUD0.format(cap)+' concessional cap by $'+AUD0.format(-headroom)+'. The excess is taxed at your marginal rate — trim the amount to stay under.';}
+    else if(contribTax>contribTaxBase){nl.className='note-line warn';nl.innerHTML='<b>Division 293 applies.</b> Your income is above $'+AUD0.format(div293)+', so contributions are taxed at ~'+Math.round(contribTax*100)+'% rather than 15%. Sacrificing still helps, but by less.';}
+    else{nl.className='note-line';nl.innerHTML='<b>Remember:</b> super is locked away until you retire (preservation age 60). The mortgage and take-home options keep your money accessible — worth weighing against the headline numbers.';}
+  }
+  document.querySelectorAll('input,select').forEach(e=>{e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+  /* Toast */
+  let toastT;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+
+  /* Share */
+  const FIELDS=['salary','amount','years','ret','mort','help','contribTax','earnTax','cap','sgRate','div293'];
+  function readParams(){const p=new URLSearchParams(location.search);FIELDS.forEach(f=>{if(!p.has(f))return;const el=$(f);if(!el)return;if(el.type==='checkbox')el.checked=p.get(f)==='1';else el.value=p.get(f);});}
+  function buildLink(){const p=new URLSearchParams();FIELDS.forEach(f=>{const el=$(f);if(!el)return;p.set(f,el.type==='checkbox'?(el.checked?'1':'0'):el.value);});return location.origin+location.pathname+'?'+p.toString();}
+  function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Share link copied');}catch(e){toast('Copy failed — link in address bar');}document.body.removeChild(ta);}
+  $('shareBtn').addEventListener('click',()=>{const link=buildLink();try{history.replaceState(null,'',link);}catch(e){}if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(link).then(()=>toast('Share link copied to clipboard')).catch(()=>fallbackCopy(link));else fallbackCopy(link);});
+
+  /* PDF */
+  $('pdfBtn').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});let y=58;
+    doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(30,37,34);doc.text('Salary sacrifice vs mortgage vs cash',40,y);y+=18;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Prepared with MoneyMilestones · '+new Date().toLocaleDateString('en-AU'),40,y);y+=30;
+    doc.setFillColor(234,242,236);doc.roundedRect(40,y,515,66,8,8,'F');
+    doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Redirecting $'+AUD0.format(LAST.amount)+'/year for '+LAST.n+' years — projected values',58,y+24);
+    doc.setFont('helvetica','bold');doc.setFontSize(15);doc.setTextColor(27,94,75);
+    doc.text('Super $'+AUD0.format(LAST.vSuper)+'  ·  Mortgage $'+AUD0.format(LAST.vMort)+'  ·  Cash $'+AUD0.format(LAST.vCash),58,y+50);y+=94;
+    function r(k,v){doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,65,59);doc.text(k,40,y);doc.setFont('helvetica','bold');doc.setTextColor(30,37,34);doc.text(String(v),555,y,{align:'right'});doc.setDrawColor(231,222,206);doc.line(40,y+9,555,y+9);y+=27;}
+    r('Annual salary','$'+AUD0.format(LAST.salary));
+    r('Redirected each year','$'+AUD0.format(LAST.amount));
+    r('Into super (after '+LAST.contribTaxPct+'% contributions tax)','$'+AUD0.format(LAST.superNow));
+    r('As take-home / onto mortgage','$'+AUD0.format(LAST.cashNow));
+    r('Tax saved each year by sacrificing','$'+AUD0.format(LAST.taxSaved));
+    r('Return / mortgage rate used',LAST.retPct+'% / '+LAST.mortPct+'%');
+    r('Concessional headroom',(LAST.headroom<0?'Over by $'+AUD0.format(-LAST.headroom):'$'+AUD0.format(LAST.headroom)));
+    y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
+    const disc='General information only — not financial, tax or legal advice. Projections rely on the return assumptions you entered and are not guaranteed. Super is preserved until you meet a condition of release. Uses 2025-26 settings (15% contributions tax, $30,000 concessional cap, Division 293 at $250,000) and a simplified earnings-tax model. Confirm with ato.gov.au and a licensed financial adviser.';
+    doc.text(doc.splitTextToSize(disc,515),40,y);
+    doc.save('salary-sacrifice-comparison.pdf');toast('Comparison downloaded');
+  });
+
+  /* Init */
+  readParams();
+  calc();
+})();
+</script>
+</body>
+</html>

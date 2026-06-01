@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redundancy Payout Calculator — MoneyMilestones</title>
+<meta name="description" content="Work out your Australian redundancy payout: NES entitlement, the genuine-redundancy tax-free portion, ETP tax and your net pay in hand — 2025-26 figures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
+    --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
+    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;flex:none}
+  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b span{color:var(--forest)}
+  nav.top{margin-left:auto;display:flex;gap:6px}
+  nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+  nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+  nav.top a.active{background:var(--forest);color:#fff}
+
+  .hero{padding:26px 0 22px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:16ch}
+  h1 em{font-style:italic;color:var(--forest)}
+  .lede{font-size:1.06rem;color:var(--ink-soft);max-width:56ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:62ch}
+  .verify-flag svg{flex:none;margin-top:1px}
+
+  .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
+  @media(max-width:860px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;font-weight:700;display:grid;place-items:center;flex:none}
+  .panel-body{padding:20px 22px}
+
+  .field{margin-bottom:17px}
+  label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  .input-money{position:relative}
+  .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
+  input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .input-money input{padding-left:26px}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .toggles{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+  .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.88rem;font-weight:500}
+  .switch{position:relative;width:42px;height:24px;flex:none}
+  .switch input{opacity:0;width:0;height:0;position:absolute}
+  .slider{position:absolute;inset:0;background:#D8D2C4;border-radius:100px;transition:.2s;cursor:pointer}
+  .slider::before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .switch input:checked + .slider{background:var(--forest)}
+  .switch input:checked + .slider::before{transform:translateX(18px)}
+  details.assume{margin-top:18px;border:1px dashed var(--line);border-radius:13px;background:var(--paper)}
+  details.assume summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:.85rem;font-weight:600;color:var(--forest-deep);display:flex;align-items:center;gap:8px}
+  details.assume summary::-webkit-details-marker{display:none}
+  details.assume summary .chev{margin-left:auto;transition:transform .2s}
+  details.assume[open] summary .chev{transform:rotate(180deg)}
+  .assume-body{padding:4px 16px 16px}
+  .assume-note{font-size:.78rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.45}
+  .pct{position:relative}
+  .pct span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600}
+
+  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
+  .result-panel .panel-head h2{color:#fff}
+  .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
+  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
+  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.4rem,7vw,3.4rem);font-weight:600;letter-spacing:-.02em;line-height:1;margin:6px 0 4px;color:#fff}
+  .bignum .cur{color:var(--ochre)}
+  .headline .sub{font-size:.9rem;color:#BFD4C8}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
+  .stat{background:#143A2F;padding:14px 15px}
+  .stat .k{font-size:.74rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-family:'Fraunces',serif;font-size:1.45rem;font-weight:600;margin-top:5px;color:#fff}
+
+  .bd{margin-top:22px;border-top:1px solid rgba(255,255,255,.12)}
+  .bd-row{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.08);font-size:.92rem;color:#CFE0D6}
+  .bd-row .v{font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .bd-row.sub{font-size:.82rem;color:#9DBBAD;padding:7px 0 7px 16px}
+  .bd-row.sub .v{font-weight:600;color:#CFE0D6}
+  .bd-row.tax .v{color:#F2C9BF}
+  .bd-row.total{border-bottom:none;padding-top:14px;font-size:1.05rem;color:#fff;font-weight:700}
+  .bd-row.total .v{font-family:'Fraunces',serif;font-size:1.3rem;color:var(--ochre)}
+  .note-line{margin-top:16px;font-size:.82rem;color:#BFD4C8;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
+  .note-line b{color:#fff}
+
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
+  .btn-solid:hover{background:#E8A951}
+  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+  .guide{max-width:752px;margin:54px auto 0}
+  .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+  .prose strong{color:var(--ink);font-weight:700}
+  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout b{color:var(--forest-deep)}
+  .example{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:24px 0;box-shadow:var(--shadow)}
+  .example .ex-h{font-family:'Fraunces',serif;font-weight:600;font-size:1.05rem;margin-bottom:12px;display:flex;align-items:center;gap:9px}
+  .example .ex-h .tag{font-family:'Hanken Grotesk';font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ochre-soft);color:#7A4E13;padding:3px 8px;border-radius:6px}
+  .example table{width:100%;border-collapse:collapse;font-size:.92rem}
+  .example td{padding:8px 0;border-bottom:1px solid var(--line);color:#3A413B}
+  .example td:last-child{text-align:right;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+  .example tr:last-child td{border-bottom:none;padding-top:12px;font-size:1.02rem}
+  .example tr:last-child td:last-child{color:var(--forest)}
+
+  .faq{max-width:752px;margin:48px auto 0}
+  .faq h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
+  .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
+  .faq details[open]{box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:1}
+  .faq summary .pm{width:22px;height:22px;flex:none;position:relative}
+  .faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;background:var(--forest);border-radius:2px;transition:.2s}
+  .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
+  .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
+  .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+
+  .dl{max-width:752px;margin:50px auto 0}
+  .dl-head{margin-bottom:18px}
+  .dl .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .dl h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em}
+  .dl-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow)}
+  .dl-ic{width:42px;height:42px;border-radius:12px;background:var(--mint);color:var(--forest);display:grid;place-items:center;font-size:1.3rem;font-weight:700;flex:none}
+  .dl-card h4{font-family:'Fraunces',serif;font-weight:600;font-size:1.08rem;margin-bottom:4px}
+  .dl-card p{font-size:.86rem;color:var(--ink-soft);line-height:1.45}
+  .dl-card .btn{margin-left:auto;background:var(--forest);color:#fff;border-color:var(--forest)}
+  .dl-card .btn:hover{background:var(--forest-deep)}
+
+  .hub{margin:50px 0 20px}
+  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
+  .mcard.live{border-color:var(--forest);box-shadow:var(--shadow)}
+  .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
+  .mcard.live .ic{background:var(--forest);color:#fff}
+  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+  .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
+  .badge.now{background:var(--forest);color:#fff}
+  .badge.soon{background:var(--paper-2);color:var(--ink-soft)}
+
+  footer{margin-top:46px;border-top:1px solid var(--line);padding:26px 0 50px}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .disc b{color:var(--ink);font-weight:700}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
+  .foot-meta a{color:var(--forest);text-decoration:none}
+
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
+      <b>Money<span>Milestones</span></b>
+    </a>
+    <nav class="top">
+      <a href="index.html">Parental leave</a>
+      <a href="redundancy.html" class="active">Redundancy</a>
+      <a href="salary-sacrifice.html">Salary sacrifice</a>
+      <a href="novated-lease.html">Novated lease</a>
+      <a href="business-vehicle.html">Business car</a>
+      <a href="mortgage-payoff.html">Mortgage payoff</a>
+      <a href="articles.html">Articles</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>2025-26 ATO &amp; Fair Work figures</span>
+    <h1>Made redundant? See <em>what you'll actually keep</em>.</h1>
+    <p class="lede">Your redundancy payout isn't all taxed the same way. We separate the tax-free part, the ETP, your unused leave and notice — so you can see the real net figure landing in your account.</p>
+    <div class="verify-flag">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
+      <span><b>Prototype.</b> Tax-free limits, the ETP cap and rates are shown as editable assumptions. Confirm current figures with the ATO and check your award, agreement or contract — they often beat the legal minimum.</span>
+    </div>
+  </section>
+
+  <div class="app">
+    <!-- INPUTS -->
+    <div class="panel">
+      <div class="panel-head"><span class="num">1</span><h2>Your redundancy</h2></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="salary">Annual base salary <span class="hint">(before tax)</span></label>
+          <div class="input-money"><input type="number" id="salary" value="95000" min="0" step="1000"></div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="years">Years of service <span class="hint">(continuous)</span></label>
+            <input type="number" id="years" value="6" min="0" step="0.5">
+          </div>
+          <div class="field">
+            <label for="age">Your age</label>
+            <input type="number" id="age" value="42" min="15" step="1">
+          </div>
+        </div>
+        <div class="field">
+          <label for="bigBiz">Employer size</label>
+          <select id="bigBiz"><option value="1">15 or more employees</option><option value="0">Small business (under 15)</option></select>
+        </div>
+        <div class="field">
+          <label for="sevWeeks">Redundancy pay <span class="hint">(weeks — auto from NES, override if your award is better)</span></label>
+          <input type="number" id="sevWeeks" value="11" min="0" step="0.5">
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="leaveWeeks">Unused annual leave <span class="hint">(weeks)</span></label>
+            <input type="number" id="leaveWeeks" value="4" min="0" step="0.5">
+          </div>
+          <div class="field">
+            <label for="pilonWeeks">Notice paid in lieu <span class="hint">(weeks)</span></label>
+            <input type="number" id="pilonWeeks" value="0" min="0" step="0.5">
+          </div>
+        </div>
+        <div class="toggles">
+          <div class="toggle"><span>This is a genuine redundancy</span>
+            <label class="switch"><input type="checkbox" id="genuine" checked><span class="slider"></span></label></div>
+        </div>
+
+        <details class="assume">
+          <summary>Tax-free limits &amp; ETP rates (2025-26) <span class="chev">▾</span></summary>
+          <div class="assume-body">
+            <p class="assume-note">Defaults reflect the ATO 2025-26 genuine-redundancy figures. They're indexed each year — verify before relying on a result.</p>
+            <div class="row2">
+              <div class="field"><label for="tfBase">Tax-free base</label><div class="input-money"><input type="number" id="tfBase" value="13100" step="1"></div></div>
+              <div class="field"><label for="tfYear">Tax-free per year</label><div class="input-money"><input type="number" id="tfYear" value="6552" step="1"></div></div>
+            </div>
+            <div class="field"><label for="etpCap">ETP cap</label><div class="input-money"><input type="number" id="etpCap" value="260000" step="1000"></div></div>
+            <div class="row2">
+              <div class="field"><label for="etpUnder">ETP rate (under 60)</label><div class="pct"><input type="number" id="etpUnder" value="32" step="0.5"><span>%</span></div></div>
+              <div class="field"><label for="etpOver">ETP rate (60+)</label><div class="pct"><input type="number" id="etpOver" value="17" step="0.5"><span>%</span></div></div>
+            </div>
+            <div class="field"><label for="leaveRate">Unused leave tax rate</label><div class="pct"><input type="number" id="leaveRate" value="32" step="0.5"><span>%</span></div></div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel result-panel">
+      <div class="panel-head"><span class="num">2</span><h2>What you'll keep</h2></div>
+      <div class="panel-body">
+        <div class="headline">
+          <div class="small">Estimated net payout in your hand</div>
+          <div class="bignum"><span class="cur">$</span><span id="net">0</span></div>
+          <div class="sub">on the termination payments — before any other end-of-year tax adjustment.</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><div class="k">Gross payout</div><div class="v">$<span id="gross">0</span></div></div>
+          <div class="stat"><div class="k">Tax-free portion</div><div class="v">$<span id="tfree">0</span></div></div>
+          <div class="stat"><div class="k">Tax withheld</div><div class="v">$<span id="totTax">0</span></div></div>
+          <div class="stat"><div class="k">NES notice</div><div class="v"><span id="noticeWk">0</span> wks</div></div>
+        </div>
+
+        <div class="bd" id="breakdown"></div>
+
+        <div class="note-line" id="noteLine"></div>
+
+        <div class="result-actions">
+          <button class="btn btn-solid" id="pdfBtn">↓ Download payout summary (PDF)</button>
+          <button class="btn btn-ghost" id="shareBtn">⛓ Copy share link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUIDE -->
+  <article class="guide">
+    <span class="kicker">The guide</span>
+    <h2 class="gtitle">How a redundancy payout is taxed in Australia</h2>
+    <div class="byline">
+      <span class="av">MM</span>
+      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
+      <span class="vstamp">✓ Figures to be verified vs ATO &amp; Fair Work</span>
+    </div>
+    <div class="prose">
+      <p>A redundancy payout looks like one lump sum, but the tax office sees several different payments, each taxed its own way. That's why two people with the same headline figure can keep very different amounts. Here's how the pieces fit together.</p>
+
+      <h3>What you're entitled to</h3>
+      <p>Under the National Employment Standards, redundancy pay is based on your years of continuous service, on a sliding scale from <strong>4 weeks</strong> (at one year) up to <strong>16 weeks</strong> (at nine to ten years). One quirk catches people out: at <strong>ten or more years</strong> it drops back to 12 weeks, because long service leave is assumed to fill the gap. Your award, enterprise agreement or contract can be more generous than the NES — always the higher figure applies. Small businesses with fewer than 15 employees are generally exempt from NES redundancy pay, though an award may still require it. You're usually also owed notice (or pay in lieu) and any unused leave on top.</p>
+
+      <h3>The tax-free shelter</h3>
+      <p>If your redundancy is <strong>genuine</strong> — your role is abolished, not just you being let go — a chunk of the redundancy payment is completely tax-free. For 2025-26 that's a base amount plus a set amount for every completed year of service. The longer you've been there, the bigger the shelter, and for many people with modest payouts the <em>entire</em> redundancy payment falls under the limit and is tax-free.</p>
+
+      <h3>The ETP, and everything else</h3>
+      <p>Anything above the tax-free limit becomes an <strong>Employment Termination Payment (ETP)</strong>, taxed at a concessional flat rate (lower once you're 60 or older) up to a cap, then at the top marginal rate above it. Unused annual leave paid out on a genuine redundancy is taxed at its own concessional flat rate. Payment in lieu of notice is generally treated as part of the ETP. Each of these is handled separately in the calculator above.</p>
+
+      <div class="example">
+        <div class="ex-h">A worked example <span class="tag">illustration only</span></div>
+        <table>
+          <tr><td>Salary $95,000 · 6 years' service · 11 weeks redundancy</td><td>$20,096</td></tr>
+          <tr><td>Tax-free limit: $13,100 + (6 × $6,552)</td><td>$52,412</td></tr>
+          <tr><td>Redundancy within the tax-free limit</td><td>Tax-free</td></tr>
+          <tr><td>Unused leave (4 weeks), taxed ~32%</td><td>taxed</td></tr>
+          <tr><td>Net in hand</td><td>see your result</td></tr>
+        </table>
+      </div>
+
+      <h3>Before you sign anything</h3>
+      <ul>
+        <li><strong>Ask for written confirmation</strong> that it's a genuine redundancy — it determines whether the tax-free shelter applies.</li>
+        <li><strong>Check your award or agreement</strong> for redundancy terms better than the NES.</li>
+        <li><strong>Consider timing.</strong> If you're close to completing another year, a slightly later termination date can lift your tax-free limit.</li>
+        <li><strong>Remember the payout counts as income</strong> for things like HELP/HECS repayments and Centrelink waiting periods.</li>
+      </ul>
+
+      <div class="callout">
+        <b>How we calculate this.</b> We apply the 2025-26 genuine-redundancy tax-free limit (base + per-year amount), tax the excess and any payment in lieu of notice as an ETP at the concessional rate for your age (within the ETP cap, then 47% above it), and tax unused leave at the concessional flat rate. We don't model your other income for the year, the whole-of-income cap, invalidity segments, or pre-1978 leave. These are editable assumptions — confirm current figures with the ATO and your award.
+      </div>
+    </div>
+  </article>
+
+  <!-- DOWNLOADS -->
+  <section class="dl">
+    <div class="dl-head"><span class="kicker">Free resource</span><h2 class="gtitle">Know what you're owed</h2></div>
+    <div class="dl-card">
+      <div class="dl-ic">✓</div>
+      <div><h4>Redundancy entitlements checklist</h4><p>A printable list: what to confirm, what you're owed, the tax angles, and the deadlines that matter (including the 21-day unfair-dismissal window).</p></div>
+      <button class="btn" id="dlChecklist">Download PDF</button>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
+    <details><summary><span class="q">How much redundancy pay am I entitled to?</span><span class="pm"></span></summary>
+      <div class="a">Under the NES it's based on continuous service, from 4 weeks at one year up to 16 weeks at nine to ten years, then back to 12 weeks at ten-plus years. Your award, agreement or contract may provide more — the higher amount applies.</div></details>
+    <details><summary><span class="q">Is my redundancy payout taxed?</span><span class="pm"></span></summary>
+      <div class="a">Part of a genuine redundancy is tax-free (a base amount plus a per-year amount for 2025-26). Anything above that is taxed as an ETP at a concessional rate, and unused leave is taxed at its own concessional rate. Many modest payouts end up entirely or mostly tax-free.</div></details>
+    <details><summary><span class="q">What makes a redundancy "genuine"?</span><span class="pm"></span></summary>
+      <div class="a">Your position is abolished and the employer no longer needs anyone to do your job. If you're simply dismissed, resign, or your role is filled by someone else, the tax-free treatment generally doesn't apply and the whole payment is an ETP. Ask for written confirmation.</div></details>
+    <details><summary><span class="q">Do small businesses have to pay redundancy?</span><span class="pm"></span></summary>
+      <div class="a">Employers with fewer than 15 employees are generally exempt from NES redundancy pay, though your award or enterprise agreement may still require it. You may still be entitled to notice and unused leave.</div></details>
+    <details><summary><span class="q">Does my payout affect HECS/HELP or Centrelink?</span><span class="pm"></span></summary>
+      <div class="a">It can. The taxable parts count toward your income for the year, which can affect HELP/HECS repayments, and a redundancy payout may create a waiting period before income-support payments. Check with the ATO and Services Australia.</div></details>
+    <details><summary><span class="q">How long do I have to dispute a redundancy?</span><span class="pm"></span></summary>
+      <div class="a">If you believe a dismissal wasn't a genuine redundancy, there is a strict 21-day window from termination to lodge an unfair-dismissal application with the Fair Work Commission. Don't miss it — seek advice quickly.</div></details>
+  </section>
+
+  <!-- HUB -->
+  <section class="hub">
+    <h3>Your next milestone</h3>
+    <p class="sub">The same engine powers every calculation here — one income picture, every life event it touches.</p>
+    <div class="cards">
+      <a class="mcard live" href="index.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.5"/><path d="M4 16c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Parental leave pay</h4>
+        <p>Take-home, super and the income gap across your leave.</p>
+      </a>
+      <a class="mcard live" href="redundancy.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 7h12v9H4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg></div>
+        <h4>Redundancy payout</h4>
+        <p>Entitlement, the tax-free portion and net pay in hand.</p>
+      </a>
+      <a class="mcard live" href="salary-sacrifice.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <h4>Salary sacrifice vs take-home</h4>
+        <p>Into super, onto the mortgage, or kept as cash — compared.</p>
+      </a>
+      <a class="mcard live" href="novated-lease.html">
+        <span class="badge now">Live</span>
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M5 13h10v3H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="16" r="1.3" fill="currentColor"/><circle cx="13" cy="16" r="1.3" fill="currentColor"/></svg></div>
+        <h4>Novated lease vs buy</h4>
+        <p>The real after-tax cost of packaging your next car.</p>
+      </a>
+      <a class="mcard live" href="business-vehicle.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M4 13h12v3H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Business car finance</h4><p>Chattel mortgage, lease or cash for a work vehicle.</p></a>
+      <a class="mcard live" href="mortgage-payoff.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Pay off your mortgage faster</h4><p>Extra repayments and offset, years and interest saved.</p></a>
+    </div>
+  </section>
+
+  <section style="margin:16px 0 0">
+    <a href="redundancy-what-youre-owed.html" style="display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ochre);border-radius:16px;padding:17px 20px;text-decoration:none;color:inherit;box-shadow:var(--shadow)">
+      <span style="flex:none;width:40px;height:40px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--forest)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3h7l3 3v11H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6.5h3M7.5 9.5h5M7.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      <span style="flex:1"><span style="display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ochre)">Related guide</span><span style="display:block;font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;color:var(--ink);margin-top:2px">Made redundant? What you’re actually owed</span></span>
+      <span style="flex:none;color:var(--forest);font-weight:700;font-size:.9rem;white-space:nowrap">Read &rarr;</span>
+    </a>
+  </section>
+
+  <footer>
+    <div class="disc">
+      <b>General information only — not financial, tax or legal advice.</b> This calculator estimates the tax on your termination payments using the figures you enter and the 2025-26 ATO genuine-redundancy limits and ETP rules. It does not account for your other income for the year, the whole-of-income cap, invalidity segments, pre-16-August-1978 service, existing PAYG withholding, or tax offsets. Your entitlements may be higher under an award, enterprise agreement or contract. Always confirm current figures with <b>ato.gov.au</b> and <b>fairwork.gov.au</b>, and speak with a registered tax agent or employment-law adviser about your situation.
+    </div>
+    <div class="foot-meta">
+      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>Methodology: NES redundancy scale + 2025-26 genuine-redundancy tax-free limit, ETP &amp; concessional leave rates.</span>
+    </div>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"How much redundancy pay am I entitled to in Australia?","acceptedAnswer":{"@type":"Answer","text":"Under the National Employment Standards it is based on continuous service, from 4 weeks at one year up to 16 weeks at nine to ten years, then 12 weeks at ten or more years. An award, agreement or contract may provide more, and the higher amount applies."}},
+    {"@type":"Question","name":"Is my redundancy payout taxed?","acceptedAnswer":{"@type":"Answer","text":"Part of a genuine redundancy is tax-free (a base amount plus a per-year amount for 2025-26). Amounts above that are taxed as an ETP at a concessional rate, and unused leave is taxed at its own concessional rate."}},
+    {"@type":"Question","name":"What makes a redundancy genuine?","acceptedAnswer":{"@type":"Answer","text":"Your position is abolished and the employer no longer needs anyone to do your job. If you are simply dismissed or your role is filled by someone else, the tax-free treatment generally does not apply."}},
+    {"@type":"Question","name":"Do small businesses have to pay redundancy?","acceptedAnswer":{"@type":"Answer","text":"Employers with fewer than 15 employees are generally exempt from NES redundancy pay, though an award or enterprise agreement may still require it. Notice and unused leave may still be owed."}},
+    {"@type":"Question","name":"Does a redundancy payout affect HECS or Centrelink?","acceptedAnswer":{"@type":"Answer","text":"It can. Taxable parts count toward your income for the year, which can affect HELP/HECS repayments, and a payout may create a waiting period before Centrelink income support."}},
+    {"@type":"Question","name":"How long do I have to dispute a redundancy?","acceptedAnswer":{"@type":"Answer","text":"There is a strict 21-day window from termination to lodge an unfair-dismissal application with the Fair Work Commission. Seek advice quickly if you believe it was not a genuine redundancy."}}
+  ]
+}
+</script>
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  const $=id=>document.getElementById(id);
+  const AUD0=new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
+  const PRES_AGE=60; // preservation age for ETP concessional rate
+  let LAST={};
+
+  function nesWeeks(y){if(y<1)return 0;if(y<2)return 4;if(y<3)return 6;if(y<4)return 7;if(y<5)return 8;if(y<6)return 10;if(y<7)return 11;if(y<8)return 13;if(y<9)return 14;if(y<10)return 16;return 12;}
+  function noticeWeeks(y,age){let w=y<1?1:y<3?2:y<5?3:4;if(age>=45&&y>=2)w+=1;return w;}
+
+  let lastYears=null,lastBig=null;
+  function calc(){
+    const salary=+$('salary').value||0;
+    const years=Math.max(0,+$('years').value||0);
+    const yc=Math.floor(years);
+    const age=+$('age').value||0;
+    const bigBiz=$('bigBiz').value==='1';
+    const genuine=$('genuine').checked;
+    const weekly=salary/52;
+
+    // Auto-fill NES redundancy weeks when years or employer size change
+    const nes=bigBiz?nesWeeks(yc):0;
+    if(years!==lastYears||bigBiz!==lastBig){$('sevWeeks').value=nes;lastYears=years;lastBig=bigBiz;}
+    const sevWeeks=Math.max(0,+$('sevWeeks').value||0);
+
+    const leaveWeeks=Math.max(0,+$('leaveWeeks').value||0);
+    const pilonWeeks=Math.max(0,+$('pilonWeeks').value||0);
+
+    const tfBase=+$('tfBase').value||0, tfYear=+$('tfYear').value||0;
+    const etpCap=+$('etpCap').value||0;
+    const etpRate=(age>=PRES_AGE?(+$('etpOver').value||0):(+$('etpUnder').value||0))/100;
+    const leaveRate=(+$('leaveRate').value||0)/100;
+
+    const severance=sevWeeks*weekly;
+    const pilon=pilonWeeks*weekly;
+    const leavePay=leaveWeeks*weekly;
+
+    const taxFreeLimit=genuine?(tfBase+tfYear*yc):0;
+    const sevTaxFree=Math.min(severance,taxFreeLimit);
+    const sevETP=Math.max(0,severance-taxFreeLimit);
+
+    const totalETP=sevETP+pilon;
+    const etpWithinCap=Math.min(totalETP,etpCap);
+    const etpAboveCap=Math.max(0,totalETP-etpCap);
+    const etpTax=etpWithinCap*etpRate+etpAboveCap*0.47;
+    const leaveTax=leavePay*leaveRate;
+
+    const gross=severance+pilon+leavePay;
+    const totalTax=etpTax+leaveTax;
+    const netPayout=gross-totalTax;
+    const notice=noticeWeeks(yc,age);
+
+    LAST={salary,years,yc,age,bigBiz,genuine,sevWeeks,leaveWeeks,pilonWeeks,severance,pilon,leavePay,taxFreeLimit,sevTaxFree,sevETP,totalETP,etpTax,leaveTax,gross,totalTax,netPayout,notice,etpRatePct:Math.round(etpRate*100),leaveRatePct:Math.round(leaveRate*100)};
+
+    $('net').textContent=AUD0.format(netPayout);
+    $('gross').textContent=AUD0.format(gross);
+    $('tfree').textContent=AUD0.format(sevTaxFree);
+    $('totTax').textContent=AUD0.format(totalTax);
+    $('noticeWk').textContent=notice;
+
+    const m=v=>'$'+AUD0.format(v);
+    let bd='';
+    bd+=row('Redundancy pay ('+sevWeeks+' wks)',m(severance));
+    bd+=sub('Tax-free portion',m(sevTaxFree));
+    if(sevETP>0)bd+=sub('Taxable (ETP) portion',m(sevETP));
+    if(pilon>0)bd+=row('Payment in lieu of notice',m(pilon));
+    if(totalETP>0)bd+=rowTax('Tax on ETP (~'+LAST.etpRatePct+'%)','− '+m(etpTax));
+    bd+=row('Unused annual leave ('+leaveWeeks+' wks)',m(leavePay));
+    if(leavePay>0)bd+=rowTax('Tax on leave (~'+LAST.leaveRatePct+'%)','− '+m(leaveTax));
+    bd+=rowTotal('Net payout in hand',m(netPayout));
+    $('breakdown').innerHTML=bd;
+
+    let note='<b>Notice:</b> Your NES notice entitlement is about '+notice+' week'+(notice===1?'':'s')+'. If you work it out rather than being paid in lieu, leave it at 0 above.';
+    if(!bigBiz)note+=' As a small-business employee you may have no NES redundancy pay — check your award.';
+    if(!genuine)note+=' Because this isn\u2019t marked as a genuine redundancy, none of the payment is tax-free.';
+    $('noteLine').innerHTML=note;
+  }
+  function row(k,v){return '<div class="bd-row"><span>'+k+'</span><span class="v">'+v+'</span></div>';}
+  function sub(k,v){return '<div class="bd-row sub"><span>'+k+'</span><span class="v">'+v+'</span></div>';}
+  function rowTax(k,v){return '<div class="bd-row tax"><span>'+k+'</span><span class="v">'+v+'</span></div>';}
+  function rowTotal(k,v){return '<div class="bd-row total"><span>'+k+'</span><span class="v">'+v+'</span></div>';}
+
+  document.querySelectorAll('input,select').forEach(e=>{e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+  /* Toast */
+  let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+
+  /* Share link */
+  const FIELDS=['salary','years','age','bigBiz','sevWeeks','leaveWeeks','pilonWeeks','genuine','tfBase','tfYear','etpCap','etpUnder','etpOver','leaveRate'];
+  function readParams(){const p=new URLSearchParams(location.search);FIELDS.forEach(f=>{if(!p.has(f))return;const el=$(f);if(!el)return;if(el.type==='checkbox')el.checked=p.get(f)==='1';else el.value=p.get(f);});}
+  function buildLink(){const p=new URLSearchParams();FIELDS.forEach(f=>{const el=$(f);if(!el)return;p.set(f,el.type==='checkbox'?(el.checked?'1':'0'):el.value);});return location.origin+location.pathname+'?'+p.toString();}
+  function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Share link copied');}catch(e){toast('Copy failed — link in address bar');}document.body.removeChild(ta);}
+  $('shareBtn').addEventListener('click',()=>{const link=buildLink();try{history.replaceState(null,'',link);}catch(e){}if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(link).then(()=>toast('Share link copied to clipboard')).catch(()=>fallbackCopy(link));else fallbackCopy(link);});
+
+  /* PDF summary */
+  $('pdfBtn').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});let y=58;
+    doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(20);doc.setTextColor(30,37,34);doc.text('Your redundancy payout summary',40,y);y+=18;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Prepared with MoneyMilestones · '+new Date().toLocaleDateString('en-AU'),40,y);y+=30;
+    doc.setFillColor(234,242,236);doc.roundedRect(40,y,515,66,8,8,'F');
+    doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Estimated net payout in your hand',58,y+24);
+    doc.setFont('helvetica','bold');doc.setFontSize(24);doc.setTextColor(27,94,75);doc.text('$'+AUD0.format(LAST.netPayout),58,y+52);y+=94;
+    function r(k,v){doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,65,59);doc.text(k,40,y);doc.setFont('helvetica','bold');doc.setTextColor(30,37,34);doc.text(String(v),555,y,{align:'right'});doc.setDrawColor(231,222,206);doc.line(40,y+9,555,y+9);y+=27;}
+    r('Years of service',LAST.years+' ('+LAST.yc+' completed)');
+    r('Redundancy pay ('+LAST.sevWeeks+' wks)','$'+AUD0.format(LAST.severance));
+    r('Tax-free limit','$'+AUD0.format(LAST.taxFreeLimit));
+    r('Tax-free portion','$'+AUD0.format(LAST.sevTaxFree));
+    r('Taxable ETP (incl. PILON)','$'+AUD0.format(LAST.totalETP));
+    r('Unused leave ('+LAST.leaveWeeks+' wks)','$'+AUD0.format(LAST.leavePay));
+    r('Total tax withheld','$'+AUD0.format(LAST.totalTax));
+    r('NES notice entitlement',LAST.notice+' weeks');
+    y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
+    const disc='General information only — not financial, tax or legal advice. Uses the 2025-26 ATO genuine-redundancy tax-free limit and ETP/leave concessional rates, and does not model your other income, the whole-of-income cap, invalidity segments or pre-1978 service. Your entitlements may be higher under an award or agreement. Confirm with ato.gov.au and fairwork.gov.au.';
+    doc.text(doc.splitTextToSize(disc,515),40,y);
+    doc.save('redundancy-payout-summary.pdf');toast('Summary downloaded');
+  });
+
+  /* Checklist PDF */
+  $('dlChecklist').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});let y=58;
+    doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(19);doc.setTextColor(30,37,34);doc.text('Redundancy entitlements checklist',40,y);y+=20;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('A MoneyMilestones planning tool — work through these as soon as redundancy is raised.',40,y);y+=26;
+    const sections=[
+      ['Confirm the basics',['Get written confirmation the redundancy is genuine (your role is abolished)','Find your years of continuous service','Check your award, enterprise agreement or contract for better-than-NES terms','Confirm employer size (under 15 employees changes NES redundancy pay)']],
+      ['What you should be paid',['Redundancy pay per the NES scale (or better)','Notice period, or payment in lieu of notice','Unused annual leave (plus any leave loading)','Unused long service leave if eligible','Any outstanding wages, allowances or bonuses']],
+      ['The tax angles',['Work out your genuine-redundancy tax-free limit for the year','Understand which parts are ETP vs tax-free vs leave','Ask for an itemised final-pay breakdown before your last day','Consider salary-sacrificing to super before termination, if possible']],
+      ['Deadlines & next steps',['Lodge any unfair-dismissal claim within 21 days of termination','Register with Centrelink (a payout may create a waiting period)','Check the impact on your HELP/HECS repayments for the year','Update your resume and start your job search early']]
+    ];
+    sections.forEach(([h,items])=>{
+      if(y>760){doc.addPage();y=58;}
+      doc.setFont('helvetica','bold');doc.setFontSize(12);doc.setTextColor(27,94,75);doc.text(h,40,y);y+=18;
+      doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(40,45,42);
+      items.forEach(it=>{if(y>800){doc.addPage();y=58;}doc.setDrawColor(27,94,75);doc.setLineWidth(1);doc.rect(42,y-9,11,11);const lines=doc.splitTextToSize(it,470);doc.text(lines,62,y);y+=(lines.length*14)+8;});
+      y+=10;
+    });
+    doc.save('redundancy-entitlements-checklist.pdf');toast('Checklist downloaded');
+  });
+
+  /* Init */
+  readParams();
+  lastYears=Math.max(0,+$('years').value||0);lastBig=$('bigBiz').value==='1';
+  calc();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salary Sacrifice to Super or Pay Off the Mortgage? | MoneyMilestones</title>
+<meta name="description" content="Extra into super, onto the mortgage, or kept as cash? Compare the tax saving, the guaranteed return and the liquidity trade-off for Australians in 2025-26.">
+<link rel="canonical" href="https://moneymilestones.com.au/salary-sacrifice-vs-mortgage.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
+  --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
+  --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+  --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+/* Header / nav */
+header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+.mark{width:34px;height:34px;flex:none}
+.brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+.brand b span{color:var(--forest)}
+nav.top{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+nav.top a.active{background:var(--forest);color:#fff}
+
+/* Article header */
+.post{max-width:740px;margin:30px auto 0}
+.kicker{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre);margin-bottom:12px}
+.post h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,2.9rem);line-height:1.06;letter-spacing:-.02em;margin-bottom:16px}
+.post h1 em{font-style:italic;color:var(--forest)}
+.post-lede{font-size:1.16rem;color:var(--ink-soft);line-height:1.5;margin-bottom:22px}
+.post-meta{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:30px;font-size:.83rem;color:var(--ink-soft)}
+.post-meta .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+.post-meta b{color:var(--ink);font-weight:600}
+.post-meta .dot{color:var(--line)}
+.post-meta .stamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+
+/* Prose */
+.prose p{margin-bottom:17px;font-size:1.07rem;color:#33392F}
+.prose h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.62rem;letter-spacing:-.015em;margin:36px 0 12px;color:var(--ink)}
+.prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.24rem;letter-spacing:-.01em;margin:26px 0 9px;color:var(--ink)}
+.prose ul,.prose ol{margin:0 0 18px 0;padding-left:2px;list-style:none}
+.prose li{position:relative;padding-left:28px;margin-bottom:10px;font-size:1.07rem;color:#33392F}
+.prose li::before{content:"";position:absolute;left:5px;top:10px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+.prose strong{color:var(--ink);font-weight:700}
+.prose a{color:var(--forest);font-weight:600;text-decoration:underline;text-underline-offset:2px;text-decoration-color:#BcdCcb}
+.prose a:hover{color:var(--forest-deep)}
+.callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:17px 19px;margin:24px 0;font-size:.97rem;color:#274A3D;line-height:1.55}
+.callout b{color:var(--forest-deep)}
+
+/* CTA box -> tool */
+.cta{background:linear-gradient(165deg,#173F33,#0E3329);color:#EAF2EC;border-radius:18px;padding:24px 26px;margin:30px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;box-shadow:var(--shadow)}
+.cta h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.3rem;color:#fff;margin-bottom:5px;letter-spacing:-.01em}
+.cta p{font-size:.92rem;color:#BFD4C8;max-width:46ch;margin:0}
+.cta-btn{flex:none;background:var(--ochre);color:#3A2406;font-weight:700;font-size:.95rem;text-decoration:none;padding:13px 22px;border-radius:11px;transition:background .15s;white-space:nowrap}
+.cta-btn:hover{background:#E8A951}
+
+/* Related */
+.related{max-width:740px;margin:46px auto 0}
+.related h3{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;letter-spacing:-.01em;margin-bottom:16px}
+.rel-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.rel-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;text-decoration:none;color:inherit;transition:transform .18s,box-shadow .18s;display:block}
+.rel-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.rel-card .tag{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ochre)}
+.rel-card h4{font-family:'Fraunces',serif;font-size:1.05rem;font-weight:600;margin:6px 0 4px}
+.rel-card p{font-size:.84rem;color:var(--ink-soft);line-height:1.4}
+
+/* Index page */
+.idx-hero{max-width:740px;margin:34px auto 6px}
+.idx-hero .kicker{color:var(--ochre)}
+.idx-hero h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3rem);letter-spacing:-.02em;line-height:1.05;margin:10px 0 12px}
+.idx-hero p{font-size:1.1rem;color:var(--ink-soft);max-width:56ch}
+.idx-list{max-width:740px;margin:24px auto 0;display:flex;flex-direction:column;gap:14px}
+.idx-item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 24px;text-decoration:none;color:inherit;transition:transform .15s,box-shadow .15s;box-shadow:var(--shadow)}
+.idx-item:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.idx-item .tag{font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ochre)}
+.idx-item h2{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin:7px 0 6px;color:var(--ink)}
+.idx-item p{font-size:.96rem;color:var(--ink-soft);line-height:1.5}
+.idx-item .more{display:inline-block;margin-top:10px;font-size:.86rem;font-weight:700;color:var(--forest)}
+
+/* Footer */
+footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 50px}
+.disc{max-width:1036px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+.disc b{color:var(--ink);font-weight:700}
+.foot-meta{max-width:1036px;margin:16px auto 0;font-size:.78rem;color:var(--ink-soft)}
+.foot-meta a{color:var(--forest);text-decoration:none}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html"><svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg><b>Money<span>Milestones</span></b></a>
+    <nav class="top">
+      <a href="index.html">Parental leave</a><a href="redundancy.html">Redundancy</a><a href="salary-sacrifice.html">Salary sacrifice</a><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a><a href="mortgage-payoff.html">Mortgage payoff</a><a href="articles.html" class="active">Articles</a>
+    </nav>
+  </header>
+
+  <article class="post">
+    <span class="kicker">Guide · Super &amp; mortgage</span>
+    <h1>Salary sacrifice to super, or <em>pay off the mortgage</em>?</h1>
+    <p class="post-lede">It's one of the most common money questions in Australia — and the honest answer is "it depends." Here's exactly what it depends on, so you can decide for yourself.</p>
+    <div class="post-meta">
+      <span class="av">MM</span>
+      <span>By the <b>MoneyMilestones</b> team</span>
+      <span class="dot">·</span><span>Updated 1 June 2026</span>
+      <span class="stamp">✓ Verify with the ATO</span>
+    </div>
+
+    <div class="prose">
+      <p>You've got some spare room in the budget — a pay rise, a bonus, or simply a bit left over each month. Three doors open: send it to super before tax, throw it at the home loan, or keep it as take-home. Each is taxed and treated differently, and the gap over time can be substantial.</p>
+
+      <h2>Why super is tax-efficient</h2>
+      <p>Money you salary sacrifice into super is taxed at a flat <strong>15%</strong> going in, instead of your marginal rate — which for many earners is 30% or more once the Medicare levy is counted. That difference is an immediate, guaranteed saving. The catch is access: super is <strong>preserved</strong>, meaning you generally can't touch it until you reach 60 and retire. Great for the long game, useless if you might need the money sooner.</p>
+
+      <h2>Why the mortgage is quietly powerful</h2>
+      <p>Every dollar off your home loan saves you the loan's interest rate — and that saving is effectively <strong>tax-free and guaranteed</strong>. With rates where they've been, paying down the mortgage can beat the after-tax return of a risky investment, with none of the risk. Keep the money in an offset account and you even retain access to it. For a lot of households, this is the calm, sensible middle path.</p>
+
+      <h2>Why you might keep the cash</h2>
+      <p>Take-home is the least tax-efficient on paper — taxed at your marginal rate, and taxed again on any earnings if you invest it outside super. But it's <strong>completely liquid</strong>. If a house deposit, a career break, or simple peace of mind is on the horizon, that flexibility can outweigh a few percentage points.</p>
+
+      <div class="callout">
+        <b>Two traps to watch.</b> Your salary sacrifice plus your employer's compulsory super both count toward the annual <b>concessional cap ($30,000 for 2025-26)</b> — go over and the excess is taxed at your marginal rate. And if your income plus contributions tops <b>$250,000</b>, Division 293 taxes your contributions at 30% rather than 15%, shrinking (but not erasing) the benefit.
+      </div>
+
+      <h2>So how do you choose?</h2>
+      <p>A few rules of thumb that fall out of the maths:</p>
+      <ul>
+        <li>The <strong>higher your marginal tax rate</strong>, the more salary sacrifice pulls ahead — the 15% concession is worth more to you.</li>
+        <li>The <strong>higher your mortgage rate</strong>, the more attractive paying it down becomes versus an uncertain investment return.</li>
+        <li>The <strong>sooner you might need the money</strong>, the more weight liquidity deserves — which favours the mortgage (via offset) or cash over locked-away super.</li>
+        <li>Many people sensibly <strong>split the difference</strong> rather than going all-in on one.</li>
+      </ul>
+
+      <div class="cta">
+        <div>
+          <h3>Put numbers on it</h3>
+          <p>Compare super, mortgage and cash side by side over your timeframe — including the tax you'd save each year.</p>
+        </div>
+        <a class="cta-btn" href="salary-sacrifice.html">Open the calculator →</a>
+      </div>
+
+      <p>The right answer genuinely turns on your tax rate, your loan rate, your timeframe and your appetite for locking money away — which is why a calculator beats a blanket rule. Treat projections as comparisons, not forecasts, confirm the super rules at the ATO, and run big decisions past a licensed financial adviser.</p>
+    </div>
+  </article>
+
+  <section class="related">
+    <h3>Related tools</h3>
+    <div class="rel-cards">
+      <a class="rel-card" href="salary-sacrifice.html"><span class="tag">Tool</span><h4>Salary sacrifice vs take-home</h4><p>Super, mortgage or cash — compared over time.</p></a>
+      <a class="rel-card" href="mortgage-payoff.html"><span class="tag">Tool</span><h4>Pay off your mortgage faster</h4><p>See the years and interest extra repayments save.</p></a>
+      <a class="rel-card" href="articles.html"><span class="tag">Articles</span><h4>More guides</h4><p>Plain-English help for Australia's money moments.</p></a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="disc"><b>General information only — not financial advice.</b> Outcomes depend on your circumstances, tax rate, loan rate and assumptions that may not eventuate. Super is preserved until you meet a condition of release. Confirm current rules with ato.gov.au and speak with a licensed financial adviser before acting.</div>
+    <div class="foot-meta">© <span id="yr"></span> MoneyMilestones · <a href="articles.html">All articles</a></div>
+  </footer>
+</div>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","headline":"Salary sacrifice to super, or pay off the mortgage?","description":"Extra into super, onto the mortgage, or kept as cash? Compare the tax saving, the guaranteed return and the liquidity trade-off for Australians in 2025-26.","datePublished":"2026-06-01","dateModified":"2026-06-01","author":{"@type":"Organization","name":"MoneyMilestones"},"publisher":{"@type":"Organization","name":"MoneyMilestones"},"mainEntityOfPage":"https://moneymilestones.com.au/salary-sacrifice-vs-mortgage.html"}
+</script>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+</body>
+</html>

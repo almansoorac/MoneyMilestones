@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Car: Chattel Mortgage vs Lease vs Cash — MoneyMilestones</title>
+<meta name="description" content="For sole traders and small business: compare a chattel mortgage, a finance lease and paying cash for a work vehicle — depreciation, the instant asset write-off, GST credits and the tax deductions, in real after-tax dollars.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
+    --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
+    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;flex:none}
+  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b span{color:var(--forest)}
+  nav.top{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+  nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+  nav.top a.active{background:var(--forest);color:#fff}
+  .hero{padding:26px 0 22px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:17ch}
+  h1 em{font-style:italic;color:var(--forest)}
+  .lede{font-size:1.06rem;color:var(--ink-soft);max-width:58ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:64ch}
+  .verify-flag svg{flex:none;margin-top:1px}
+  .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
+  @media(max-width:860px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;font-weight:700;display:grid;place-items:center;flex:none}
+  .panel-body{padding:20px 22px}
+  .field{margin-bottom:17px}
+  label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  .input-money{position:relative}
+  .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
+  input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .input-money input{padding-left:26px}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .pct{position:relative}
+  .pct span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600}
+  details.assume{margin-top:18px;border:1px dashed var(--line);border-radius:13px;background:var(--paper)}
+  details.assume summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:.85rem;font-weight:600;color:var(--forest-deep);display:flex;align-items:center;gap:8px}
+  details.assume summary::-webkit-details-marker{display:none}
+  details.assume summary .chev{margin-left:auto;transition:transform .2s}
+  details.assume[open] summary .chev{transform:rotate(180deg)}
+  .assume-body{padding:4px 16px 16px}
+  .assume-note{font-size:.78rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.45}
+  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
+  .result-panel .panel-head h2{color:#fff}
+  .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
+  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
+  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.4rem,7vw,3.3rem);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:6px 0 4px;color:#fff}
+  .bignum .cur{color:var(--ochre)}
+  .headline .sub{font-size:.9rem;color:#BFD4C8}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
+  .stat{background:#143A2F;padding:13px 15px}
+  .stat .k{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:600;margin-top:5px;color:#fff}
+  .bars{margin-top:24px}
+  .bars .blbl{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+  .barrow{margin-bottom:15px}
+  .barrow .bl{display:flex;justify-content:space-between;font-size:.85rem;color:#DCE9E1;margin-bottom:6px;font-weight:600}
+  .barrow .bl .amt{font-variant-numeric:tabular-nums}
+  .bar-track{height:26px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .bf-chattel{background:linear-gradient(90deg,var(--ochre),#E8A951)}
+  .bf-lease{background:linear-gradient(90deg,#3E8E73,#5BAE90)}
+  .bf-cash{background:linear-gradient(90deg,#7C6CA8,#9A8AC4)}
+  .tag-best{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ochre);color:#3A2406;padding:2px 7px;border-radius:5px;margin-left:8px;vertical-align:middle}
+  .note-line{margin-top:18px;font-size:.82rem;color:#BFD4C8;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
+  .note-line b{color:#fff}
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
+  .btn-solid:hover{background:#E8A951}
+  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+  .guide{max-width:752px;margin:54px auto 0}
+  .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+  .prose strong{color:var(--ink);font-weight:700}
+  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout b{color:var(--forest-deep)}
+  .faq{max-width:752px;margin:48px auto 0}
+  .faq h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
+  .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
+  .faq details[open]{box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:1}
+  .faq summary .pm{width:22px;height:22px;flex:none;position:relative}
+  .faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;background:var(--forest);border-radius:2px;transition:.2s}
+  .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
+  .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
+  .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+  .hub{margin:50px 0 20px}
+  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
+  .mcard.live{border-color:var(--forest);box-shadow:var(--shadow)}
+  .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
+  .mcard.live .ic{background:var(--forest);color:#fff}
+  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+  .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
+  .badge.now{background:var(--forest);color:#fff}
+  .badge.soon{background:var(--paper-2);color:var(--ink-soft)}
+  footer{margin-top:46px;border-top:1px solid var(--line);padding:26px 0 50px}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .disc b{color:var(--ink);font-weight:700}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="site">
+    <a class="brand" href="index.html">
+      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
+      <b>Money<span>Milestones</span></b>
+    </a>
+    <nav class="top">
+      <a href="index.html">Parental leave</a>
+      <a href="redundancy.html">Redundancy</a>
+      <a href="salary-sacrifice.html">Salary sacrifice</a>
+      <a href="novated-lease.html">Novated lease</a>
+      <a href="business-vehicle.html" class="active">Business car</a>
+      <a href="mortgage-payoff.html">Mortgage payoff</a>
+      <a href="articles.html">Articles</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>For sole traders &amp; small business · 2025-26</span>
+    <h1>Business car: <em>chattel mortgage, lease, or cash</em>?</h1>
+    <p class="lede">How you finance a work vehicle changes what you can deduct, when, and how much GST you claw back. We compare the three options in real after-tax dollars — depreciation, the instant asset write-off and GST included.</p>
+    <div class="verify-flag">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
+      <span><b>Prototype — and business tax is complex.</b> This is a simplified model. It excludes FBT on employee use, balancing adjustments on sale, GST adjustments and more. Treat it as a starting point and confirm everything with your accountant.</span>
+    </div>
+  </section>
+
+  <div class="app">
+    <!-- INPUTS -->
+    <div class="panel">
+      <div class="panel-head"><span class="num">1</span><h2>Your business &amp; the car</h2></div>
+      <div class="panel-body">
+        <div class="field">
+          <label for="entity">Business structure</label>
+          <select id="entity"><option value="sole">Sole trader / partnership</option><option value="company">Company</option></select>
+        </div>
+        <div class="field" id="incomeField">
+          <label for="income">Your taxable income <span class="hint">(sets your marginal rate)</span></label>
+          <div class="input-money"><input type="number" id="income" value="120000" min="0" step="1000"></div>
+        </div>
+        <div class="field" id="companyRateField" style="display:none">
+          <label for="companyRate">Company tax rate</label>
+          <select id="companyRate"><option value="25">25% (base rate entity)</option><option value="30">30%</option></select>
+        </div>
+        <div class="field">
+          <label for="price">Vehicle price <span class="hint">(drive-away, incl GST)</span></label>
+          <div class="input-money"><input type="number" id="price" value="45000" min="0" step="1000"></div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="bu">Business use <span class="hint">%</span></label>
+            <div class="pct"><input type="number" id="bu" value="90" min="0" max="100" step="5"><span>%</span></div>
+          </div>
+          <div class="field">
+            <label for="gstreg">GST registered?</label>
+            <select id="gstreg"><option value="1">Yes</option><option value="0">No</option></select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="term">Term <span class="hint">(years)</span></label>
+            <select id="term"><option>1</option><option>2</option><option>3</option><option>4</option><option selected>5</option></select>
+          </div>
+          <div class="field">
+            <label for="rate">Finance rate <span class="hint">p.a.</span></label>
+            <div class="pct"><input type="number" id="rate" value="8.5" step="0.1"><span>%</span></div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="running">Annual running costs <span class="hint">(fuel, rego, insurance, servicing, tyres — incl GST)</span></label>
+          <div class="input-money"><input type="number" id="running" value="6000" min="0" step="250"></div>
+        </div>
+        <div class="field">
+          <label for="opp">If you pay cash, what could that money earn? <span class="hint">p.a.</span></label>
+          <div class="pct"><input type="number" id="opp" value="6" step="0.1"><span>%</span></div>
+        </div>
+
+        <details class="assume">
+          <summary>Depreciation &amp; GST assumptions (2025-26) <span class="chev">▾</span></summary>
+          <div class="assume-body">
+            <p class="assume-note">2025-26 defaults. The instant asset write-off is legislated to drop to $1,000 from 1 July 2026 unless extended — verify before relying on it.</p>
+            <div class="row2">
+              <div class="field"><label for="iawo">Instant write-off limit</label><div class="input-money"><input type="number" id="iawo" value="20000" step="1000"></div></div>
+              <div class="field"><label for="carLimit">Car cost limit</label><div class="input-money"><input type="number" id="carLimit" value="69674" step="100"></div></div>
+            </div>
+            <div class="row2">
+              <div class="field"><label for="residual">Lease residual</label><div class="pct"><input type="number" id="residual" value="28.13" step="0.01"><span>%</span></div></div>
+              <div class="field"><label for="gst">GST rate</label><div class="pct"><input type="number" id="gst" value="10" step="0.5"><span>%</span></div></div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel result-panel">
+      <div class="panel-head"><span class="num">2</span><h2>The comparison</h2></div>
+      <div class="panel-body">
+        <div class="headline">
+          <div class="small"><span id="winnerName">Chattel mortgage</span> is cheapest over <span id="termLbl">5</span> years — net cost about</div>
+          <div class="bignum"><span class="cur">$</span><span id="winnerVal">0</span></div>
+          <div class="sub" id="savingSub">— $<span id="winnerGap">0</span> less than the next option, after tax and GST.</div>
+        </div>
+        <div class="stat-grid">
+          <div class="stat"><div class="k">Chattel mortgage</div><div class="v">$<span id="chattelCost">0</span></div></div>
+          <div class="stat"><div class="k">Finance lease</div><div class="v">$<span id="leaseCost">0</span></div></div>
+          <div class="stat"><div class="k">Pay cash</div><div class="v">$<span id="cashCost">0</span></div></div>
+          <div class="stat"><div class="k">GST credit (buy)</div><div class="v">$<span id="gstCred">0</span></div></div>
+        </div>
+        <div class="bars">
+          <div class="blbl">Net cost after tax &amp; GST over <span id="termLbl2">5</span> years (lower is better)</div>
+          <div class="barrow">
+            <div class="bl"><span>Chattel mortgage<span class="tag-best" id="bestChattel" style="display:none">Cheapest</span></span><span class="amt">$<span id="bChattel">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-chattel" id="barChattel" style="width:0"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bl"><span>Finance lease<span class="tag-best" id="bestLease" style="display:none">Cheapest</span></span><span class="amt">$<span id="bLease">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-lease" id="barLease" style="width:0"></div></div>
+          </div>
+          <div class="barrow">
+            <div class="bl"><span>Pay cash<span class="tag-best" id="bestCash" style="display:none">Cheapest</span></span><span class="amt">$<span id="bCash">0</span></span></div>
+            <div class="bar-track"><div class="bar-fill bf-cash" id="barCash" style="width:0"></div></div>
+          </div>
+        </div>
+        <div class="note-line" id="noteLine"></div>
+        <div class="result-actions">
+          <button class="btn btn-solid" id="pdfBtn">↓ Download comparison (PDF)</button>
+          <button class="btn btn-ghost" id="shareBtn">⛓ Copy share link</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUIDE -->
+  <article class="guide">
+    <span class="kicker">The guide</span>
+    <h2 class="gtitle">Financing a work vehicle: the tax that decides it</h2>
+    <div class="byline">
+      <span class="av">MM</span>
+      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
+      <span class="vstamp">✓ Figures to be verified vs ATO</span>
+    </div>
+    <div class="prose">
+      <p>For a business, the question isn't just "what does the car cost" — it's "what can I deduct, when, and how much GST do I get back." The three common ways to fund a work vehicle are taxed quite differently, and the gap between them can be thousands.</p>
+
+      <h3>Chattel mortgage — you own it, you depreciate it</h3>
+      <p>With a chattel mortgage the business borrows to buy the vehicle and owns it from day one. That means you can <strong>claim the GST credit up front</strong> (capped for cars), <strong>depreciate the vehicle</strong>, and deduct the <strong>interest</strong> on the loan — all apportioned to your business-use percentage. Because you own it, an eligible small business can also use the instant asset write-off — but only if the car's cost is under the threshold, which most aren't.</p>
+
+      <h3>Finance lease — you deduct the payments</h3>
+      <p>With a lease the financier owns the car and you rent it. You can't depreciate it or claim the GST credit on the purchase, but the <strong>lease payments are deductible</strong> (business portion) and you claim GST on each payment. At the end there's a <strong>residual</strong> to pay if you want to keep the car. Leasing often spreads the deduction more evenly, which can suit cash flow even when the headline cost is similar.</p>
+
+      <h3>Cash — simple, but not free</h3>
+      <p>Paying cash means no interest and you still depreciate the vehicle and claim the GST credit. The hidden cost is <strong>opportunity</strong>: the money is locked in a depreciating asset instead of working elsewhere, so the calculator counts a return on the cash you tie up.</p>
+
+      <div class="callout">
+        <b>The instant asset write-off, and the cliff.</b> For 2025-26 an eligible small business (turnover under $10m) can instantly deduct assets under <strong>$20,000</strong> — but most cars cost more, so they go into the small-business pool instead (15% in year one, then 30% a year), with the deductible cost capped at the <strong>$69,674 car limit</strong>. The $20,000 write-off is legislated to fall back to $1,000 from 1 July 2026 unless extended, so timing a purchase can matter. Leased vehicles can't use it at all — that's a real point of difference.</p>
+      </div>
+
+      <h3>How we calculate this</h3>
+      <ul>
+        <li><strong>Net cost</strong> = total cash you pay, minus the GST credits you receive, minus your tax deductions multiplied by your tax rate.</li>
+        <li><strong>Chattel &amp; cash</strong> claim depreciation (write-off or pool) plus running costs; chattel adds interest deductions, cash adds an opportunity cost on the money tied up.</li>
+        <li><strong>Lease</strong> deducts the payments instead of depreciation, and adds the residual at the end.</li>
+        <li>Your <strong>business-use %</strong> apportions every deduction and GST credit; all three end with you owning the vehicle.</li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
+    <details><summary><span class="q">Chattel mortgage or lease — which is better for tax?</span><span class="pm"></span></summary>
+      <div class="a">A chattel mortgage lets you own the car, claim the GST credit up front, and deduct depreciation and interest. A lease lets you deduct the payments instead. Which wins depends on the car's price, your tax rate, your business-use percentage and cash flow — compare your own numbers above.</div></details>
+    <details><summary><span class="q">Can I use the instant asset write-off on a car?</span><span class="pm"></span></summary>
+      <div class="a">Only if the car's cost is under the $20,000 limit (2025-26) and you bought it via cash or a chattel mortgage — leased vehicles don't qualify. Most cars exceed $20,000, so they're depreciated through the small-business pool, capped at the $69,674 car limit.</div></details>
+    <details><summary><span class="q">How much GST can I claim on a business car?</span><span class="pm"></span></summary>
+      <div class="a">If you're registered for GST, you can claim the GST credit on the purchase (capped at $6,334 for 2025-26, being one-eleventh of the car limit) and on running costs and lease payments — all reduced to your business-use percentage.</div></details>
+    <details><summary><span class="q">Does business-use percentage matter?</span><span class="pm"></span></summary>
+      <div class="a">Hugely. Depreciation, interest, lease payments, running costs and GST credits are all deductible only to the extent the vehicle is used for business. Keep a logbook — the ATO expects evidence for the percentage you claim.</div></details>
+    <details><summary><span class="q">What about FBT on a business car?</span><span class="pm"></span></summary>
+      <div class="a">If a company or trust provides the car to an employee (including a director) for private use, FBT can apply — a significant cost this tool doesn't model. Sole traders don't pay FBT on their own vehicle but simply can't deduct the private-use portion. Ask your accountant which applies to you.</div></details>
+  </section>
+
+  <!-- HUB -->
+  <section class="hub">
+    <h3>Your next milestone</h3>
+    <p class="sub">The same engine powers every calculation here — one income picture, every life event it touches.</p>
+    <div class="cards">
+      <a class="mcard live" href="index.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.5"/><path d="M4 16c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Parental leave pay</h4><p>Take-home, super and the income gap across your leave.</p></a>
+      <a class="mcard live" href="redundancy.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 7h12v9H4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7V5a3 3 0 016 0v2" stroke="currentColor" stroke-width="1.5"/></svg></div><h4>Redundancy payout</h4><p>Entitlement, the tax-free portion and net pay in hand.</p></a>
+      <a class="mcard live" href="salary-sacrifice.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h14M10 3v14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Salary sacrifice vs take-home</h4><p>Into super, onto the mortgage, or kept as cash — compared.</p></a>
+      <a class="mcard live" href="novated-lease.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M5 13h10v3H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="7" cy="16" r="1.3" fill="currentColor"/><circle cx="13" cy="16" r="1.3" fill="currentColor"/></svg></div><h4>Novated lease vs buy</h4><p>Lease, loan or cash for your personal car — compared.</p></a>
+      <a class="mcard live" href="business-vehicle.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M4 13h12v3H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Business car finance</h4><p>Chattel mortgage, lease or cash for a work vehicle.</p></a>
+      <a class="mcard live" href="mortgage-payoff.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Pay off your mortgage faster</h4><p>Extra repayments and offset, years and interest saved.</p></a>
+    </div>
+  </section>
+
+  <section style="margin:16px 0 0">
+    <a href="ev-novated-lease-worth-it.html" style="display:flex;align-items:center;gap:15px;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--ochre);border-radius:16px;padding:17px 20px;text-decoration:none;color:inherit;box-shadow:var(--shadow)">
+      <span style="flex:none;width:40px;height:40px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--forest)"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3h7l3 3v11H5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M7.5 6.5h3M7.5 9.5h5M7.5 12.5h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+      <span style="flex:1"><span style="display:block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ochre)">Related guide</span><span style="display:block;font-family:'Fraunces',serif;font-weight:600;font-size:1.06rem;color:var(--ink);margin-top:2px">Is an EV novated lease worth it in 2025-26?</span></span>
+      <span style="flex:none;color:var(--forest);font-weight:700;font-size:.9rem;white-space:nowrap">Read &rarr;</span>
+    </a>
+  </section>
+
+  <footer>
+    <div class="disc">
+      <b>General information only — not financial, tax or legal advice.</b> This is a simplified comparison for eligible small businesses using 2025-26 settings (the $20,000 instant asset write-off, the $69,674 car cost limit, small-business pool rates of 15%/30%, a $6,334 GST credit cap, and ATO minimum lease residuals). It does not model FBT on employee or director use, balancing adjustments when you sell, GST adjustments, luxury car tax, fonts of finance other than those shown, establishment fees, Division 7A, or your full circumstances. Eligibility for the simplified depreciation rules is assumed. Always obtain formal finance quotes, confirm rules at <b>ato.gov.au</b>, and speak with a registered tax agent before deciding.
+    </div>
+    <div class="foot-meta">
+      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>Methodology: net cash cost − GST credits − (deductions × tax rate), with depreciation/IAWO for owned vehicles and deductible payments for leases.</span>
+    </div>
+  </footer>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {"@type":"Question","name":"Chattel mortgage or lease — which is better for tax?","acceptedAnswer":{"@type":"Answer","text":"A chattel mortgage lets you own the car and claim the GST credit up front plus depreciation and interest. A lease lets you deduct the payments instead. Which wins depends on price, tax rate, business-use percentage and cash flow."}},
+    {"@type":"Question","name":"Can I use the instant asset write-off on a car?","acceptedAnswer":{"@type":"Answer","text":"Only if the car's cost is under the $20,000 limit for 2025-26 and bought via cash or chattel mortgage; leased vehicles don't qualify. Most cars exceed $20,000 and are depreciated through the small-business pool, capped at the $69,674 car limit."}},
+    {"@type":"Question","name":"How much GST can I claim on a business car?","acceptedAnswer":{"@type":"Answer","text":"If registered for GST, you can claim the credit on the purchase (capped at $6,334 for 2025-26, one-eleventh of the car limit) plus running costs and lease payments, reduced to your business-use percentage."}},
+    {"@type":"Question","name":"Does business-use percentage matter for a work car?","acceptedAnswer":{"@type":"Answer","text":"Yes. Depreciation, interest, lease payments, running costs and GST credits are deductible only to the extent the vehicle is used for business, so keep a logbook to support your percentage."}},
+    {"@type":"Question","name":"What about FBT on a business car?","acceptedAnswer":{"@type":"Answer","text":"If a company or trust provides a car to an employee or director for private use, FBT can apply. Sole traders don't pay FBT on their own vehicle but can't deduct the private-use portion."}}
+  ]
+}
+</script>
+<script>
+(function(){
+  document.getElementById('yr').textContent=new Date().getFullYear();
+  const $=id=>document.getElementById(id);
+  const AUD0=new Intl.NumberFormat('en-AU',{maximumFractionDigits:0});
+  let LAST={};
+  const BRACKETS=[{min:0,max:18200,rate:0},{min:18200,max:45000,rate:0.16},{min:45000,max:135000,rate:0.30},{min:135000,max:190000,rate:0.37},{min:190000,max:Infinity,rate:0.45}];
+  const MEDICARE=0.02;
+  function marginal(t){let r=0;for(const b of BRACKETS){if(t>b.min)r=b.rate;}return r+MEDICARE;}
+  function pmt(P,r,n,balloon){if(r===0)return (P-balloon)/n;const d=Math.pow(1+r,-n);return (P-balloon*d)*r/(1-d);}
+  const RESID={1:65.63,2:56.25,3:46.88,4:37.50,5:28.13};
+  let lastTerm=null;
+
+  function calc(){
+    const entity=$('entity').value;
+    $('incomeField').style.display=entity==='company'?'none':'block';
+    $('companyRateField').style.display=entity==='company'?'block':'none';
+    const income=+$('income').value||0;
+    const t = entity==='company' ? (+$('companyRate').value||0)/100 : marginal(income);
+
+    const price=+$('price').value||0;
+    const bu=Math.min(1,Math.max(0,(+$('bu').value||0)/100));
+    const registered=$('gstreg').value==='1';
+    const term=parseInt($('term').value,10)||5;
+    const r=(+$('rate').value||0)/100;
+    const running=Math.max(0,+$('running').value||0);
+    const opp=(+$('opp').value||0)/100;
+    const iawo=+$('iawo').value||0;
+    const carLimit=+$('carLimit').value||Infinity;
+    const gst=(+$('gst').value||0)/100;
+    if(term!==lastTerm){if(RESID[term]!==undefined)$('residual').value=RESID[term];lastTerm=term;}
+    const residualPct=(+$('residual').value||0)/100;
+
+    // GST credits
+    const creditCar=registered?Math.min(price/11,6334):0;
+    const claimGSTcar=creditCar*bu;
+    const runExGst=registered?running-running/11:running;
+    const runGSTcredit=registered?(running/11)*bu:0;
+    const runDeductYr=runExGst*bu;        // deductible running per year
+
+    // Depreciation base (owned vehicles)
+    const costForDep=registered?price-creditCar:price;
+    const depBase=Math.min(costForDep,carLimit);
+    let depDeduction, method;
+    if(depBase<iawo){depDeduction=depBase*bu;method='instant write-off';}
+    else{let bal=depBase,sum=0;for(let y=1;y<=term;y++){const d=(y===1?bal*0.15:bal*0.30);sum+=d;bal-=d;}depDeduction=sum*bu;method='small-business pool';}
+
+    // Chattel mortgage (own; depreciate + interest)
+    const loanPMT=pmt(price,r,term,0);
+    const loanTotal=loanPMT*term;
+    const interestTotal=Math.max(0,loanTotal-price);
+    const gstCredBuy=claimGSTcar+runGSTcredit*term;
+    const chattelTaxBenefit=(depDeduction+interestTotal*bu+runDeductYr*term)*t;
+    const chattelCost=loanTotal+running*term-gstCredBuy-chattelTaxBenefit;
+
+    // Cash (own; depreciate; opportunity cost; no interest)
+    const cashTied=price-claimGSTcar;
+    const cashOpp=cashTied*(Math.pow(1+opp,term)-1);
+    const cashTaxBenefit=(depDeduction+runDeductYr*term)*t;
+    const cashCost=price+running*term-gstCredBuy-cashTaxBenefit+cashOpp;
+
+    // Finance lease (deduct payments; residual to own; no depreciation)
+    const residual=price*residualPct;
+    const leasePMT=pmt(price,r,term,residual);
+    const leasePmtGSTyr=registered?leasePMT/11:0;
+    const leasePmtExGst=leasePMT-leasePmtGSTyr;
+    const leaseGSTcred=(registered?(leasePMT/11)*bu*term:0)+(registered?(residual/11)*bu:0)+runGSTcredit*term;
+    const leaseTaxBenefit=(leasePmtExGst*bu*term+runDeductYr*term)*t;
+    const leaseCost=leasePMT*term+residual+running*term-leaseGSTcred-leaseTaxBenefit;
+
+    const opts=[['Chattel mortgage',chattelCost,'Chattel'],['Finance lease',leaseCost,'Lease'],['Paying cash',cashCost,'Cash']];
+    opts.sort((a,b)=>a[1]-b[1]);
+    const gap=opts[1][1]-opts[0][1];
+
+    LAST={entity,income,taxRatePct:Math.round(t*100),price,bu:Math.round(bu*100),registered,term,ratePct:+$('rate').value,running,oppPct:+$('opp').value,chattelCost,leaseCost,cashCost,winner:opts[0][0],gap,gstCredBuy,depDeduction,method,residual};
+
+    $('termLbl').textContent=term;$('termLbl2').textContent=term;
+    $('chattelCost').textContent=AUD0.format(chattelCost);
+    $('leaseCost').textContent=AUD0.format(leaseCost);
+    $('cashCost').textContent=AUD0.format(cashCost);
+    $('gstCred').textContent=AUD0.format(gstCredBuy);
+    $('winnerName').textContent=opts[0][0];
+    $('winnerVal').textContent=AUD0.format(opts[0][1]);
+    $('winnerGap').textContent=AUD0.format(gap);
+
+    const max=Math.max(chattelCost,leaseCost,cashCost,1);
+    $('bChattel').textContent=AUD0.format(chattelCost);
+    $('bLease').textContent=AUD0.format(leaseCost);
+    $('bCash').textContent=AUD0.format(cashCost);
+    $('barChattel').style.width=Math.max(3,chattelCost/max*100)+'%';
+    $('barLease').style.width=Math.max(3,leaseCost/max*100)+'%';
+    $('barCash').style.width=Math.max(3,cashCost/max*100)+'%';
+    const c=opts[0][2];
+    $('bestChattel').style.display=c==='Chattel'?'inline-block':'none';
+    $('bestLease').style.display=c==='Lease'?'inline-block':'none';
+    $('bestCash').style.display=c==='Cash'?'inline-block':'none';
+
+    const nl=$('noteLine');
+    nl.innerHTML='<b>Depreciation:</b> at $'+AUD0.format(price)+' this vehicle uses the '+method+' ('+(method==='instant write-off'?'fully deducted in year one':'15% then 30% a year, capped at the $'+AUD0.format(carLimit)+' car limit')+'). Deductions and GST are scaled to your '+Math.round(bu*100)+'% business use. Leasing can\u2019t use the write-off — it deducts the payments instead.';
+  }
+  document.querySelectorAll('input,select').forEach(e=>{e.addEventListener('input',calc);e.addEventListener('change',calc);});
+
+  let toastT;function toast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove('show'),2600);}
+  const FIELDS=['entity','income','companyRate','price','bu','gstreg','term','rate','running','opp','iawo','carLimit','residual','gst'];
+  function readParams(){const p=new URLSearchParams(location.search);FIELDS.forEach(f=>{if(!p.has(f))return;const el=$(f);if(!el)return;el.value=p.get(f);});}
+  function buildLink(){const p=new URLSearchParams();FIELDS.forEach(f=>{const el=$(f);if(!el)return;p.set(f,el.value);});return location.origin+location.pathname+'?'+p.toString();}
+  function fallbackCopy(t){const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');toast('Share link copied');}catch(e){toast('Copy failed — link in address bar');}document.body.removeChild(ta);}
+  $('shareBtn').addEventListener('click',()=>{const link=buildLink();try{history.replaceState(null,'',link);}catch(e){}if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(link).then(()=>toast('Share link copied to clipboard')).catch(()=>fallbackCopy(link));else fallbackCopy(link);});
+
+  $('pdfBtn').addEventListener('click',()=>{
+    if(!window.jspdf){toast('PDF library still loading — try again');return;}
+    const {jsPDF}=window.jspdf;const doc=new jsPDF({unit:'pt',format:'a4'});let y=58;
+    doc.setFillColor(27,94,75);doc.rect(0,0,595,8,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(19);doc.setTextColor(30,37,34);doc.text('Business car: chattel vs lease vs cash',40,y);y+=18;
+    doc.setFont('helvetica','normal');doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Prepared with MoneyMilestones · '+new Date().toLocaleDateString('en-AU'),40,y);y+=30;
+    doc.setFillColor(234,242,236);doc.roundedRect(40,y,515,66,8,8,'F');
+    doc.setFontSize(10);doc.setTextColor(90,97,90);doc.text('Over '+LAST.term+' years, the cheapest option is '+LAST.winner,58,y+24);
+    const winVal=LAST.winner==='Chattel mortgage'?LAST.chattelCost:(LAST.winner==='Finance lease'?LAST.leaseCost:LAST.cashCost);
+    doc.setFont('helvetica','bold');doc.setFontSize(19);doc.setTextColor(27,94,75);doc.text('Net $'+AUD0.format(winVal)+'  ·  $'+AUD0.format(LAST.gap)+' less than next best',58,y+50);y+=94;
+    function r(k,v){doc.setFont('helvetica','normal');doc.setFontSize(11);doc.setTextColor(60,65,59);doc.text(k,40,y);doc.setFont('helvetica','bold');doc.setTextColor(30,37,34);doc.text(String(v),555,y,{align:'right'});doc.setDrawColor(231,222,206);doc.line(40,y+9,555,y+9);y+=27;}
+    r('Structure / tax rate',(LAST.entity==='company'?'Company':'Sole trader')+' / '+LAST.taxRatePct+'%');
+    r('Vehicle price (incl GST)','$'+AUD0.format(LAST.price));
+    r('Business use / term',LAST.bu+'% / '+LAST.term+' yrs');
+    r('Depreciation method',LAST.method);
+    r('Chattel mortgage — net cost','$'+AUD0.format(LAST.chattelCost));
+    r('Finance lease — net cost','$'+AUD0.format(LAST.leaseCost));
+    r('Pay cash — net cost','$'+AUD0.format(LAST.cashCost));
+    r('GST credit (buy options)','$'+AUD0.format(LAST.gstCredBuy));
+    y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
+    const disc='General information only — not financial, tax or legal advice. A simplified comparison using 2025-26 settings ($20,000 instant asset write-off, $69,674 car limit, 15%/30% pool, $6,334 GST credit cap, ATO minimum residuals). Excludes FBT, balancing adjustments on sale, luxury car tax, establishment fees and more. Confirm with ato.gov.au and a registered tax agent.';
+    doc.text(doc.splitTextToSize(disc,515),40,y);
+    doc.save('business-car-finance-comparison.pdf');toast('Comparison downloaded');
+  });
+
+  /* Init */
+  readParams();
+  lastTerm=parseInt($('term').value,10)||5;
+  if($('residual').value==='28.13' && RESID[lastTerm]!==undefined){$('residual').value=RESID[lastTerm];}
+  calc();
+})();
+</script>
+</body>
+</html>
