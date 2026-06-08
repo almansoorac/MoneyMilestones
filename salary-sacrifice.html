@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-9348248414021824">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348248414021824" crossorigin="anonymous"></script>
 <title>Salary Sacrifice vs Take-Home vs Mortgage — MoneyMilestones</title>
 <meta name="description" content="Should you salary sacrifice into super, pay down the mortgage, or keep the cash? Compare the tax saved now and the projected value over time, for Australia 2025-26.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -293,8 +295,7 @@
     <h2 class="gtitle">Super, mortgage or cash: how to think about it</h2>
     <div class="byline">
       <span class="av">MM</span>
-      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
-      <span class="vstamp">✓ Figures to be verified vs ATO</span>
+      <span>Written by the <b>MoneyMilestones</b> team</span>
     </div>
     <div class="prose">
       <p>When you have spare capacity in your budget, three doors open: send it to super before tax, throw it at the mortgage, or keep it as take-home. There's no single right answer — it depends on your tax rate, your mortgage rate, your timeframe, and how much you value being able to touch the money. Here's the logic the calculator runs.</p>
@@ -381,10 +382,10 @@
 
   <footer>
     <div class="disc">
-      <b>General information only — not financial, tax or legal advice.</b> This calculator produces projections based on the figures and return assumptions you enter; actual investment and super returns vary and are not guaranteed. It applies the resident income-tax brackets, the 2% Medicare levy, optional HELP/HECS, and a simplified super model (contributions and earnings tax, the concessional cap and Division 293). It does not account for your full circumstances, other contributions, fees, the timing of cash flows within a year, or changes in law. Super is preserved until you meet a condition of release. Always confirm current rules with <b>ato.gov.au</b> and speak with a licensed financial adviser before acting.
+      <b>General information only — not financial, tax or legal advice.</b> This calculator produces projections based on the figures and return assumptions you enter; actual investment and super returns vary and are not guaranteed. It applies the resident income-tax brackets, the 2% Medicare levy, optional HELP/HECS, and a simplified super model (contributions and earnings tax, the concessional cap and Division 293). It does not account for your full circumstances, other contributions, fees, the timing of cash flows within a year, or changes in law. Super is preserved until you meet a condition of release. Consider whether an approach suits your circumstances before acting.
     </div>
     <div class="foot-meta">
-      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>© <span id="yr"></span> MoneyMilestones</span>
       <span>Methodology: marginal tax saving (Stage 3 + Medicare + HELP) and compound projections with super, mortgage and marginal-tax drag.</span>
     </div>
   </footer>
@@ -517,7 +518,7 @@
     r('Return / mortgage rate used',LAST.retPct+'% / '+LAST.mortPct+'%');
     r('Concessional headroom',(LAST.headroom<0?'Over by $'+AUD0.format(-LAST.headroom):'$'+AUD0.format(LAST.headroom)));
     y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
-    const disc='General information only — not financial, tax or legal advice. Projections rely on the return assumptions you entered and are not guaranteed. Super is preserved until you meet a condition of release. Uses 2025-26 settings (15% contributions tax, $30,000 concessional cap, Division 293 at $250,000) and a simplified earnings-tax model. Confirm with ato.gov.au and a licensed financial adviser.';
+    const disc='General information only — not financial, tax or legal advice. Projections rely on the return assumptions you entered and are not guaranteed. Super is preserved until you meet a condition of release. Uses 2025-26 settings (15% contributions tax, $30,000 concessional cap, Division 293 at $250,000) and a simplified earnings-tax model. Consider whether an approach suits your circumstances.';
     doc.text(doc.splitTextToSize(disc,515),40,y);
     doc.save('salary-sacrifice-comparison.pdf');toast('Comparison downloaded');
   });

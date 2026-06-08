@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-9348248414021824">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348248414021824" crossorigin="anonymous"></script>
 <title>Business Car: Chattel Mortgage vs Lease vs Cash — MoneyMilestones</title>
 <meta name="description" content="For sole traders and small business: compare a chattel mortgage, a finance lease and paying cash for a work vehicle — depreciation, the instant asset write-off, GST credits and the tax deductions, in real after-tax dollars.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,7 +172,7 @@
     <p class="lede">How you finance a work vehicle changes what you can deduct, when, and how much GST you claw back. We compare the three options in real after-tax dollars — depreciation, the instant asset write-off and GST included.</p>
     <div class="verify-flag">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
-      <span><b>Prototype — and business tax is complex.</b> This is a simplified model. It excludes FBT on employee use, balancing adjustments on sale, GST adjustments and more. Treat it as a starting point and confirm everything with your accountant.</span>
+      <span><b>A guide to a complex area.</b> It doesn’t model FBT on employee use, balancing adjustments on sale, or every GST nuance, so your accountant may refine the final numbers for your specific situation.</span>
     </div>
   </section>
 
@@ -286,8 +288,7 @@
     <h2 class="gtitle">Financing a work vehicle: the tax that decides it</h2>
     <div class="byline">
       <span class="av">MM</span>
-      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
-      <span class="vstamp">✓ Figures to be verified vs ATO</span>
+      <span>Written by the <b>MoneyMilestones</b> team</span>
     </div>
     <div class="prose">
       <p>For a business, the question isn't just "what does the car cost" — it's "what can I deduct, when, and how much GST do I get back." The three common ways to fund a work vehicle are taxed quite differently, and the gap between them can be thousands.</p>
@@ -354,10 +355,10 @@
 
   <footer>
     <div class="disc">
-      <b>General information only — not financial, tax or legal advice.</b> This is a simplified comparison for eligible small businesses using 2025-26 settings (the $20,000 instant asset write-off, the $69,674 car cost limit, small-business pool rates of 15%/30%, a $6,334 GST credit cap, and ATO minimum lease residuals). It does not model FBT on employee or director use, balancing adjustments when you sell, GST adjustments, luxury car tax, fonts of finance other than those shown, establishment fees, Division 7A, or your full circumstances. Eligibility for the simplified depreciation rules is assumed. Always obtain formal finance quotes, confirm rules at <b>ato.gov.au</b>, and speak with a registered tax agent before deciding.
+      <b>General information only — not financial, tax or legal advice.</b> This is a simplified comparison for eligible small businesses using 2025-26 settings (the $20,000 instant asset write-off, the $69,674 car cost limit, small-business pool rates of 15%/30%, a $6,334 GST credit cap, and ATO minimum lease residuals). It does not model FBT on employee or director use, balancing adjustments when you sell, GST adjustments, luxury car tax, fonts of finance other than those shown, establishment fees, Division 7A, or your full circumstances. Eligibility for the simplified depreciation rules is assumed, and your accountant may refine the final numbers for your specific situation.
     </div>
     <div class="foot-meta">
-      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>© <span id="yr"></span> MoneyMilestones</span>
       <span>Methodology: net cash cost − GST credits − (deductions × tax rate), with depreciation/IAWO for owned vehicles and deductible payments for leases.</span>
     </div>
   </footer>
@@ -504,7 +505,7 @@
     r('Pay cash — net cost','$'+AUD0.format(LAST.cashCost));
     r('GST credit (buy options)','$'+AUD0.format(LAST.gstCredBuy));
     y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
-    const disc='General information only — not financial, tax or legal advice. A simplified comparison using 2025-26 settings ($20,000 instant asset write-off, $69,674 car limit, 15%/30% pool, $6,334 GST credit cap, ATO minimum residuals). Excludes FBT, balancing adjustments on sale, luxury car tax, establishment fees and more. Confirm with ato.gov.au and a registered tax agent.';
+    const disc='General information only — not financial, tax or legal advice. A simplified comparison using 2025-26 settings ($20,000 instant asset write-off, $69,674 car limit, 15%/30% pool, $6,334 GST credit cap, ATO minimum residuals). Excludes FBT, balancing adjustments on sale, luxury car tax, establishment fees and more. Your accountant may refine the final numbers for your situation.';
     doc.text(doc.splitTextToSize(disc,515),40,y);
     doc.save('business-car-finance-comparison.pdf');toast('Comparison downloaded');
   });

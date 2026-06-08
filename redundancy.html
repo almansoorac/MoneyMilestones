@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-9348248414021824">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348248414021824" crossorigin="anonymous"></script>
 <title>Redundancy Payout Calculator — MoneyMilestones</title>
 <meta name="description" content="Work out your Australian redundancy payout: NES entitlement, the genuine-redundancy tax-free portion, ETP tax and your net pay in hand — 2025-26 figures.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -207,7 +209,7 @@
     <p class="lede">Your redundancy payout isn't all taxed the same way. We separate the tax-free part, the ETP, your unused leave and notice — so you can see the real net figure landing in your account.</p>
     <div class="verify-flag">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
-      <span><b>Prototype.</b> Tax-free limits, the ETP cap and rates are shown as editable assumptions. Confirm current figures with the ATO and check your award, agreement or contract — they often beat the legal minimum.</span>
+      <span><b>Adjustable assumptions.</b> Tax-free limits, the ETP cap and rates are shown as editable fields and reflect 2025-26. Your actual entitlement can be higher under your award, agreement or contract — they often beat the legal minimum.</span>
     </div>
   </section>
 
@@ -306,8 +308,7 @@
     <h2 class="gtitle">How a redundancy payout is taxed in Australia</h2>
     <div class="byline">
       <span class="av">MM</span>
-      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
-      <span class="vstamp">✓ Figures to be verified vs ATO &amp; Fair Work</span>
+      <span>Written by the <b>MoneyMilestones</b> team</span>
     </div>
     <div class="prose">
       <p>A redundancy payout looks like one lump sum, but the tax office sees several different payments, each taxed its own way. That's why two people with the same headline figure can keep very different amounts. Here's how the pieces fit together.</p>
@@ -341,7 +342,7 @@
       </ul>
 
       <div class="callout">
-        <b>How we calculate this.</b> We apply the 2025-26 genuine-redundancy tax-free limit (base + per-year amount), tax the excess and any payment in lieu of notice as an ETP at the concessional rate for your age (within the ETP cap, then 47% above it), and tax unused leave at the concessional flat rate. We don't model your other income for the year, the whole-of-income cap, invalidity segments, or pre-1978 leave. These are editable assumptions — confirm current figures with the ATO and your award.
+        <b>How we calculate this.</b> We apply the 2025-26 genuine-redundancy tax-free limit (base + per-year amount), tax the excess and any payment in lieu of notice as an ETP at the concessional rate for your age (within the ETP cap, then 47% above it), and tax unused leave at the concessional flat rate. We don't model your other income for the year, the whole-of-income cap, invalidity segments, or pre-1978 leave. These are editable assumptions reflecting 2025-26; your award, agreement or contract may provide more.
       </div>
     </div>
   </article>
@@ -368,7 +369,7 @@
     <details><summary><span class="q">Do small businesses have to pay redundancy?</span><span class="pm"></span></summary>
       <div class="a">Employers with fewer than 15 employees are generally exempt from NES redundancy pay, though your award or enterprise agreement may still require it. You may still be entitled to notice and unused leave.</div></details>
     <details><summary><span class="q">Does my payout affect HECS/HELP or Centrelink?</span><span class="pm"></span></summary>
-      <div class="a">It can. The taxable parts count toward your income for the year, which can affect HELP/HECS repayments, and a redundancy payout may create a waiting period before income-support payments. Check with the ATO and Services Australia.</div></details>
+      <div class="a">It can. The taxable parts count toward your income for the year, which can affect HELP/HECS repayments, and a redundancy payout may create a waiting period before income-support payments. These effects depend on your circumstances.</div></details>
     <details><summary><span class="q">How long do I have to dispute a redundancy?</span><span class="pm"></span></summary>
       <div class="a">If you believe a dismissal wasn't a genuine redundancy, there is a strict 21-day window from termination to lodge an unfair-dismissal application with the Fair Work Commission. Don't miss it — seek advice quickly.</div></details>
   </section>
@@ -417,10 +418,10 @@
 
   <footer>
     <div class="disc">
-      <b>General information only — not financial, tax or legal advice.</b> This calculator estimates the tax on your termination payments using the figures you enter and the 2025-26 ATO genuine-redundancy limits and ETP rules. It does not account for your other income for the year, the whole-of-income cap, invalidity segments, pre-16-August-1978 service, existing PAYG withholding, or tax offsets. Your entitlements may be higher under an award, enterprise agreement or contract. Always confirm current figures with <b>ato.gov.au</b> and <b>fairwork.gov.au</b>, and speak with a registered tax agent or employment-law adviser about your situation.
+      <b>General information only — not financial, tax or legal advice.</b> This calculator estimates the tax on your termination payments using the figures you enter and the 2025-26 ATO genuine-redundancy limits and ETP rules. It does not account for your other income for the year, the whole-of-income cap, invalidity segments, pre-16-August-1978 service, existing PAYG withholding, or tax offsets. Your entitlements may be higher under an award, enterprise agreement or contract. Your own outcome depends on your circumstances, so consider whether it applies to you.
     </div>
     <div class="foot-meta">
-      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>© <span id="yr"></span> MoneyMilestones</span>
       <span>Methodology: NES redundancy scale + 2025-26 genuine-redundancy tax-free limit, ETP &amp; concessional leave rates.</span>
     </div>
   </footer>
@@ -554,7 +555,7 @@
     r('Total tax withheld','$'+AUD0.format(LAST.totalTax));
     r('NES notice entitlement',LAST.notice+' weeks');
     y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
-    const disc='General information only — not financial, tax or legal advice. Uses the 2025-26 ATO genuine-redundancy tax-free limit and ETP/leave concessional rates, and does not model your other income, the whole-of-income cap, invalidity segments or pre-1978 service. Your entitlements may be higher under an award or agreement. Confirm with ato.gov.au and fairwork.gov.au.';
+    const disc='General information only — not financial, tax or legal advice. Uses the 2025-26 ATO genuine-redundancy tax-free limit and ETP/leave concessional rates, and does not model your other income, the whole-of-income cap, invalidity segments or pre-1978 service. Your entitlements may be higher under an award or agreement. Your entitlement depends on your circumstances.';
     doc.text(doc.splitTextToSize(disc,515),40,y);
     doc.save('redundancy-payout-summary.pdf');toast('Summary downloaded');
   });

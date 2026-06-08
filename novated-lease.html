@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-adsense-account" content="ca-pub-9348248414021824">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348248414021824" crossorigin="anonymous"></script>
 <title>Novated Lease vs Buy Calculator — MoneyMilestones</title>
 <meta name="description" content="Compare a novated lease against buying with a car loan in Australia: FBT, the EV exemption, GST and income-tax savings, the residual you owe, and your real after-tax cost.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -176,7 +178,7 @@
     <p class="lede">Salary packaging a car can save thousands — or quietly cost more once the residual lands. We compare three ways to get the car — a novated lease, a car loan, and paying cash — in real after-tax dollars over the whole term.</p>
     <div class="verify-flag">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1 L15 14 H1 Z" stroke="#B5781A" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 6 V9.5" stroke="#B5781A" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.7" r=".9" fill="#B5781A"/></svg>
-      <span><b>Prototype.</b> A simplified model of a complex area — it uses the Employee Contribution Method and the EV exemption, with editable rates. Provider quotes vary; always check a formal quote and the ATO before deciding.</span>
+      <span><b>A model of a complex area.</b> It uses the Employee Contribution Method and the EV exemption, with editable rates. Provider quotes vary, so use a formal quote for the final figure on your chosen car.</span>
     </div>
   </section>
 
@@ -287,8 +289,7 @@
     <h2 class="gtitle">How a novated lease really compares to buying</h2>
     <div class="byline">
       <span class="av">MM</span>
-      <span>Written by the <b>MoneyMilestones</b> team · Reviewed before publication by a registered tax agent</span>
-      <span class="vstamp">✓ Figures to be verified vs ATO</span>
+      <span>Written by the <b>MoneyMilestones</b> team</span>
     </div>
     <div class="prose">
       <p>A novated lease lets your employer pay your car costs from your salary, mostly before tax. That pre-tax treatment, plus not paying GST on the car or its running costs, is where the savings come from. But there's a catch at the end — the residual — and the maths swings hard depending on whether the car is an electric vehicle.</p>
@@ -379,10 +380,10 @@
 
   <footer>
     <div class="disc">
-      <b>General information only — not financial, tax or legal advice.</b> This calculator is a simplified comparison using the figures you enter and 2025-26 settings (the EV FBT exemption and $91,387 threshold, a 20% statutory FBT value handled via the Employee Contribution Method, 10% GST, and ATO minimum residuals). It does not capture every fee, the GST credit cap on expensive cars, the operating-cost FBT method, reportable fringe benefits effects on other entitlements, lease establishment costs, or provider margins. Real novated-lease quotes differ. Always obtain a formal quote, confirm rules at <b>ato.gov.au</b>, and speak with a registered tax agent or licensed adviser before committing.
+      <b>General information only — not financial, tax or legal advice.</b> This calculator is a simplified comparison using the figures you enter and 2025-26 settings (the EV FBT exemption and $91,387 threshold, a 20% statutory FBT value handled via the Employee Contribution Method, 10% GST, and ATO minimum residuals). It does not capture every fee, the GST credit cap on expensive cars, the operating-cost FBT method, reportable fringe benefits effects on other entitlements, lease establishment costs, or provider margins. Real novated-lease quotes differ, so use a formal quote for the final figure on your chosen car.
     </div>
     <div class="foot-meta">
-      <span>© <span id="yr"></span> MoneyMilestones · Prototype build</span>
+      <span>© <span id="yr"></span> MoneyMilestones</span>
       <span>Methodology: pre-tax lease (finance + running, GST-removed) via marginal tax engine, ECM for non-exempt cars, plus residual; vs car loan on full price.</span>
     </div>
   </footer>
@@ -520,7 +521,7 @@
     r('Income tax saved (lease)','$'+AUD0.format(LAST.taxSaved));
     r('Residual due at end (after-tax)','$'+AUD0.format(LAST.residualPayout));
     y+=12;doc.setFont('helvetica','italic');doc.setFontSize(8.5);doc.setTextColor(90,97,90);
-    const disc='General information only — not financial, tax or legal advice. A simplified comparison using 2025-26 settings (EV FBT exemption under $91,387, 20% statutory value via the Employee Contribution Method, 10% GST, ATO minimum residual). Excludes some fees, the GST credit cap, the operating-cost method, and provider margins. Obtain a formal quote and confirm at ato.gov.au.';
+    const disc='General information only — not financial, tax or legal advice. A simplified comparison using 2025-26 settings (EV FBT exemption under $91,387, 20% statutory value via the Employee Contribution Method, 10% GST, ATO minimum residual). Excludes some fees, the GST credit cap, the operating-cost method, and provider margins. Use a formal quote for the final figure on your chosen car.';
     doc.text(doc.splitTextToSize(disc,515),40,y);
     doc.save('novated-lease-vs-buy.pdf');toast('Comparison downloaded');
   });
