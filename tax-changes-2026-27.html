@@ -173,11 +173,12 @@ nav.top .grp{position:relative}
 nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
 nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
 nav.top .gbtn .ar{font-size:.68em;opacity:.65}
-nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .menu{position:absolute;top:calc(100% + 7px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .menu::before{content:"";position:absolute;top:-11px;left:0;right:0;height:11px}
 nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
 nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
-nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
-nav.top .menu a.active{color:var(--forest);font-weight:600}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest-deep,var(--forest))}
+nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
 </style>
 
 <style>
@@ -199,6 +200,7 @@ nav.top .menu a.active{color:var(--forest);font-weight:600}
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "The Australian tax changes coming your way", "description": "A plain-English rundown of Australian tax changes: the 15% cut now, 14% in 2027-28, the $1,000 instant deduction, the $250 offset, and the 2027 CGT and negative gearing changes.", "datePublished": "2026-07-02", "dateModified": "2026-07-02", "author": {"@type": "Organization", "name": "MoneyMilestones"}, "publisher": {"@type": "Organization", "name": "MoneyMilestones"}, "mainEntityOfPage": "https://moneymilestones.com.au/tax-changes-2026-27.html"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much is the 2026-27 tax cut worth?", "acceptedAnswer": {"@type": "Answer", "text": "Up to about $268 a year. Anyone earning $45,000 or more gets the full amount; below that you save 1% of the income you earn between $18,200 and $45,000."}}, {"@type": "Question", "name": "When does the 14% tax rate start?", "acceptedAnswer": {"@type": "Answer", "text": "The second bracket is legislated to drop from 15% to 14% from 1 July 2027 (the 2027-28 year), roughly doubling the saving versus the old 16% rate."}}, {"@type": "Question", "name": "What is the $1,000 instant work deduction?", "acceptedAnswer": {"@type": "Answer", "text": "From 2026-27, employees can claim a flat $1,000 for work-related expenses with no receipts. If your actual expenses exceed $1,000, you can still claim the real amount instead."}}, {"@type": "Question", "name": "Are the CGT and negative gearing changes law yet?", "acceptedAnswer": {"@type": "Answer", "text": "They were announced in the 2026-27 Budget to apply from 1 July 2027 for assets bought after 12 May 2026, with earlier assets grandfathered. Some measures are still progressing through Parliament, so treat them as the announced position."}}]}</script></head>
 <body>
+<div class="wrap">
   <header class="site">
     <a class="brand" href="/">
       <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
@@ -252,7 +254,8 @@ nav.top .menu a.active{color:var(--forest);font-weight:600}
   function cutCalc(){var y=+document.getElementById('ci').value||0;var band=Math.max(0,Math.min(y,45000)-18200);document.getElementById('cutOut').textContent='$'+Math.round(band*0.01).toLocaleString('en-AU');}
   document.getElementById('ci').addEventListener('input',cutCalc);cutCalc();
   </script>
-  <h2 class="gtitle">Common questions</h2>
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
     <details><summary><span class="q">How much is the 2026-27 tax cut worth?</span><span class="pm"></span></summary>
       <div class="a">Up to about $268 a year. Anyone earning $45,000 or more gets the full amount; below that you save 1% of the income you earn between $18,200 and $45,000.</div></details>
     <details><summary><span class="q">When does the 14% tax rate start?</span><span class="pm"></span></summary>
@@ -262,11 +265,14 @@ nav.top .menu a.active{color:var(--forest);font-weight:600}
     <details><summary><span class="q">Are the CGT and negative gearing changes law yet?</span><span class="pm"></span></summary>
       <div class="a">They were announced in the 2026-27 Budget to apply from 1 July 2027 for assets bought after 12 May 2026, with earlier assets grandfathered. Some measures are still progressing through Parliament, so treat them as the announced position.</div></details>
 
+  </section>
+
   <footer>
     <div class="disc"><b>General information only — not financial, tax or legal advice.</b> This calculator is an educational tool using 2026-27 ATO figures and standard assumptions; your actual position depends on your circumstances.</div>
     <div class="foot-meta"><span>© <span id="yr"></span> MoneyMilestones · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a></span></div>
   </footer>
   <script>var y=document.getElementById('yr');if(y)y.textContent=new Date().getFullYear();</script>
   <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
+</div>
 </body>
 </html>

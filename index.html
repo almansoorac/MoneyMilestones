@@ -254,11 +254,12 @@ nav.top .grp{position:relative}
 nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
 nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
 nav.top .gbtn .ar{font-size:.68em;opacity:.65}
-nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .menu{position:absolute;top:calc(100% + 7px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .menu::before{content:"";position:absolute;top:-11px;left:0;right:0;height:11px}
 nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
 nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
-nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
-nav.top .menu a.active{color:var(--forest);font-weight:600}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest-deep,var(--forest))}
+nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>

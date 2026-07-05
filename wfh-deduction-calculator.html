@@ -173,11 +173,12 @@ nav.top .grp{position:relative}
 nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
 nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
 nav.top .gbtn .ar{font-size:.68em;opacity:.65}
-nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .menu{position:absolute;top:calc(100% + 7px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .menu::before{content:"";position:absolute;top:-11px;left:0;right:0;height:11px}
 nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
 nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
-nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
-nav.top .menu a.active{color:var(--forest);font-weight:600}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest-deep,var(--forest))}
+nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
 </style>
 
 <style>
@@ -200,6 +201,7 @@ select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Your work-from-home tax saving", "description": "Calculate your work-from-home tax deduction and saving using the ATO fixed-rate method (70c per hour). See the saving at your marginal rate, for 2026-27.", "url": "https://moneymilestones.com.au/wfh-deduction-calculator.html", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD"}}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much can I claim for working from home?", "acceptedAnswer": {"@type": "Answer", "text": "Under the ATO fixed-rate method you claim 70c for each hour worked from home, covering energy, phone, internet and stationery. Multiply your hours by 70c for the deduction; the tax saving is that deduction at your marginal rate."}}, {"@type": "Question", "name": "Does the deduction cover my desk and computer?", "acceptedAnswer": {"@type": "Answer", "text": "No — the 70c rate covers running costs only. You can claim depreciation of equipment like a desk, chair, monitor or computer separately, on top of the fixed rate."}}, {"@type": "Question", "name": "Do I need to keep records?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. The ATO requires a record of your actual hours worked from home for the whole year (a diary, timesheet or roster — estimates are not accepted) plus at least one bill for each expense the rate covers."}}, {"@type": "Question", "name": "What about the new $1,000 instant deduction?", "acceptedAnswer": {"@type": "Answer", "text": "From 2026-27 employees can claim a flat $1,000 for work expenses with no receipts. If your work-from-home claim is under $1,000 and you have no other work expenses, the instant deduction is simpler and larger."}}]}</script></head>
 <body>
+<div class="wrap">
   <header class="site">
     <a class="brand" href="/">
       <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
@@ -275,7 +277,8 @@ function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
   }
   ['hrs','wks','sal'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});calc();
   </script>
-  <h2 class="gtitle">Common questions</h2>
+  <section class="faq">
+    <h2 class="gtitle">Common questions</h2>
     <details><summary><span class="q">How much can I claim for working from home?</span><span class="pm"></span></summary>
       <div class="a">Under the ATO fixed-rate method you claim 70c for each hour worked from home, covering energy, phone, internet and stationery. Multiply your hours by 70c for the deduction; the tax saving is that deduction at your marginal rate.</div></details>
     <details><summary><span class="q">Does the deduction cover my desk and computer?</span><span class="pm"></span></summary>
@@ -285,11 +288,14 @@ function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
     <details><summary><span class="q">What about the new $1,000 instant deduction?</span><span class="pm"></span></summary>
       <div class="a">From 2026-27 employees can claim a flat $1,000 for work expenses with no receipts. If your work-from-home claim is under $1,000 and you have no other work expenses, the instant deduction is simpler and larger.</div></details>
 
+  </section>
+
   <footer>
     <div class="disc"><b>General information only — not financial, tax or legal advice.</b> This calculator is an educational tool using 2026-27 ATO figures and standard assumptions; your actual position depends on your circumstances.</div>
     <div class="foot-meta"><span>© <span id="yr"></span> MoneyMilestones · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a></span></div>
   </footer>
   <script>var y=document.getElementById('yr');if(y)y.textContent=new Date().getFullYear();</script>
   <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
+</div>
 </body>
 </html>
