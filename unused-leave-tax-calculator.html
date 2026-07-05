@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://moneymilestones.com.au/unused-leave-tax-calculator.html">
+<meta name="google-adsense-account" content="ca-pub-9348248414021824">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9348248414021824" crossorigin="anonymous"></script>
+<title>Unused Leave Payout Tax Calculator 2026-27 | MoneyMilestones</title>
+<meta name="description" content="Estimate the tax on your unused annual and long service leave payout when you leave a job, and how a genuine redundancy caps the rate. 2026-27 Australian calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+  :root{
+    --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
+    --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
+    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
+    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+  header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
+  .mark{width:34px;height:34px;flex:none}
+  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b span{color:var(--forest)}
+  nav.top{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+  nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
+  nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
+  nav.top a.active{background:var(--forest);color:#fff}
+  .hero{padding:26px 0 22px}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:16ch}
+  h1 em{font-style:italic;color:var(--forest)}
+  .lede{font-size:1.06rem;color:var(--ink-soft);max-width:56ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:62ch}
+  .verify-flag svg{flex:none;margin-top:1px}
+  .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
+  @media(max-width:860px){.app{grid-template-columns:1fr}}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
+  .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;font-weight:700;display:grid;place-items:center;flex:none}
+  .panel-body{padding:20px 22px}
+  .field{margin-bottom:17px}
+  label{display:block;font-size:.84rem;font-weight:600;margin-bottom:7px;color:var(--ink)}
+  label .hint{font-weight:400;color:var(--ink-soft)}
+  .input-money{position:relative}
+  .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
+  input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+  .input-money input{padding-left:26px}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  input[type=range]{width:100%;accent-color:var(--forest);margin-top:4px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .pct{position:relative}
+  .pct span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600}
+  .amt-live{font-family:'Fraunces',serif;font-weight:600;color:var(--forest);font-size:1.05rem}
+  .toggles{display:flex;flex-direction:column;gap:11px;margin-top:4px}
+  .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.88rem;font-weight:500}
+  .switch{position:relative;width:42px;height:24px;flex:none}
+  .switch input{opacity:0;width:0;height:0;position:absolute}
+  .slider{position:absolute;inset:0;background:#D8D2C4;border-radius:100px;transition:.2s;cursor:pointer}
+  .slider::before{content:"";position:absolute;height:18px;width:18px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+  .switch input:checked + .slider{background:var(--forest)}
+  .switch input:checked + .slider::before{transform:translateX(18px)}
+  details.assume{margin-top:18px;border:1px dashed var(--line);border-radius:13px;background:var(--paper)}
+  details.assume summary{cursor:pointer;list-style:none;padding:13px 16px;font-size:.85rem;font-weight:600;color:var(--forest-deep);display:flex;align-items:center;gap:8px}
+  details.assume summary::-webkit-details-marker{display:none}
+  details.assume summary .chev{margin-left:auto;transition:transform .2s}
+  details.assume[open] summary .chev{transform:rotate(180deg)}
+  .assume-body{padding:4px 16px 16px}
+  .assume-note{font-size:.78rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.45}
+
+  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
+  .result-panel .panel-head h2{color:#fff}
+  .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
+  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
+  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.2rem,6.4vw,3.1rem);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:6px 0 4px;color:#fff}
+  .bignum .cur{color:var(--ochre)}
+  .headline .sub{font-size:.9rem;color:#BFD4C8}
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
+  .stat{background:#143A2F;padding:13px 15px}
+  .stat .k{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;margin-top:5px;color:#fff}
+  .stat .v.warn{color:#F2C9BF}
+
+  .bars{margin-top:24px}
+  .bars .blbl{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+  .barrow{margin-bottom:15px}
+  .barrow .bl{display:flex;justify-content:space-between;font-size:.85rem;color:#DCE9E1;margin-bottom:6px;font-weight:600}
+  .barrow .bl .amt{font-variant-numeric:tabular-nums}
+  .bar-track{height:26px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden}
+  .bar-fill{height:100%;border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .bf-super{background:linear-gradient(90deg,var(--ochre),#E8A951)}
+  .bf-mort{background:linear-gradient(90deg,#3E8E73,#5BAE90)}
+  .bf-cash{background:linear-gradient(90deg,#4A6A7A,#6E93A3)}
+  .tag-best{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ochre);color:#3A2406;padding:2px 7px;border-radius:5px;margin-left:8px;vertical-align:middle}
+
+  .note-line{margin-top:18px;font-size:.82rem;color:#BFD4C8;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
+  .note-line b{color:#fff}
+  .note-line.warn{background:rgba(180,84,63,.2);border:1px solid rgba(180,84,63,.4);color:#F2C9BF}
+
+  .result-actions{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+  .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
+  .btn:active{transform:translateY(1px)}
+  .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
+  .btn-solid:hover{background:#E8A951}
+  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+
+  .guide{max-width:752px;margin:54px auto 0}
+  .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
+  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline b{color:var(--ink);font-weight:600}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
+  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
+  .prose strong{color:var(--ink);font-weight:700}
+  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout b{color:var(--forest-deep)}
+
+  .faq{max-width:752px;margin:48px auto 0}
+  .faq h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
+  .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
+  .faq details[open]{box-shadow:var(--shadow)}
+  .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary .q{flex:1}
+  .faq summary .pm{width:22px;height:22px;flex:none;position:relative}
+  .faq summary .pm::before,.faq summary .pm::after{content:"";position:absolute;background:var(--forest);border-radius:2px;transition:.2s}
+  .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
+  .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
+  .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+
+  .hub{margin:50px 0 20px}
+  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
+  .mcard.live{border-color:var(--forest);box-shadow:var(--shadow)}
+  .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+  .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
+  .mcard.live .ic{background:var(--forest);color:#fff}
+  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
+  .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
+  .badge.now{background:var(--forest);color:#fff}
+  .badge.soon{background:var(--paper-2);color:var(--ink-soft)}
+
+  footer{margin-top:46px;border-top:1px solid var(--line);padding:26px 0 50px}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;font-size:.82rem;color:var(--ink-soft);line-height:1.55}
+  .disc b{color:var(--ink);font-weight:700}
+  .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
+  .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/*dropdown-nav*/
+nav.top{gap:4px;align-items:center}
+nav.top .grp{position:relative}
+nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
+nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
+nav.top .gbtn .ar{font-size:.68em;opacity:.65}
+nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
+nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
+nav.top .menu a.active{color:var(--forest);font-weight:600}
+</style>
+
+<style>
+.rescard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
+.reslabel{font-size:.78rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
+.bignum{font-family:'Fraunces',serif;font-size:2.05rem;font-weight:600;color:var(--forest);line-height:1.08}
+.bignum.small{font-size:1.5rem}
+.brk{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.93rem}
+.brk:last-child{border-bottom:none}.brk b{font-weight:600}
+.brk.tot{border-top:2px solid var(--line);border-bottom:none;margin-top:2px;padding-top:11px;font-weight:600}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+@media(max-width:640px){.cols{grid-template-columns:1fr}}
+.winner{border:2px solid var(--forest);position:relative}
+.winner::after{content:'Wins on take-home';position:absolute;top:-11px;left:16px;background:var(--forest);color:#fff;font-size:.68rem;padding:2px 10px;border-radius:20px;letter-spacing:.03em}
+.verdict{background:var(--mint);border:1px solid var(--forest);border-radius:12px;padding:15px 18px;margin-top:18px;font-size:.98rem;line-height:1.5}
+.offer-h{font-family:'Fraunces',serif;font-size:1.05rem;margin:0 0 3px}
+.mini{font-size:.82rem;color:var(--ink-soft)}
+select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Tax on your unused leave payout", "description": "Estimate the tax on your unused annual and long service leave payout when you leave a job, and how a genuine redundancy caps the rate. 2026-27 Australian calculator.", "url": "https://moneymilestones.com.au/unused-leave-tax-calculator.html", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is unused leave taxed when I resign?", "acceptedAnswer": {"@type": "Answer", "text": "Unused annual and long service leave paid on resignation is taxed at your marginal rate, added on top of your salary for the year. A large payout can be taxed at a high rate if it pushes your income up."}}, {"@type": "Question", "name": "Is leave taxed differently in a redundancy?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. On a genuine redundancy, unused annual and long service leave gets a concessional treatment — the rate is capped at 30% plus the Medicare levy (32%), which can be lower than your marginal rate."}}, {"@type": "Question", "name": "Is my leave payout the same as redundancy pay?", "acceptedAnswer": {"@type": "Answer", "text": "No — they are separate. Redundancy pay has its own tax-free treatment; unused leave is taxed under its own rules. This tool covers the leave; use our redundancy calculator for the redundancy payment."}}, {"@type": "Question", "name": "Why is so much tax taken from my payout?", "acceptedAnswer": {"@type": "Answer", "text": "Because a lump-sum payout is added to your income for the year and can be taxed at your top marginal rate. If your employer over-withholds, you may get some back at tax time."}}]}</script></head>
+<body>
+  <header class="site">
+    <a class="brand" href="/">
+      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
+      <b>Money<span>Milestones</span></b>
+    </a>
+    <nav class="top">
+      <div class="grp"><button class="gbtn active" aria-expanded="false">Pay &amp; work<span class="ar">▾</span></button><div class="menu"><a href="/">Parental leave</a><a href="job-offer-comparison.html">Job offer</a><a href="pay-rise-calculator.html">Pay rise</a><a href="bonus-tax-calculator.html">Bonus tax</a><a href="redundancy.html">Redundancy</a><a href="unused-leave-tax-calculator.html" class="active">Leave payout</a><a href="hecs-help-calculator.html">HECS/HELP</a><a href="wfh-deduction-calculator.html">WFH deduction</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Super<span class="ar">▾</span></button><div class="menu"><a href="salary-sacrifice.html">Salary sacrifice</a><a href="nfp-salary-packaging.html">NFP packaging</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Cars &amp; business<span class="ar">▾</span></button><div class="menu"><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a></div></div>
+      <a href="mortgage-payoff.html">Mortgage</a>
+      <a href="tax-changes-2026-27.html">Tax changes</a>
+      <a href="articles.html">Articles</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow"><span class="dot"></span>Leave payout tax · 2026-27</span>
+    <h1>Tax on your <em>unused leave</em> payout</h1>
+    <p class="lede">When you leave a job, unused annual and long service leave is paid out — and taxed. See what you keep, and how a genuine redundancy changes the rate.</p>
+  </section>
+  <div class="app">
+    <div class="panel">
+      <div class="panel-head"><span class="num">1</span><h2>Your details</h2></div>
+      <div class="panel-body">
+        <div class="field"><label for="sal">Salary this year <span class="hint">(before the payout)</span></label><div class="input-money"><input type="number" id="sal" value="90000" min="0" step="1000"></div></div>
+        <div class="field"><label for="leave">Unused leave payout <span class="hint">(annual + long service)</span></label><div class="input-money"><input type="number" id="leave" value="12000" min="0" step="500"></div></div>
+        <div class="toggles"><div class="toggle"><span>This is a genuine redundancy</span><label class="switch"><input type="checkbox" id="redun"><span class="slider"></span></label></div></div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><span class="num">2</span><h2>What you keep</h2></div>
+      <div class="panel-body">
+        <div class="rescard">
+          <div class="reslabel">Leave payout after tax</div>
+          <div class="bignum" id="netL">$0</div>
+          <div class="mini" id="hint2"></div>
+          <div style="margin-top:14px">
+            <div class="brk"><span>Gross leave payout</span><b id="gross"></b></div>
+            <div class="brk"><span>Tax on the payout</span><b id="tax"></b></div>
+            <div class="brk"><span>Effective rate on leave</span><b id="rate"></b></div>
+            <div class="brk tot"><span>You keep</span><b id="keep"></b></div>
+          </div>
+        </div>
+        <div class="verdict" id="verdict"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+function tax2627(y){let t=0,lo=0;const b=[[18200,0],[45000,0.15],[135000,0.30],[190000,0.37],[Infinity,0.45]];for(const x of b){const hi=x[0],r=x[1];if(y>lo){t+=(Math.min(y,hi)-lo)*r;lo=hi;}}return t;}
+function lito(y){if(y<=37500)return 700;if(y<=45000)return 700-(y-37500)*0.05;if(y<=66667)return 325-(y-45000)*0.015;return 0;}
+function help2627(y){if(y>=186051)return y*0.10;if(y>129717)return 9028+0.17*(y-129717);if(y>69528)return 0.15*(y-69528);return 0;}
+function net(g,hasHelp){const it=Math.max(0,tax2627(g)-lito(g));const mc=g*0.02;const h=hasHelp?help2627(g):0;return {tax:it,mc:mc,help:h,net:g-it-mc-h};}
+function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
+
+  function totTax(y){return Math.max(0,tax2627(y)-lito(y))+y*0.02;}
+  function calc(){
+    var sal=+document.getElementById('sal').value||0,leave=+document.getElementById('leave').value||0;
+    var redun=document.getElementById('redun').checked;
+    var marginalTax=totTax(sal+leave)-totTax(sal);
+    var tax=marginalTax;
+    if(redun){var cap=leave*0.32;tax=Math.min(marginalTax,cap);}
+    var netL=leave-tax;
+    document.getElementById('netL').textContent=fmt(netL);
+    document.getElementById('hint2').textContent=leave>0?'from a '+fmt(leave)+' gross payout':'enter your payout';
+    document.getElementById('gross').textContent=fmt(leave);
+    document.getElementById('tax').textContent='−'+fmt(tax);
+    document.getElementById('rate').textContent=leave>0?(tax/leave*100).toFixed(0)+'%':'0%';
+    document.getElementById('keep').textContent=fmt(netL);
+    var v;
+    if(leave<=0) v='Enter your unused leave payout to see the tax.';
+    else if(redun) v='On a genuine redundancy, unused annual and long service leave is taxed at a concessional rate — capped at 32% (30% plus Medicare). You keep about <b>'+fmt(netL)+'</b>. Your redundancy pay itself is taxed separately and is often tax-free — use our redundancy calculator for that part.';
+    else v='Paid out on resignation, your unused leave is taxed at your marginal rate on top of your salary, so you keep about <b>'+fmt(netL)+'</b>. If this were a genuine redundancy, the rate would be capped at 32% — switch on the toggle to compare.';
+    document.getElementById('verdict').innerHTML=v;
+  }
+  ['sal','leave','redun'].forEach(function(id){document.getElementById(id).addEventListener('input',calc);});calc();
+  </script>
+  <h2 class="gtitle">Common questions</h2>
+    <details><summary><span class="q">How is unused leave taxed when I resign?</span><span class="pm"></span></summary>
+      <div class="a">Unused annual and long service leave paid on resignation is taxed at your marginal rate, added on top of your salary for the year. A large payout can be taxed at a high rate if it pushes your income up.</div></details>
+    <details><summary><span class="q">Is leave taxed differently in a redundancy?</span><span class="pm"></span></summary>
+      <div class="a">Yes. On a genuine redundancy, unused annual and long service leave gets a concessional treatment — the rate is capped at 30% plus the Medicare levy (32%), which can be lower than your marginal rate.</div></details>
+    <details><summary><span class="q">Is my leave payout the same as redundancy pay?</span><span class="pm"></span></summary>
+      <div class="a">No — they are separate. Redundancy pay has its own tax-free treatment; unused leave is taxed under its own rules. This tool covers the leave; use our redundancy calculator for the redundancy payment.</div></details>
+    <details><summary><span class="q">Why is so much tax taken from my payout?</span><span class="pm"></span></summary>
+      <div class="a">Because a lump-sum payout is added to your income for the year and can be taxed at your top marginal rate. If your employer over-withholds, you may get some back at tax time.</div></details>
+
+  <footer>
+    <div class="disc"><b>General information only — not financial, tax or legal advice.</b> This calculator is an educational tool using 2026-27 ATO figures and standard assumptions; your actual position depends on your circumstances.</div>
+    <div class="foot-meta"><span>© <span id="yr"></span> MoneyMilestones · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a></span></div>
+  </footer>
+  <script>var y=document.getElementById('yr');if(y)y.textContent=new Date().getFullYear();</script>
+  <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
+</body>
+</html>

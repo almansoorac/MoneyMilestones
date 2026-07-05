@@ -248,6 +248,17 @@
   .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
+/*dropdown-nav*/
+nav.top{gap:4px;align-items:center}
+nav.top .grp{position:relative}
+nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
+nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
+nav.top .gbtn .ar{font-size:.68em;opacity:.65}
+nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
+nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
+nav.top .menu a.active{color:var(--forest);font-weight:600}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -264,12 +275,11 @@
       <b>Money<span>Milestones</span></b>
     </a>
     <nav class="top">
-      <a href="/" class="active">Parental leave</a>
-      <a href="redundancy.html">Redundancy</a>
-      <a href="salary-sacrifice.html">Salary sacrifice</a>
-      <a href="novated-lease.html">Novated lease</a>
-      <a href="business-vehicle.html">Business car</a>
-      <a href="mortgage-payoff.html">Mortgage payoff</a>
+      <div class="grp"><button class="gbtn active" aria-expanded="false">Pay &amp; work<span class="ar">▾</span></button><div class="menu"><a href="/" class="active">Parental leave</a><a href="job-offer-comparison.html">Job offer</a><a href="pay-rise-calculator.html">Pay rise</a><a href="bonus-tax-calculator.html">Bonus tax</a><a href="redundancy.html">Redundancy</a><a href="unused-leave-tax-calculator.html">Leave payout</a><a href="hecs-help-calculator.html">HECS/HELP</a><a href="wfh-deduction-calculator.html">WFH deduction</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Super<span class="ar">▾</span></button><div class="menu"><a href="salary-sacrifice.html">Salary sacrifice</a><a href="nfp-salary-packaging.html">NFP packaging</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Cars &amp; business<span class="ar">▾</span></button><div class="menu"><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a></div></div>
+      <a href="mortgage-payoff.html">Mortgage</a>
+      <a href="tax-changes-2026-27.html">Tax changes</a>
       <a href="articles.html">Articles</a>
     </nav>
   </header>
@@ -548,6 +558,14 @@
       </a>
       <a class="mcard live" href="business-vehicle.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 13l2-5h10l2 5M4 13h12v3H4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Business car finance</h4><p>Chattel mortgage, lease or cash for a work vehicle.</p></a>
       <a class="mcard live" href="mortgage-payoff.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>Pay off your mortgage faster</h4><p>Extra repayments and offset, years and interest saved.</p></a>
+      <a class="mcard live" href="job-offer-comparison.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="7" height="12" rx="1" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="6" width="6" height="10" rx="1" stroke="currentColor" stroke-width="1.5"/></svg></div><h4>Compare job offers</h4><p>Two or three offers on real take-home and total package.</p></a>
+      <a class="mcard live" href="pay-rise-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 13l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 6h3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Pay rise take-home</h4><p>What you actually keep from a raise after tax and HECS.</p></a>
+      <a class="mcard live" href="hecs-help-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4l7 3.5L10 11 3 7.5 10 4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 9v3.3c0 1 2 1.9 4 1.9s4-.9 4-1.9V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>HECS/HELP repayment</h4><p>Your 2026-27 compulsory study-loan repayment, worked out.</p></a>
+      <a class="mcard live" href="tax-changes-2026-27.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>2026-27 tax changes</h4><p>What is changing in 2026-27 and 2027, in plain English.</p></a>
+      <a class="mcard live" href="nfp-salary-packaging.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 16s-5-3.2-5-6.5A2.8 2.8 0 0110 7a2.8 2.8 0 015 2.5c0 3.3-5 6.5-5 6.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>NFP &amp; health packaging</h4><p>Your real salary-packaging benefit, including the HECS effect.</p></a>
+      <a class="mcard live" href="bonus-tax-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="8" width="14" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M10 8v8M10 8c-1-2.5-2.8-3-3.6-2.2C5.6 6.6 7.5 8 10 8zM10 8c1-2.5 2.8-3 3.6-2.2C14.4 6.6 12.5 8 10 8z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div><h4>Bonus tax</h4><p>How much tax on a bonus, and what you actually keep.</p></a>
+      <a class="mcard live" href="wfh-deduction-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M2 17h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>WFH deduction</h4><p>Your 70c-per-hour work-from-home deduction and tax saving.</p></a>
+      <a class="mcard live" href="unused-leave-tax-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3M7.5 12l1.7 1.7L13 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Leave payout tax</h4><p>Tax on unused annual and long service leave when you leave.</p></a>
     </div>
   </section>
 
@@ -588,7 +606,8 @@
   ];
   const MEDICARE=0.02;
 
-  function tax(t){let x=0;for(const b of BRACKETS){if(t>b.min)x+=(Math.min(t,b.max)-b.min)*b.rate;}return x;}
+  function lito(t){if(t<=37500)return 700;if(t<=45000)return 700-(t-37500)*0.05;if(t<=66667)return 325-(t-45000)*0.015;return 0;}
+  function tax(t){let x=0;for(const b of BRACKETS){if(t>b.min)x+=(Math.min(t,b.max)-b.min)*b.rate;}return Math.max(0,x-lito(t));}
   function marginal(t){let r=0;for(const b of BRACKETS){if(t>b.min)r=b.rate;}return r+MEDICARE;}
   // HELP/HECS compulsory repayment — 2026-27 marginal system (threshold $69,528).
   function helpRepay(inc){if(inc>=186051)return inc*0.10;if(inc>129717)return 9028+0.17*(inc-129717);if(inc>69528)return 0.15*(inc-69528);return 0;}
@@ -793,7 +812,8 @@
       '<p>Thank you for your support. I look forward to discussing the arrangements with you.</p>'+
       '<p>Kind regards,<br>[Your name]<br>[Position]</p>'+
       '<hr><p style="font-size:9pt;color:#5A615A"><i>Template provided by MoneyMilestones as general information only — not legal advice. Check your award, enterprise agreement, employment contract and the Fair Work notice requirements for your situation.</i></p>'+
-      '</body></html>';
+      '  <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
+</body></html>';
     const blob=new Blob(['\ufeff',html],{type:'application/msword'});
     const url=URL.createObjectURL(blob);const a=document.createElement('a');
     a.href=url;a.download='parental-leave-notice-letter-template.doc';document.body.appendChild(a);a.click();

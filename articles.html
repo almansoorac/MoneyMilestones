@@ -97,6 +97,17 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 50px}
 .foot-meta{max-width:1036px;margin:16px auto 0;font-size:.78rem;color:var(--ink-soft)}
 .foot-meta a{color:var(--forest);text-decoration:none}
 
+/*dropdown-nav*/
+nav.top{gap:4px;align-items:center}
+nav.top .grp{position:relative}
+nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
+nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
+nav.top .gbtn .ar{font-size:.68em;opacity:.65}
+nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
+nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
+nav.top .menu a.active{color:var(--forest);font-weight:600}
 </style>
 </head>
 <body>
@@ -104,7 +115,12 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 50px}
   <header class="site">
     <a class="brand" href="/"><svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg><b>Money<span>Milestones</span></b></a>
     <nav class="top">
-      <a href="/">Parental leave</a><a href="redundancy.html">Redundancy</a><a href="salary-sacrifice.html">Salary sacrifice</a><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a><a href="mortgage-payoff.html">Mortgage payoff</a><a href="articles.html" class="active">Articles</a>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Pay &amp; work<span class="ar">▾</span></button><div class="menu"><a href="/">Parental leave</a><a href="job-offer-comparison.html">Job offer</a><a href="pay-rise-calculator.html">Pay rise</a><a href="bonus-tax-calculator.html">Bonus tax</a><a href="redundancy.html">Redundancy</a><a href="unused-leave-tax-calculator.html">Leave payout</a><a href="hecs-help-calculator.html">HECS/HELP</a><a href="wfh-deduction-calculator.html">WFH deduction</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Super<span class="ar">▾</span></button><div class="menu"><a href="salary-sacrifice.html">Salary sacrifice</a><a href="nfp-salary-packaging.html">NFP packaging</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Cars &amp; business<span class="ar">▾</span></button><div class="menu"><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a></div></div>
+      <a href="mortgage-payoff.html">Mortgage</a>
+      <a href="tax-changes-2026-27.html">Tax changes</a>
+      <a href="articles.html" class="active">Articles</a>
     </nav>
   </header>
 
@@ -115,6 +131,106 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 50px}
   </section>
 
   <div class="idx-list">
+      <a class="idx-item" href="nfp-salary-packaging-explained.html">
+      <span class="tag">Super</span>
+      <h2>Salary packaging for not-for-profit and health workers</h2>
+      <p>Package living expenses tax-free up to $15,900 or $9,010 — and the HECS catch to watch for.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="how-bonuses-are-taxed.html">
+      <span class="tag">Work</span>
+      <h2>How is a bonus taxed in Australia?</h2>
+      <p>There is no special bonus rate — it is taxed at your marginal rate. Why so much gets withheld.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="working-from-home-deductions-2026-27.html">
+      <span class="tag">Tax</span>
+      <h2>Work-from-home tax deductions in 2026-27</h2>
+      <p>The 70c fixed-rate method, what it covers, and when the new $1,000 instant deduction wins.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="how-unused-leave-is-taxed.html">
+      <span class="tag">Work</span>
+      <h2>How unused leave is taxed when you leave a job</h2>
+      <p>Marginal rate on resignation, capped at 32% on a genuine redundancy. What you actually keep.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+
+      <a class="idx-item" href="how-to-compare-job-offers.html">
+      <span class="tag">Work</span>
+      <h2>How to compare two job offers (it is not just the salary)</h2>
+      <p>Compare offers on take-home, super and HECS — plus the factors that never make the offer letter.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="pay-rise-what-you-keep.html">
+      <span class="tag">Work</span>
+      <h2>How much of a pay rise do you actually keep?</h2>
+      <p>How tax, Medicare and HECS shape what you take home from a raise — and why you are never worse off.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+
+      <a class="idx-item" href="hecs-help-repayments-2026-27.html">
+      <span class="tag">Study loans</span>
+      <h2>How HECS/HELP repayments work in 2026-27</h2>
+      <p>The new marginal system, the $69,528 threshold, and how much you actually repay each year.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="carry-forward-super-contributions.html">
+      <span class="tag">Super</span>
+      <h2>Carry-forward super contributions: catching up on unused cap</h2>
+      <p>Contribute more than the annual cap using unused amounts banked over the past five years.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="redundancy-notice-pay-in-lieu.html">
+      <span class="tag">Redundancy</span>
+      <h2>Notice periods, pay in lieu and your final pay in a redundancy</h2>
+      <p>Notice, redundancy pay and leave are separate entitlements. What makes up your final pay.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="sole-trader-vs-company-tax.html">
+      <span class="tag">Business</span>
+      <h2>Sole trader vs company: how business structure changes your tax</h2>
+      <p>Marginal rates up to 47% versus a flat 25-30% company rate. When a company starts to make sense.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="fixed-vs-variable-home-loan.html">
+      <span class="tag">Mortgage</span>
+      <h2>Fixed vs variable home loan: how to choose in 2026-27</h2>
+      <p>Certainty versus flexibility, offset and extra repayments, and break costs. Which suits you.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+
+      <a class="idx-item" href="division-293-tax-explained.html">
+      <span class="tag">Super</span>
+      <h2>Division 293 tax: the extra 15% on super for high earners</h2>
+      <p>Who pays the extra 15% super tax, how it is calculated, and why salary sacrifice can still pay off.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="genuine-vs-non-genuine-redundancy.html">
+      <span class="tag">Redundancy</span>
+      <h2>Genuine vs non-genuine redundancy: the distinction that changes your tax</h2>
+      <p>Whether a payout is a genuine redundancy decides if the tax-free limit applies. How to tell them apart.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="2026-27-tax-cuts-explained.html">
+      <span class="tag">Tax</span>
+      <h2>The 2026-27 tax cuts: what the new 15% rate means for you</h2>
+      <p>The second bracket dropped to 15% on 1 July 2026. What changed, what you save, and what is coming next.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="offset-vs-redraw-vs-extra-repayments.html">
+      <span class="tag">Mortgage</span>
+      <h2>Offset account vs redraw vs extra repayments: what is the difference?</h2>
+      <p>All three cut mortgage interest, but they behave very differently when you need the money back.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+      <a class="idx-item" href="chattel-mortgage-vs-lease-business-car.html">
+      <span class="tag">Business</span>
+      <h2>Chattel mortgage vs lease for a business car: how to choose</h2>
+      <p>Ownership, GST timing and what you can deduct all differ. Which structure suits your business.</p>
+      <span class="more">Read the guide →</span>
+    </a>
+
       <a class="idx-item" href="redundancy-tax-explained.html">
       <span class="tag">Redundancy</span>
       <h2>How is a redundancy payout taxed in Australia?</h2>
@@ -184,5 +300,6 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 50px}
   </footer>
 </div>
 <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
+  <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
 </body>
 </html>

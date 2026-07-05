@@ -97,13 +97,30 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 50px}
 .foot-meta{max-width:1036px;margin:16px auto 0;font-size:.78rem;color:var(--ink-soft)}
 .foot-meta a{color:var(--forest);text-decoration:none}
 
+/*dropdown-nav*/
+nav.top{gap:4px;align-items:center}
+nav.top .grp{position:relative}
+nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
+nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
+nav.top .gbtn .ar{font-size:.68em;opacity:.65}
+nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
+nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
+nav.top .menu a.active{color:var(--forest);font-weight:600}
 </style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BlogPosting", "headline": "Is Paid Parental Leave taxed? What to expect on your pay and return", "description": "Government Paid Parental Leave is taxable income paid through PAYG. How PPL tax works, why your refund may surprise you, and how super and top-ups fit in.", "datePublished": "2026-07-02", "dateModified": "2026-07-02", "author": {"@type": "Organization", "name": "MoneyMilestones"}, "publisher": {"@type": "Organization", "name": "MoneyMilestones"}, "mainEntityOfPage": "https://moneymilestones.com.au/how-paid-parental-leave-is-taxed.html"}</script>
 </head>
 <body>
   <header class="site">
     <a class="brand" href="/"><svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg><b>Money<span>Milestones</span></b></a>
     <nav class="top">
-      <a href="/">Parental leave</a><a href="redundancy.html">Redundancy</a><a href="salary-sacrifice.html">Salary sacrifice</a><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a><a href="mortgage-payoff.html">Mortgage payoff</a><a href="articles.html" class="active">Articles</a>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Pay &amp; work<span class="ar">▾</span></button><div class="menu"><a href="/">Parental leave</a><a href="job-offer-comparison.html">Job offer</a><a href="pay-rise-calculator.html">Pay rise</a><a href="bonus-tax-calculator.html">Bonus tax</a><a href="redundancy.html">Redundancy</a><a href="unused-leave-tax-calculator.html">Leave payout</a><a href="hecs-help-calculator.html">HECS/HELP</a><a href="wfh-deduction-calculator.html">WFH deduction</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Super<span class="ar">▾</span></button><div class="menu"><a href="salary-sacrifice.html">Salary sacrifice</a><a href="nfp-salary-packaging.html">NFP packaging</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Cars &amp; business<span class="ar">▾</span></button><div class="menu"><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a></div></div>
+      <a href="mortgage-payoff.html">Mortgage</a>
+      <a href="tax-changes-2026-27.html">Tax changes</a>
+      <a href="articles.html" class="active">Articles</a>
     </nav>
   </header>
 
@@ -142,5 +159,6 @@ footer{margin-top:48px;border-top:1px solid var(--line);padding:26px 0 50px}
     <div class="foot-meta">© <span id="yr"></span> MoneyMilestones · <a href="/about.html">About</a> · <a href="/contact.html">Contact</a> · <a href="/privacy.html">Privacy</a></div>
   </footer>
   <script>var y=document.getElementById('yr');if(y)y.textContent=new Date().getFullYear();</script>
+  <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
 </body>
 </html>

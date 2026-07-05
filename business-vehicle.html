@@ -147,6 +147,17 @@
   .foot-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:18px;font-size:.78rem;color:var(--ink-soft)}
   .toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;font-size:.88rem;font-weight:600;padding:12px 20px;border-radius:100px;box-shadow:var(--shadow-lg);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;z-index:50}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/*dropdown-nav*/
+nav.top{gap:4px;align-items:center}
+nav.top .grp{position:relative}
+nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
+nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
+nav.top .gbtn .ar{font-size:.68em;opacity:.65}
+nav.top .menu{position:absolute;top:calc(100% + 5px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
+nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
+nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
+nav.top .menu a:hover{background:var(--mint);color:var(--forest)}
+nav.top .menu a.active{color:var(--forest);font-weight:600}
 </style>
 </head>
 <body>
@@ -157,12 +168,11 @@
       <b>Money<span>Milestones</span></b>
     </a>
     <nav class="top">
-      <a href="/">Parental leave</a>
-      <a href="redundancy.html">Redundancy</a>
-      <a href="salary-sacrifice.html">Salary sacrifice</a>
-      <a href="novated-lease.html">Novated lease</a>
-      <a href="business-vehicle.html" class="active">Business car</a>
-      <a href="mortgage-payoff.html">Mortgage payoff</a>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Pay &amp; work<span class="ar">▾</span></button><div class="menu"><a href="/">Parental leave</a><a href="job-offer-comparison.html">Job offer</a><a href="pay-rise-calculator.html">Pay rise</a><a href="bonus-tax-calculator.html">Bonus tax</a><a href="redundancy.html">Redundancy</a><a href="unused-leave-tax-calculator.html">Leave payout</a><a href="hecs-help-calculator.html">HECS/HELP</a><a href="wfh-deduction-calculator.html">WFH deduction</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Super<span class="ar">▾</span></button><div class="menu"><a href="salary-sacrifice.html">Salary sacrifice</a><a href="nfp-salary-packaging.html">NFP packaging</a></div></div>
+      <div class="grp"><button class="gbtn active" aria-expanded="false">Cars &amp; business<span class="ar">▾</span></button><div class="menu"><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html" class="active">Business car</a></div></div>
+      <a href="mortgage-payoff.html">Mortgage</a>
+      <a href="tax-changes-2026-27.html">Tax changes</a>
       <a href="articles.html">Articles</a>
     </nav>
   </header>
@@ -518,5 +528,6 @@
   calc();
 })();
 </script>
+  <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
 </body>
 </html>
