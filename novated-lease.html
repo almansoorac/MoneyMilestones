@@ -173,7 +173,7 @@ p{font-size:1.05rem;color:#3A413B;margin-bottom:16px}
 h2.gtitle,.post h2{font-size:clamp(1.5rem,3vw,1.8rem);letter-spacing:-.015em}
 footer{margin-top:46px}
 /*mobile-nav*/
-.navburger{display:none;margin-left:auto;flex-direction:column;justify-content:center;gap:5px;width:44px;height:40px;background:none;border:1px solid var(--line);border-radius:10px;cursor:pointer;padding:0 11px}
+.navburger{display:none;margin-left:auto;flex-direction:column;justify-content:center;gap:5px;width:44px;height:40px;background:none;border:none;border-radius:10px;cursor:pointer;padding:0 8px}
 .navburger span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
 header.site.nav-open .navburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 header.site.nav-open .navburger span:nth-child(2){opacity:0}
@@ -188,12 +188,12 @@ nav.top>a{width:100%;padding:12px 15px;border-radius:11px;font-size:.95rem}
 nav.top .menu{position:static;width:auto;min-width:0;box-shadow:none;border:none;background:var(--mint);border-radius:11px;padding:4px;margin:1px 0 5px}
 nav.top .menu::before{display:none}
 nav.top .menu a{padding:11px 14px}
-nav.top .grp:hover .menu{display:none}
+header.site.nav-open nav.top .grp .menu{display:none}
+header.site.nav-open nav.top .grp.open .menu{display:flex}
 .wrap{padding:0 16px}
 }
 /*polish*/
-header.site{position:sticky;top:0;z-index:50;background:var(--paper);transition:box-shadow .2s}
-header.site.scrolled{box-shadow:0 2px 14px rgba(30,37,34,.08)}
+header.site.nav-open{background:var(--paper);box-shadow:0 10px 26px rgba(30,37,34,.10)}
 .panel,.mcard{box-shadow:var(--shadow)}
 .bignum.pop{animation:mm-bump .35s ease}
 @keyframes mm-bump{0%{transform:scale(1)}30%{transform:scale(1.045);opacity:.9}100%{transform:scale(1)}}
