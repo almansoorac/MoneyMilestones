@@ -249,17 +249,61 @@
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /*dropdown-nav*/
-nav.top{gap:4px;align-items:center}
+nav.top{gap:6px;align-items:center}
 nav.top .grp{position:relative}
-nav.top .gbtn{font:inherit;font-size:.9rem;color:var(--ink);background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:8px;display:inline-flex;align-items:center;gap:5px;line-height:1}
-nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--mint);color:var(--forest)}
-nav.top .gbtn .ar{font-size:.68em;opacity:.65}
+nav.top .gbtn{font:inherit;font-size:.88rem;font-weight:600;color:var(--forest);background:none;border:1px solid var(--line);cursor:pointer;padding:6px 12px;border-radius:100px;display:inline-flex;align-items:center;gap:4px;line-height:1;transition:.15s}
+nav.top .gbtn:hover,nav.top .gbtn.active{background:var(--forest);color:#fff;border-color:var(--forest)}
+nav.top .gbtn .ar{font-size:.72em}
 nav.top .menu{position:absolute;top:calc(100% + 7px);left:0;min-width:198px;background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:0 12px 32px rgba(20,40,30,.14);padding:6px;display:none;flex-direction:column;gap:1px;z-index:60}
 nav.top .menu::before{content:"";position:absolute;top:-11px;left:0;right:0;height:11px}
 nav.top .grp:hover .menu,nav.top .grp.open .menu{display:flex}
 nav.top .menu a{padding:8px 12px;border-radius:7px;font-size:.9rem;color:var(--ink);white-space:nowrap;text-decoration:none;display:block}
 nav.top .menu a:hover{background:var(--mint);color:var(--forest-deep,var(--forest))}
 nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
+/*type-normalize*/
+body{line-height:1.6}
+h1{font-size:clamp(2rem,5vw,3rem)}
+p{font-size:1.05rem;color:#3A413B;margin-bottom:16px}
+.lede{font-size:1.08rem;color:var(--ink-soft);line-height:1.55}
+h2.gtitle,.post h2{font-size:clamp(1.5rem,3vw,1.8rem);letter-spacing:-.015em}
+footer{margin-top:46px}
+/*mobile-nav*/
+.navburger{display:none;margin-left:auto;flex-direction:column;justify-content:center;gap:5px;width:44px;height:40px;background:none;border:1px solid var(--line);border-radius:10px;cursor:pointer;padding:0 11px}
+.navburger span{display:block;height:2px;background:var(--ink);border-radius:2px;transition:.2s}
+header.site.nav-open .navburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+header.site.nav-open .navburger span:nth-child(2){opacity:0}
+header.site.nav-open .navburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:820px){
+.navburger{display:flex}
+nav.top{display:none;order:3;width:100%;margin-left:0;flex-direction:column;align-items:stretch;gap:3px;margin-top:12px}
+header.site.nav-open nav.top{display:flex}
+nav.top .grp{width:100%}
+nav.top .gbtn{width:100%;justify-content:space-between;border-radius:11px;font-size:.95rem;padding:12px 15px}
+nav.top>a{width:100%;padding:12px 15px;border-radius:11px;font-size:.95rem}
+nav.top .menu{position:static;width:auto;min-width:0;box-shadow:none;border:none;background:var(--mint);border-radius:11px;padding:4px;margin:1px 0 5px}
+nav.top .menu::before{display:none}
+nav.top .menu a{padding:11px 14px}
+nav.top .grp:hover .menu{display:none}
+.wrap{padding:0 16px}
+}
+/*polish*/
+header.site{position:sticky;top:0;z-index:50;background:var(--paper);transition:box-shadow .2s}
+header.site.scrolled{box-shadow:0 2px 14px rgba(30,37,34,.08)}
+.panel,.mcard{box-shadow:var(--shadow)}
+.bignum.pop{animation:mm-bump .35s ease}
+@keyframes mm-bump{0%{transform:scale(1)}30%{transform:scale(1.045);opacity:.9}100%{transform:scale(1)}}
+@media(max-width:820px){header.site.nav-open nav.top{max-height:72vh;overflow-y:auto}}
+@media(max-width:560px){
+header.site{padding-top:14px;padding-bottom:10px}
+.hero{padding:16px 0 12px}
+.app{margin:20px 0 8px}
+.pc-detail{margin-top:24px}
+h2.gtitle,.post h2{margin-top:26px}
+table{font-size:.9rem}
+.dtable th,.dtable td{padding:8px 7px}
+td,th{overflow-wrap:anywhere}
+.wrap{padding:0 15px}
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
@@ -275,13 +319,17 @@ nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
       </svg>
       <b>Money<span>Milestones</span></b>
     </a>
-    <nav class="top">
-      <div class="grp"><button class="gbtn active" aria-expanded="false">Pay &amp; work<span class="ar">▾</span></button><div class="menu"><a href="/" class="active">Parental leave</a><a href="job-offer-comparison.html">Job offer</a><a href="pay-rise-calculator.html">Pay rise</a><a href="bonus-tax-calculator.html">Bonus tax</a><a href="redundancy.html">Redundancy</a><a href="unused-leave-tax-calculator.html">Leave payout</a><a href="hecs-help-calculator.html">HECS/HELP</a><a href="wfh-deduction-calculator.html">WFH deduction</a></div></div>
-      <div class="grp"><button class="gbtn" aria-expanded="false">Super<span class="ar">▾</span></button><div class="menu"><a href="salary-sacrifice.html">Salary sacrifice</a><a href="nfp-salary-packaging.html">NFP packaging</a></div></div>
-      <div class="grp"><button class="gbtn" aria-expanded="false">Cars &amp; business<span class="ar">▾</span></button><div class="menu"><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a></div></div>
-      <a href="mortgage-payoff.html">Mortgage</a>
-      <a href="tax-changes-2026-27.html">Tax changes</a>
-      <a href="articles.html">Articles</a>
+    <button class="navburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="top">
+      <a href="pay-calculator.html">Pay calculator</a>
+      <a href="/" class="active">Parental leave</a>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Pay<span class="ar">▾</span></button><div class="menu"><a href="pay-rise-calculator.html">Pay rise</a><a href="bonus-tax-calculator.html">Bonus tax</a><a href="overtime-calculator.html">Overtime</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Tax<span class="ar">▾</span></button><div class="menu"><a href="tax-refund-calculator.html">Tax refund</a><a href="hecs-help-calculator.html">HECS/HELP</a><a href="wfh-deduction-calculator.html">WFH deduction</a><a href="gst-calculator.html">GST</a><a href="tax-changes-2026-27.html">2026-27 changes</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Changing jobs<span class="ar">▾</span></button><div class="menu"><a href="job-offer-comparison.html">Job offer</a><a href="redundancy.html">Redundancy</a><a href="unused-leave-tax-calculator.html">Leave payout</a><a href="contractor-rate-calculator.html">Contractor</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Super<span class="ar">▾</span></button><div class="menu"><a href="salary-sacrifice.html">Salary sacrifice</a><a href="super-projection-calculator.html">Super projection</a><a href="nfp-salary-packaging.html">NFP packaging</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Mortgage<span class="ar">▾</span></button><div class="menu"><a href="mortgage-repayment-calculator.html">Mortgage repayment</a><a href="mortgage-payoff.html">Mortgage payoff</a></div></div>
+      <div class="grp"><button class="gbtn" aria-expanded="false">Cars<span class="ar">▾</span></button><div class="menu"><a href="novated-lease.html">Novated lease</a><a href="business-vehicle.html">Business car</a></div></div>
+      <a href="articles.html">Guides</a>
     </nav>
   </header>
 
@@ -533,6 +581,7 @@ nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
     <h3>Your next milestone</h3>
     <p class="sub">The same engine powers every calculation here — one income picture, every life event it touches.</p>
     <div class="cards">
+      <a class="mcard live" href="pay-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 3h12v14H4z" stroke="currentColor" stroke-width="1.5"/><path d="M7 7h6M7 10h6M7 13h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Pay calculator</h4><p>Your take-home pay, visualised — tax, super, HECS and where every dollar goes.</p></a>
       <a class="mcard live" href="/">
         <span class="badge now">Live</span>
         <div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="currentColor" stroke-width="1.5"/><path d="M4 16c0-2.5 2.7-4 6-4s6 1.5 6 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
@@ -563,6 +612,12 @@ nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
       <a class="mcard live" href="pay-rise-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 13l4-4 3 3 5-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 6h3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Pay rise take-home</h4><p>What you actually keep from a raise after tax and HECS.</p></a>
       <a class="mcard live" href="hecs-help-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 4l7 3.5L10 11 3 7.5 10 4z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M6 9v3.3c0 1 2 1.9 4 1.9s4-.9 4-1.9V9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>HECS/HELP repayment</h4><p>Your 2026-27 compulsory study-loan repayment, worked out.</p></a>
       <a class="mcard live" href="tax-changes-2026-27.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 3v3M13 3v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>2026-27 tax changes</h4><p>What is changing in 2026-27 and 2027, in plain English.</p></a>
+      <a class="mcard live" href="tax-refund-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 3h10v14l-2-1.3-2 1.3-2-1.3-2 1.3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 7h4M8 10h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Tax refund</h4><p>Estimate your refund from income, tax withheld and deductions.</p></a>
+      <a class="mcard live" href="mortgage-repayment-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 9l7-5 7 5v7H3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 13h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Mortgage repayment</h4><p>Your home loan repayment, total interest and payoff — visualised.</p></a>
+      <a class="mcard live" href="super-projection-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 16V7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M6 11l4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>Super projection</h4><p>Project your super balance and retirement income to age 67.</p></a>
+      <a class="mcard live" href="gst-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M6 14L14 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="7" cy="7" r="1.6" stroke="currentColor" stroke-width="1.4"/><circle cx="13" cy="13" r="1.6" stroke="currentColor" stroke-width="1.4"/></svg></div><h4>GST calculator</h4><p>Add or remove 10% GST on any amount, instantly.</p></a>
+      <a class="mcard live" href="contractor-rate-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="7" width="14" height="9" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M7 7V5.5A1.5 1.5 0 018.5 4h3A1.5 1.5 0 0113 5.5V7" stroke="currentColor" stroke-width="1.5"/></svg></div><h4>Contractor rate</h4><p>The day rate that matches a salary — or the salary a rate is worth.</p></a>
+      <a class="mcard live" href="overtime-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v4l3 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>Overtime pay</h4><p>Your gross pay with overtime and penalty rates.</p></a>
       <a class="mcard live" href="nfp-salary-packaging.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 16s-5-3.2-5-6.5A2.8 2.8 0 0110 7a2.8 2.8 0 015 2.5c0 3.3-5 6.5-5 6.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></div><h4>NFP &amp; health packaging</h4><p>Your real salary-packaging benefit, including the HECS effect.</p></a>
       <a class="mcard live" href="bonus-tax-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="8" width="14" height="8" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M10 8v8M10 8c-1-2.5-2.8-3-3.6-2.2C5.6 6.6 7.5 8 10 8zM10 8c1-2.5 2.8-3 3.6-2.2C14.4 6.6 12.5 8 10 8z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg></div><h4>Bonus tax</h4><p>How much tax on a bonus, and what you actually keep.</p></a>
       <a class="mcard live" href="wfh-deduction-calculator.html"><span class="badge now">Live</span><div class="ic"><svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="3" y="5" width="14" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/><path d="M2 17h16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div><h4>WFH deduction</h4><p>Your 70c-per-hour work-from-home deduction and tax saving.</p></a>
@@ -813,8 +868,7 @@ nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
       '<p>Thank you for your support. I look forward to discussing the arrangements with you.</p>'+
       '<p>Kind regards,<br>[Your name]<br>[Position]</p>'+
       '<hr><p style="font-size:9pt;color:#5A615A"><i>Template provided by MoneyMilestones as general information only — not legal advice. Check your award, enterprise agreement, employment contract and the Fair Work notice requirements for your situation.</i></p>'+
-      '  <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
-</body></html>';
+      '</body></html>';
     const blob=new Blob(['\ufeff',html],{type:'application/msword'});
     const url=URL.createObjectURL(blob);const a=document.createElement('a');
     a.href=url;a.download='parental-leave-notice-letter-template.doc';document.body.appendChild(a);a.click();
@@ -844,5 +898,8 @@ nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
   ]
 }
 </script>
+  <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
+  <script>/*navburger*/(function(){document.querySelectorAll(".navburger").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var h=b.closest("header");var open=h.classList.toggle("nav-open");b.setAttribute("aria-expanded",String(open));});});})();</script>
+  <script>/*polishjs*/(function(){var h=document.querySelector("header.site");if(h){var f=function(){h.classList.toggle("scrolled",window.scrollY>6);};window.addEventListener("scroll",f,{passive:true});f();}document.querySelectorAll(".bignum").forEach(function(el){try{var o=new MutationObserver(function(){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");});o.observe(el,{childList:true,characterData:true,subtree:true});}catch(e){}});})();</script>
 </body>
 </html>
