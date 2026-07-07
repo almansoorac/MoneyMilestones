@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>(function(){try{if(localStorage.getItem("mm-theme")==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}})();</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="canonical" href="https://moneymilestones.com.au/super-projection-calculator.html">
@@ -10,43 +11,43 @@
 <meta name="description" content="Project your super balance at retirement from your salary, 12% employer contributions and returns. See the growth chart, retirement income estimate, and the effect of extra contributions.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,500&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
   :root{
-    --paper:#FBF7EF;--paper-2:#F4EEE2;--card:#FFFFFF;--ink:#1E2522;--ink-soft:#5A615A;--line:#E7DECE;
-    --forest:#1B5E4B;--forest-deep:#13473A;--ochre:#D98A2B;--ochre-soft:#F6E7CF;--rose:#B4543F;--mint:#EAF2EC;
-    --shadow:0 1px 2px rgba(30,37,34,.04),0 8px 24px rgba(30,37,34,.06);
-    --shadow-lg:0 2px 4px rgba(30,37,34,.05),0 18px 48px rgba(30,37,34,.10);
+    --paper:#F7F3EC;--paper-2:#EFE9DD;--card:#FFFFFF;--ink:#17223B;--ink-soft:#5A6478;--line:#E7E0D3;
+    --forest:#17233F;--forest-deep:#0E1830;--ochre:#B08D3C;--ochre-soft:#F0E7CE;--rose:#B4543F;--mint:#E9ECF3;--ochre-ink:#6E5416;--prose:#3C4658;
+    --shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px rgba(16,24,40,.06);
+    --shadow-lg:0 2px 4px rgba(16,24,40,.05),0 18px 48px rgba(16,24,40,.10);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:'Hanken Grotesk',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(circle at 12% -10%,rgba(27,94,75,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(217,138,43,.07),transparent 38%);background-attachment:fixed}
+  body{font-family:'Public Sans',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(circle at 12% -10%,rgba(23,35,63,.06),transparent 40%),radial-gradient(circle at 95% 0%,rgba(176,141,60,.07),transparent 38%);background-attachment:fixed}
   .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
   header.site{padding:26px 0 14px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
   .brand{display:flex;align-items:center;gap:11px;text-decoration:none;color:var(--ink)}
   .mark{width:34px;height:34px;flex:none}
-  .brand b{font-family:'Fraunces',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
+  .brand b{font-family:'Newsreader',serif;font-weight:600;font-size:1.32rem;letter-spacing:-.01em}
   .brand b span{color:var(--forest)}
   nav.top{margin-left:22px;display:flex;gap:6px;flex-wrap:wrap}
   nav.top a{font-size:.84rem;font-weight:600;color:var(--ink-soft);text-decoration:none;padding:7px 13px;border-radius:100px;transition:.15s}
   nav.top a:hover{background:var(--mint);color:var(--forest-deep)}
   nav.top a.active{background:var(--forest);color:#fff}
   .hero{padding:26px 0 22px}
-  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D5E5D9}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--forest-deep);font-size:.74rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:6px 12px;border-radius:100px;border:1px solid #D2D9E8}
   .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--forest);animation:pulse 2.4s infinite}
   @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-  h1{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:16ch}
+  h1{font-family:'Newsreader',serif;font-weight:600;font-size:clamp(2rem,5vw,3.05rem);line-height:1.04;letter-spacing:-.02em;margin:16px 0 12px;max-width:16ch}
   h1 em{font-style:italic;color:var(--forest)}
   .lede{font-size:1.06rem;color:var(--ink-soft);max-width:56ch}
-  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #ECD3A7;border-radius:12px;padding:10px 14px;font-size:.82rem;color:#7A4E13;max-width:62ch}
+  .verify-flag{margin-top:16px;display:inline-flex;gap:9px;align-items:flex-start;background:var(--ochre-soft);border:1px solid #E4D3A6;border-radius:12px;padding:10px 14px;font-size:.82rem;color:var(--ochre-ink);max-width:62ch}
   .verify-flag svg{flex:none;margin-top:1px}
   .app{display:grid;grid-template-columns:1fr 1.05fr;gap:22px;margin:30px 0 10px;align-items:start}
   @media(max-width:860px){.app{grid-template-columns:1fr}}
   .panel{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);overflow:hidden}
   .panel-head{padding:18px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
-  .panel-head h2{font-family:'Fraunces',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
+  .panel-head h2{font-family:'Newsreader',serif;font-weight:600;font-size:1.12rem;letter-spacing:-.01em}
   .panel-head .num{width:24px;height:24px;border-radius:50%;background:var(--forest);color:#fff;font-size:.78rem;font-weight:700;display:grid;place-items:center;flex:none}
   .panel-body{padding:20px 22px}
   .field{margin-bottom:17px}
@@ -56,12 +57,12 @@
   .input-money::before{content:"$";position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600;font-size:.95rem}
   input[type=number],select{width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);background:var(--paper);border:1.5px solid var(--line);border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
   .input-money input{padding-left:26px}
-  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(27,94,75,.12)}
+  input[type=number]:focus,select:focus{outline:none;border-color:var(--forest);box-shadow:0 0 0 3px rgba(23,35,63,.12)}
   input[type=range]{width:100%;accent-color:var(--forest);margin-top:4px}
   .row2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
   .pct{position:relative}
   .pct span{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--ink-soft);font-weight:600}
-  .amt-live{font-family:'Fraunces',serif;font-weight:600;color:var(--forest);font-size:1.05rem}
+  .amt-live{font-family:'Newsreader',serif;font-weight:600;color:var(--forest);font-size:1.05rem}
   .toggles{display:flex;flex-direction:column;gap:11px;margin-top:4px}
   .toggle{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:.88rem;font-weight:500}
   .switch{position:relative;width:42px;height:24px;flex:none}
@@ -78,33 +79,33 @@
   .assume-body{padding:4px 16px 16px}
   .assume-note{font-size:.78rem;color:var(--ink-soft);margin-bottom:14px;line-height:1.45}
 
-  .result-panel{background:linear-gradient(170deg,#173F33,#0E3329);color:#EAF2EC;border:none}
+  .result-panel{background:linear-gradient(170deg,#1B2A49,#0F1B33);color:#EDE7DA;border:none}
   .result-panel .panel-head{border-bottom:1px solid rgba(255,255,255,.12)}
   .result-panel .panel-head h2{color:#fff}
   .result-panel .panel-head .num{background:var(--ochre);color:#3A2406}
-  .headline .small{font-size:.86rem;color:#A9C3B6;font-weight:500}
-  .bignum{font-family:'Fraunces',serif;font-size:clamp(2.2rem,6.4vw,3.1rem);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:6px 0 4px;color:#fff}
+  .headline .small{font-size:.86rem;color:#A9B3C9;font-weight:500}
+  .bignum{font-family:'Newsreader',serif;font-size:clamp(2.2rem,6.4vw,3.1rem);font-weight:600;letter-spacing:-.02em;line-height:1.04;margin:6px 0 4px;color:#fff}
   .bignum .cur{color:var(--ochre)}
-  .headline .sub{font-size:.9rem;color:#BFD4C8}
+  .headline .sub{font-size:.9rem;color:#BFC8DC}
   .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.1);border-radius:13px;overflow:hidden;margin-top:20px}
-  .stat{background:#143A2F;padding:13px 15px}
-  .stat .k{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
-  .stat .v{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:600;margin-top:5px;color:#fff}
+  .stat{background:#1B2A49;padding:13px 15px}
+  .stat .k{font-size:.72rem;color:#9AA6BE;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-family:'Newsreader',serif;font-size:1.35rem;font-weight:600;margin-top:5px;color:#fff}
   .stat .v.warn{color:#F2C9BF}
 
   .bars{margin-top:24px}
-  .bars .blbl{font-size:.72rem;color:#9DBBAD;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
+  .bars .blbl{font-size:.72rem;color:#9AA6BE;font-weight:600;text-transform:uppercase;letter-spacing:.03em;margin-bottom:12px}
   .barrow{margin-bottom:15px}
   .barrow .bl{display:flex;justify-content:space-between;font-size:.85rem;color:#DCE9E1;margin-bottom:6px;font-weight:600}
   .barrow .bl .amt{font-variant-numeric:tabular-nums}
   .bar-track{height:26px;background:rgba(255,255,255,.08);border-radius:8px;overflow:hidden}
   .bar-fill{height:100%;border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1)}
-  .bf-super{background:linear-gradient(90deg,var(--ochre),#E8A951)}
-  .bf-mort{background:linear-gradient(90deg,#3E8E73,#5BAE90)}
+  .bf-super{background:linear-gradient(90deg,var(--ochre),#C9A75A)}
+  .bf-mort{background:linear-gradient(90deg,#3C5488,#5B79B8)}
   .bf-cash{background:linear-gradient(90deg,#4A6A7A,#6E93A3)}
   .tag-best{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;background:var(--ochre);color:#3A2406;padding:2px 7px;border-radius:5px;margin-left:8px;vertical-align:middle}
 
-  .note-line{margin-top:18px;font-size:.82rem;color:#BFD4C8;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
+  .note-line{margin-top:18px;font-size:.82rem;color:#BFC8DC;background:rgba(255,255,255,.06);border-radius:11px;padding:11px 14px}
   .note-line b{color:#fff}
   .note-line.warn{background:rgba(180,84,63,.2);border:1px solid rgba(180,84,63,.4);color:#F2C9BF}
 
@@ -112,28 +113,28 @@
   .btn{font-family:inherit;font-size:.88rem;font-weight:600;border-radius:10px;padding:11px 16px;cursor:pointer;border:1.5px solid transparent;transition:transform .12s,background .15s,border-color .15s;white-space:nowrap}
   .btn:active{transform:translateY(1px)}
   .btn-solid{background:var(--ochre);color:#3A2406;border-color:var(--ochre)}
-  .btn-solid:hover{background:#E8A951}
-  .btn-ghost{background:transparent;color:#EAF2EC;border-color:rgba(255,255,255,.3)}
+  .btn-solid:hover{background:#C9A75A}
+  .btn-ghost{background:transparent;color:#EDE7DA;border-color:rgba(255,255,255,.3)}
   .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.08)}
 
   .guide{max-width:752px;margin:54px auto 0}
   .guide .kicker{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ochre)}
-  .guide h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
+  .guide h2.gtitle{font-family:'Newsreader',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;line-height:1.1;margin:8px 0 14px}
   .byline{display:flex;align-items:center;gap:11px;flex-wrap:wrap;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:26px;font-size:.83rem;color:var(--ink-soft)}
-  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Fraunces',serif;font-weight:600;font-size:.95rem;flex:none}
+  .byline .av{width:34px;height:34px;border-radius:50%;background:var(--forest);color:#fff;display:grid;place-items:center;font-family:'Newsreader',serif;font-weight:600;font-size:.95rem;flex:none}
   .byline b{color:var(--ink);font-weight:600}
-  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D5E5D9}
-  .prose h3{font-family:'Fraunces',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
-  .prose p{margin-bottom:15px;font-size:1.02rem;color:#3A413B}
+  .byline .vstamp{margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:var(--mint);color:var(--forest-deep);padding:5px 11px;border-radius:100px;font-size:.76rem;font-weight:600;border:1px solid #D2D9E8}
+  .prose h3{font-family:'Newsreader',serif;font-weight:600;font-size:1.28rem;letter-spacing:-.01em;margin:30px 0 10px;color:var(--ink)}
+  .prose p{margin-bottom:15px;font-size:1.02rem;color:var(--prose)}
   .prose ul{margin:0 0 16px 0;padding-left:2px;list-style:none}
-  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:#3A413B}
+  .prose li{position:relative;padding-left:26px;margin-bottom:9px;font-size:1.02rem;color:var(--prose)}
   .prose li::before{content:"";position:absolute;left:4px;top:9px;width:8px;height:8px;border-radius:2px;background:var(--ochre);transform:rotate(45deg)}
   .prose strong{color:var(--ink);font-weight:700}
-  .callout{background:var(--mint);border:1px solid #D5E5D9;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:#274A3D}
+  .callout{background:var(--mint);border:1px solid #D2D9E8;border-left:4px solid var(--forest);border-radius:12px;padding:16px 18px;margin:22px 0;font-size:.95rem;color:var(--ink)}
   .callout b{color:var(--forest-deep)}
 
   .faq{max-width:752px;margin:48px auto 0}
-  .faq h2.gtitle{font-family:'Fraunces',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
+  .faq h2.gtitle{font-family:'Newsreader',serif;font-weight:600;font-size:clamp(1.6rem,3.6vw,2.2rem);letter-spacing:-.015em;margin-bottom:18px}
   .faq details{border:1px solid var(--line);border-radius:13px;background:var(--card);margin-bottom:11px;overflow:hidden;transition:box-shadow .18s}
   .faq details[open]{box-shadow:var(--shadow)}
   .faq summary{cursor:pointer;list-style:none;padding:16px 18px;font-weight:600;font-size:1rem;display:flex;align-items:center;gap:12px;color:var(--ink)}
@@ -144,10 +145,10 @@
   .faq summary .pm::before{top:10px;left:3px;width:16px;height:2px}
   .faq summary .pm::after{top:3px;left:10px;width:2px;height:16px}
   .faq details[open] summary .pm::after{transform:rotate(90deg);opacity:0}
-  .faq .a{padding:0 18px 18px;font-size:.96rem;color:#3A413B;line-height:1.55}
+  .faq .a{padding:0 18px 18px;font-size:.96rem;color:var(--prose);line-height:1.55}
 
   .hub{margin:50px 0 20px}
-  .hub h3{font-family:'Fraunces',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
+  .hub h3{font-family:'Newsreader',serif;font-size:1.4rem;font-weight:600;letter-spacing:-.01em;margin-bottom:6px}
   .hub p.sub{color:var(--ink-soft);margin-bottom:20px;font-size:.95rem}
   .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
   .mcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;position:relative;transition:transform .18s,box-shadow .18s;text-decoration:none;color:inherit;display:block}
@@ -155,7 +156,7 @@
   .mcard:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
   .mcard .ic{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;margin-bottom:12px;color:var(--forest)}
   .mcard.live .ic{background:var(--forest);color:#fff}
-  .mcard h4{font-family:'Fraunces',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
+  .mcard h4{font-family:'Newsreader',serif;font-size:1.02rem;font-weight:600;margin-bottom:4px}
   .mcard p{font-size:.82rem;color:var(--ink-soft);line-height:1.4}
   .badge{position:absolute;top:14px;right:14px;font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:100px}
   .badge.now{background:var(--forest);color:#fff}
@@ -182,7 +183,7 @@ nav.top .menu a.active{background:var(--forest);color:#fff;font-weight:600}
 /*type-normalize*/
 body{line-height:1.6}
 h1{font-size:clamp(2rem,5vw,3rem)}
-p{font-size:1.05rem;color:#3A413B;margin-bottom:16px}
+p{font-size:1.05rem;color:var(--prose);margin-bottom:16px}
 .lede{font-size:1.08rem;color:var(--ink-soft);line-height:1.55}
 h2.gtitle,.post h2{font-size:clamp(1.5rem,3vw,1.8rem);letter-spacing:-.015em}
 footer{margin-top:46px}
@@ -192,7 +193,7 @@ footer{margin-top:46px}
 header.site.nav-open .navburger span:nth-child(1){transform:translateY(7px) rotate(45deg)}
 header.site.nav-open .navburger span:nth-child(2){opacity:0}
 header.site.nav-open .navburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-@media(max-width:820px){
+@media(max-width:1119px){
 .navburger{display:flex}
 nav.top{display:none;order:3;width:100%;margin-left:0;flex-direction:column;align-items:stretch;gap:3px;margin-top:12px}
 header.site.nav-open nav.top{display:flex}
@@ -207,11 +208,11 @@ header.site.nav-open nav.top .grp.open .menu{display:flex}
 .wrap{padding:0 16px}
 }
 /*polish*/
-header.site.nav-open{background:var(--paper);box-shadow:0 10px 26px rgba(30,37,34,.10)}
+header.site.nav-open{background:var(--paper);box-shadow:0 10px 26px rgba(16,24,40,.10)}
 .panel,.mcard{box-shadow:var(--shadow)}
 .bignum.pop{animation:mm-bump .35s ease}
 @keyframes mm-bump{0%{transform:scale(1)}30%{transform:scale(1.045);opacity:.9}100%{transform:scale(1)}}
-@media(max-width:820px){header.site.nav-open nav.top{max-height:72vh;overflow-y:auto}}
+@media(max-width:1119px){header.site.nav-open nav.top{max-height:72vh;overflow-y:auto}}
 @media(max-width:560px){
 header.site{padding-top:14px;padding-bottom:10px}
 .hero{padding:16px 0 12px}
@@ -223,12 +224,75 @@ table{font-size:.9rem}
 td,th{overflow-wrap:anywhere}
 .wrap{padding:0 15px}
 }
+
+  html[data-theme="dark"]{
+    --paper:#0B111F;--paper-2:#0E1830;--card:#141E36;--ink:#EDE7DA;--ink-soft:#9AA6BE;--line:rgba(255,255,255,.10);
+    --forest:#3C5488;--forest-deep:#9DB2DE;--ochre:#D8B968;--ochre-soft:rgba(216,185,104,.16);--ochre-ink:#E8D9B0;--rose:#E0917A;--mint:rgba(255,255,255,.06);--prose:#C4CCDA;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.5);--shadow-lg:0 2px 6px rgba(0,0,0,.5),0 20px 50px rgba(0,0,0,.6);
+  }
+  html[data-theme="dark"] body{background-image:radial-gradient(circle at 12% -10%,rgba(60,84,136,.18),transparent 40%),radial-gradient(circle at 95% 0%,rgba(216,185,104,.10),transparent 38%);}
+  .themetoggle{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:100px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);cursor:pointer;transition:color .15s,border-color .15s,background .15s;flex:none;padding:0}
+  .themetoggle:hover{color:var(--forest);border-color:var(--forest)}
+  html[data-theme="dark"] .themetoggle:hover{color:var(--ochre);border-color:var(--ochre)}
+  @media(max-width:1119px){nav.top .themetoggle{width:auto;justify-content:flex-start;padding:11px 15px;border-radius:11px}}
+
+  /* --- refined menu type --- */
+  nav.top a, nav.top .gbtn{text-transform:uppercase;letter-spacing:.09em;font-size:.72rem;font-weight:600}
+  nav.top .gbtn .ar{letter-spacing:0;font-size:.7em}
+  nav.top .menu a{text-transform:none;letter-spacing:0;font-size:.9rem;font-weight:500}
+  @media(max-width:1119px){nav.top a,nav.top .gbtn{font-size:.82rem;letter-spacing:.06em}nav.top .menu a{font-size:.95rem}}
+  /* --- dark-mode toggle switch (top right) --- */
+  header.site .mm-toggle{margin-left:auto;background:none;border:none;padding:0;cursor:pointer;flex:none;display:inline-flex;align-items:center}
+  .mm-track{position:relative;width:54px;height:28px;border-radius:100px;background:var(--paper-2);border:1px solid var(--line);transition:background .2s,border-color .2s}
+  .mm-knob{position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(16,24,40,.28);display:grid;place-items:center;transition:transform .24s cubic-bezier(.4,0,.2,1),background .2s}
+  .mm-knob .mm-ic{position:absolute;transition:opacity .18s;line-height:0}
+  .mm-sun{opacity:1;color:var(--ochre)}
+  .mm-moon{opacity:0;color:#0E1830}
+  header.site .mm-toggle:hover .mm-track{border-color:var(--ochre)}
+  html[data-theme="dark"] .mm-track{background:#0E1830;border-color:rgba(255,255,255,.18)}
+  html[data-theme="dark"] .mm-knob{transform:translateX(26px);background:#D8B968}
+  html[data-theme="dark"] .mm-sun{opacity:0}
+  html[data-theme="dark"] .mm-moon{opacity:1}
+  @media(max-width:1119px){header.site .brand{order:1}header.site .mm-toggle{order:2}header.site .navburger{order:3;margin-left:8px}header.site nav.top{order:4}}
+
+  /* masthead layout: brand + toggle on top row, nav below */
+  header.site{position:relative}
+  header.site .brand{order:0}
+  header.site .mm-toggle{order:1}
+  header.site .navburger{order:2}
+  @media(min-width:1120px){header.site nav.top{order:3;flex-basis:100%;margin-left:0;margin-top:4px}}
+
+  /* 2a inline header (desktop) */
+  @media(min-width:1120px){
+    header.site{flex-wrap:nowrap;align-items:center}
+    header.site .brand{order:0;flex:none}
+    header.site nav.top{order:1;flex:1 1 auto;flex-basis:auto;margin-left:22px;margin-top:0;justify-content:flex-start;row-gap:6px}
+    header.site .mm-toggle{order:2;margin-left:14px}
+    header.site .navburger{order:3}
+  }
+
+  header.site nav.top a,header.site nav.top .gbtn{white-space:nowrap}
+
+  /* logo + menu resize */
+  .brand .mark{width:27px;height:27px}
+  .brand b{font-size:1.1rem}
+  @media(min-width:1120px){nav.top a,nav.top .gbtn{font-size:.66rem;letter-spacing:.085em}}
+
+  /* inline single-row menu (desktop) */
+  @media(min-width:1120px){
+    header.site nav.top{flex-wrap:nowrap;gap:2px;margin-left:16px;overflow:visible}
+    header.site nav.top a,header.site nav.top .gbtn{font-size:.64rem;letter-spacing:.05em;padding-left:8px;padding-right:8px}
+    header.site .mm-toggle{margin-left:10px}
+  }
+
+  /* dropdown item type */
+  nav.top .menu a{text-transform:uppercase;letter-spacing:.07em;font-size:.75rem;font-weight:600}
 </style>
 
 <style>
 .rescard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 22px;box-shadow:var(--shadow)}
 .reslabel{font-size:.78rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px}
-.bignum{font-family:'Fraunces',serif;font-size:2.05rem;font-weight:600;color:var(--forest);line-height:1.08}
+.bignum{font-family:'Newsreader',serif;font-size:2.05rem;font-weight:600;color:var(--forest);line-height:1.08}
 .bignum.small{font-size:1.5rem}
 .brk{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.93rem}
 .brk:last-child{border-bottom:none}.brk b{font-weight:600}
@@ -238,17 +302,17 @@ td,th{overflow-wrap:anywhere}
 .winner{border:2px solid var(--forest);position:relative}
 .winner::after{content:'Wins on take-home';position:absolute;top:-11px;left:16px;background:var(--forest);color:#fff;font-size:.68rem;padding:2px 10px;border-radius:20px;letter-spacing:.03em}
 .verdict{background:var(--mint);border:1px solid var(--forest);border-radius:12px;padding:15px 18px;margin-top:18px;font-size:.98rem;line-height:1.5}
-.offer-h{font-family:'Fraunces',serif;font-size:1.05rem;margin:0 0 3px}
+.offer-h{font-family:'Newsreader',serif;font-size:1.05rem;margin:0 0 3px}
 .mini{font-size:.82rem;color:var(--ink-soft)}
 select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);width:100%}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "How much super will you retire with?", "description": "Project your super balance at retirement from your salary, 12% employer contributions and returns. See the growth chart, retirement income estimate, and the effect of extra contributions.", "url": "https://moneymilestones.com.au/super-projection-calculator.html", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is my super projected?", "acceptedAnswer": {"@type": "Answer", "text": "Each year we add your employer contributions (12% of salary) plus any extra you contribute, minus the 15% contributions tax, then grow the whole balance by your return net of fees. Salary grows each year too. It runs until your chosen retirement age."}}, {"@type": "Question", "name": "Is the projected balance in today's dollars?", "acceptedAnswer": {"@type": "Answer", "text": "No — it is in future dollars and not adjusted for inflation, so it looks larger than its real spending power. As a rough guide, money loses value over time, so the real value at retirement is meaningfully less than the headline figure."}}, {"@type": "Question", "name": "How much super do I need to retire?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on your lifestyle. The ASFA 'comfortable' standard for a single is roughly $52,000 a year, which combines super drawdowns and often a part Age Pension. This tool shows an indicative 5% drawdown so you can gauge whether you are on track."}}, {"@type": "Question", "name": "Should I add extra contributions?", "acceptedAnswer": {"@type": "Answer", "text": "Salary sacrificing into super is taxed at just 15% instead of your marginal rate, so it can be very tax-effective — within the $32,500 concessional cap. Add an amount here to see the difference, then model the tax saving in our salary sacrifice calculator."}}]}</script></head>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How is my super projected?", "acceptedAnswer": {"@type": "Answer", "text": "Each year we add your employer contributions (12% of salary) plus any extra you contribute, minus the 15% contributions tax, then grow the whole balance by your return net of fees. Salary grows each year too. It runs until your chosen retirement age."}}, {"@type": "Question", "name": "Is the projected balance in today's dollars?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Like ASIC's MoneySmart calculator, we show your balance in today's dollars: the future balance is discounted back by wage inflation (3.7% a year by default) so it reflects real spending power. Salary and contributions grow with wage inflation, and the ASFA income comparison is also in today's dollars."}}, {"@type": "Question", "name": "How much super do I need to retire?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on your lifestyle. The ASFA 'comfortable' standard for a single is roughly $52,000 a year, which combines super drawdowns and often a part Age Pension. This tool shows an indicative 5% drawdown so you can gauge whether you are on track."}}, {"@type": "Question", "name": "Should I add extra contributions?", "acceptedAnswer": {"@type": "Answer", "text": "Salary sacrificing into super is taxed at just 15% instead of your marginal rate, so it can be very tax-effective — within the $32,500 concessional cap. Add an amount here to see the difference, then model the tax saving in our salary sacrifice calculator."}}]}</script></head>
 <body>
 <div class="wrap">
   <header class="site">
     <a class="brand" href="/">
-      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#1B5E4B"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#D98A2B" stroke="#fff" stroke-width="1.6"/></svg>
+      <svg class="mark" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="9" fill="#17233F"/><path d="M9 23.5 L14.5 16 L19 20 L25 11" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="11" r="3" fill="#B08D3C" stroke="#fff" stroke-width="1.6"/></svg>
       <b>Money<span>Milestones</span></b>
     </a>
     <button class="navburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
@@ -267,11 +331,11 @@ select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius
 <style>
 .growth{width:100%;height:auto;display:block;margin:8px 0 2px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:6px}
 .growth .grid{stroke:var(--line);stroke-width:1}
-.growth .axlbl{fill:var(--ink-soft);font-size:15px;font-family:'Hanken Grotesk',sans-serif}
+.growth .axlbl{fill:var(--ink-soft);font-size:15px;font-family:'Public Sans',sans-serif}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 .splitcard{background:var(--mint);border-radius:12px;padding:13px 15px}
 .splitcard .k{font-size:.8rem;color:var(--ink-soft)}
-.splitcard .v{font-family:'Fraunces',serif;font-size:1.25rem;color:var(--forest);margin-top:2px}
+.splitcard .v{font-family:'Newsreader',serif;font-size:1.25rem;color:var(--forest);margin-top:2px}
 .income-box{background:linear-gradient(120deg,var(--mint),#f3f8f2);border:1px solid var(--forest);border-radius:12px;padding:14px 17px;margin-top:14px;font-size:.96rem;line-height:1.5}
 .cap-note{background:#fdf4e7;border:1px solid var(--ochre);border-radius:11px;padding:11px 14px;margin-top:12px;font-size:.86rem;line-height:1.4;display:none}
 .adv{margin-top:6px}
@@ -299,7 +363,8 @@ select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius
             <div class="field"><label for="ret">Return</label><div class="pct"><input type="number" id="ret" value="7" min="0" step="0.1"><span>%</span></div></div>
             <div class="field"><label for="fee">Fees</label><div class="pct"><input type="number" id="fee" value="0.7" min="0" step="0.1"><span>%</span></div></div>
           </div>
-          <div class="field"><label for="salGrow">Salary growth per year</label><div class="pct"><input type="number" id="salGrow" value="2.5" min="0" step="0.1"><span>%</span></div></div>
+          <div class="field"><label for="salGrow">Salary growth per year</label><div class="pct"><input type="number" id="salGrow" value="3.7" min="0" step="0.1"><span>%</span></div></div>
+          <div class="field"><label for="infl">Inflation <span class="hint">(shows today's dollars)</span></label><div class="pct"><input type="number" id="infl" value="3.7" min="0" step="0.1"><span>%</span></div></div>
         </details>
       </div>
     </div>
@@ -309,7 +374,7 @@ select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius
         <div class="rescard">
           <div class="reslabel">Projected balance at <span id="retLabel">67</span></div>
           <div class="bignum" id="finalBal">$0</div>
-          <div class="mini">in future dollars, before inflation</div>
+          <div class="mini">in today's dollars (adjusted for inflation)</div>
           <div class="split">
             <div class="splitcard"><div class="k">Contributions + today's balance</div><div class="v" id="putIn"></div></div>
             <div class="splitcard"><div class="k">Investment growth</div><div class="v" id="growth"></div></div>
@@ -321,21 +386,59 @@ select{font:inherit;padding:11px 12px;border:1px solid var(--line);border-radius
     </div>
   </div>
 
-  <div class="pc-detail" style="max-width:820px;margin:30px auto 0">
-    <h2 class="gtitle">Your super over time</h2>
-    <svg viewBox="0 0 680 300" class="growth" preserveAspectRatio="xMidYMid meet">
-      <line class="grid" x1="58" y1="16" x2="58" y2="262"></line>
-      <line class="grid" x1="58" y1="262" x2="664" y2="262"></line>
-      <line class="grid" x1="58" y1="139" x2="664" y2="139" style="opacity:.45"></line>
-      <path id="area" fill="rgba(27,94,75,.12)" d=""></path>
-      <polyline id="balLine" fill="none" stroke="#1B5E4B" stroke-width="3" points=""></polyline>
-      <text id="yMax" class="axlbl" x="52" y="21" text-anchor="end"></text>
-      <text id="yMid" class="axlbl" x="52" y="144" text-anchor="end"></text>
-      <text class="axlbl" x="52" y="264" text-anchor="end">$0</text>
-      <text id="xStart" class="axlbl" x="58" y="282">35</text>
-      <text id="xEnd" class="axlbl" x="664" y="282" text-anchor="end"></text>
-    </svg>
-    <p class="mini">Want to boost this? Salary sacrifice is taxed at just 15% inside super — model it in our <a href="/salary-sacrifice.html">salary sacrifice calculator</a>.</p>
+  <div class="pc-detail" style="max-width:900px;margin:30px auto 0">
+    <style>
+      .cstats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:6px 0 16px}
+      .cstats .cs{background:var(--card);padding:11px 13px}
+      .cstats .cs .k{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft)}
+      .cstats .cs .v{font-family:'Newsreader',serif;font-size:1.28rem;font-weight:600;color:var(--ink);margin-top:2px}
+      .cstats .cs .v.good{color:var(--forest)}
+      @media(max-width:640px){.cstats{grid-template-columns:repeat(2,1fr)}}
+      .chart-legend{display:flex;gap:15px;font-size:.8rem;color:var(--ink-soft);flex-wrap:wrap}
+      .chart-legend .lg{display:inline-flex;align-items:center;gap:7px}
+      .chart-legend .ln{width:16px;height:0;border-top:3px solid;border-radius:2px}
+      .growth .gl{stroke:var(--line)}
+      .growth .axlbl{fill:var(--ink-soft);font-size:12px;font-family:'Public Sans',sans-serif}
+      .chart-tip{position:absolute;pointer-events:none;background:var(--ink);color:#fff;font-size:.76rem;line-height:1.4;padding:8px 11px;border-radius:9px;box-shadow:0 6px 20px rgba(0,0,0,.28);white-space:nowrap;transform:translate(-50%,-116%);z-index:5}
+      .chart-tip .tk{color:var(--ochre);font-weight:700}
+      .yeartable{margin-top:16px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--card)}
+      .yeartable>summary{cursor:pointer;list-style:none;padding:12px 16px;font-weight:600;font-size:.92rem;color:var(--ink);display:flex;align-items:center;gap:9px}
+      .yeartable>summary::-webkit-details-marker{display:none}
+      .yeartable>summary::before{content:"\25B8";color:var(--ochre);transition:transform .2s}
+      .yeartable[open]>summary::before{transform:rotate(90deg)}
+      .yt-scroll{max-height:264px;overflow-y:auto;border-top:1px solid var(--line)}
+      table.yt{width:100%;border-collapse:collapse;font-size:.85rem;font-variant-numeric:tabular-nums}
+      table.yt th{position:sticky;top:0;background:var(--paper-2);color:var(--ink-soft);font-size:.68rem;text-transform:uppercase;letter-spacing:.04em;text-align:right;padding:9px 14px;font-weight:700}
+      table.yt th:first-child{text-align:left}
+      table.yt td{padding:7px 14px;text-align:right;border-top:1px solid var(--line);color:var(--ink)}
+      table.yt td:first-child{text-align:left;font-weight:600}
+      table.yt tr.paid td{background:rgba(176,141,60,.12);font-weight:600}
+    </style>
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:2px">
+      <h2 class="gtitle" style="margin:0">Your super over time</h2>
+      <div class="chart-legend" id="cLegend"></div>
+    </div>
+    <div class="cstats" id="cStats"></div>
+    <div style="position:relative">
+      <svg viewBox="0 0 720 340" class="growth" id="balChart" preserveAspectRatio="xMidYMid meet">
+        <g id="gGrid"></g>
+        <path id="growthArea" fill="rgba(176,141,60,.22)" d=""></path>
+        <path id="contribArea" fill="rgba(23,35,63,.18)" d=""></path>
+        <polyline id="putInLine" fill="none" stroke="#17233F" stroke-width="1.5" style="opacity:.5" points=""></polyline>
+        <polyline id="baseLine" fill="none" stroke="var(--ink-soft)" stroke-width="2" stroke-dasharray="5 5" style="opacity:0" points=""></polyline>
+        <polyline id="balLine" fill="none" stroke="#17233F" stroke-width="2.5" stroke-linejoin="round" points=""></polyline>
+        <g id="gMarkers"></g>
+        <line id="hoverLine" x1="0" y1="26" x2="0" y2="296" stroke="var(--ink-soft)" stroke-dasharray="3 3" style="opacity:0"></line>
+        <circle id="hoverDot" r="4.5" fill="#17233F" stroke="#fff" stroke-width="2" style="opacity:0"></circle>
+        <rect id="hitArea" x="56" y="24" width="650" height="274" fill="transparent" style="cursor:crosshair"></rect>
+      </svg>
+      <div class="chart-tip" id="tip" style="display:none"></div>
+    </div>
+    <details class="yeartable" open>
+      <summary>Year-by-year breakdown</summary>
+      <div class="yt-scroll"><table class="yt" id="ytab"></table></div>
+    </details>
+    <p class="mini" style="margin-top:12px">Want to boost this? Salary sacrifice is taxed at just 15% inside super — model it in our <a href="/salary-sacrifice.html">salary sacrifice calculator</a>.</p>
   </div>
 
   <script>
@@ -346,52 +449,105 @@ function net(g,hasHelp){const it=Math.max(0,tax2627(g)-lito(g));const mc=g*0.02;
 function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
 
   function fmtShort(n){if(n>=1e6)return "$"+(n/1e6).toFixed(n>=1e7?0:1)+"M";if(n>=1e3)return "$"+Math.round(n/1e3)+"k";return "$"+Math.round(n);}
+  var CH={};
+  function gid(id){return document.getElementById(id);}
   function calc(){
-    var age=+document.getElementById("age").value||30, retAge=+document.getElementById("retAge").value||67, bal=+document.getElementById("balance").value||0, salary=+document.getElementById("salary").value||0, extra=+document.getElementById("extra").value||0;
-    var ret=+document.getElementById("ret").value||0, fee=+document.getElementById("fee").value||0, salGrow=+document.getElementById("salGrow").value||0;
-    var netR=(ret-fee)/100, sal=salary, start=bal, totalNet=0, sacOverCap=false;
-    var yrs=Math.max(0,retAge-age), data=[[age,bal]];
-    for(var i=0;i<yrs;i++){
-      var conc=sal*0.12+extra; if(conc>32500){conc=32500;if(sal*0.12+extra>32500)sacOverCap=true;}
-      var netC=conc*0.85;
-      bal=bal*(1+netR)+netC; totalNet+=netC; sal=sal*(1+salGrow/100);
-      data.push([age+i+1,bal]);
+    var age=+gid("age").value||30, retAge=+gid("retAge").value||67, bal0=+gid("balance").value||0, salary=+gid("salary").value||0, extra=+gid("extra").value||0;
+    var ret=+gid("ret").value||0, fee=+gid("fee").value||0, salGrow=+gid("salGrow").value||0, infl=+gid("infl").value; if(isNaN(infl))infl=3.7;
+    var netR=(ret-fee)/100, yrs=Math.max(0,retAge-age);
+    function sim(ex){
+      var bal=bal0, sal=salary, putIn=bal0, sacOver=false, yearly=[{age:age,bal:bal0,putIn:bal0}];
+      for(var i=0;i<yrs;i++){
+        var conc=sal*0.12+ex; if(conc>32500){conc=32500;if(sal*0.12+ex>32500)sacOver=true;}
+        var netC=conc*0.85;
+        bal=bal*(1+netR)+netC; putIn+=netC; sal=sal*(1+salGrow/100);
+        var def=Math.pow(1+infl/100,i+1);
+        yearly.push({age:age+i+1,bal:bal/def,putIn:putIn/def});
+      }
+      var fdef=Math.pow(1+infl/100,yrs);
+      return {bal:bal/fdef,putIn:putIn/fdef,sacOver:sacOver,yearly:yearly};
     }
-    var putIn=start+totalNet, grow=bal-putIn;
-    document.getElementById("finalBal").textContent=fmt(bal);
-    document.getElementById("retLabel").textContent=retAge;
-    document.getElementById("putIn").textContent=fmt(putIn);
-    document.getElementById("growth").textContent=fmt(Math.max(0,grow));
-    // retirement income (5% drawdown) + ASFA benchmark
-    var income=bal*0.05;
-    document.getElementById("incomeBox").innerHTML="At a 5% drawdown, that is roughly <b>"+fmt(income)+" a year</b> in retirement (before any Age Pension). For comparison, the ASFA ‘comfortable’ standard for a single is around $52,000 a year (approximate — check current figures).";
-    var cn=document.getElementById("capNote");
-    if(sacOverCap){cn.style.display="";cn.innerHTML="Your employer contributions plus salary sacrifice exceed the <b>$32,500</b> concessional cap. Amounts over the cap are taxed at your marginal rate, so this projection caps them — consider carry-forward contributions.";}
+    var act=sim(extra), base=extra>0?sim(0):act;
+    var finalBal=act.bal, putIn=act.putIn, grow=finalBal-putIn;
+    gid("finalBal").textContent=fmt(finalBal);
+    gid("retLabel").textContent=retAge;
+    gid("putIn").textContent=fmt(putIn);
+    gid("growth").textContent=fmt(Math.max(0,grow));
+    var income=finalBal*0.05;
+    gid("incomeBox").innerHTML="At a 5% drawdown, that is roughly <b>"+fmt(income)+" a year</b> in retirement (before any Age Pension). For comparison, the ASFA ‘comfortable’ standard for a single is around $52,000 a year (approximate — check current figures).";
+    var cn=gid("capNote");
+    if(act.sacOver){cn.style.display="";cn.innerHTML="Your employer contributions plus salary sacrifice exceed the <b>$32,500</b> concessional cap. Amounts over the cap are taxed at your marginal rate, so this projection caps them — consider carry-forward contributions.";}
     else cn.style.display="none";
-    // chart
-    var maxB=1; data.forEach(function(d){if(d[1]>maxB)maxB=d[1];});
-    var pL=58,pT=16,pB=38,pR=16,W=680,H=300,pw=W-pL-pR,ph=H-pT-pB, span=Math.max(1,yrs);
-    function X(t){return pL+((t-age)/span)*pw;}
-    function Y(v){return pT+ph-(v/maxB)*ph;}
-    var pts=data.map(function(d){return X(d[0]).toFixed(1)+","+Y(d[1]).toFixed(1);}).join(" ");
-    var base=pT+ph, areaD="M"+X(age).toFixed(1)+","+base;
-    data.forEach(function(d){areaD+=" L"+X(d[0]).toFixed(1)+","+Y(d[1]).toFixed(1);});
-    areaD+=" L"+X(retAge).toFixed(1)+","+base+" Z";
-    document.getElementById("area").setAttribute("d",areaD);
-    document.getElementById("balLine").setAttribute("points",pts);
-    document.getElementById("yMax").textContent=fmtShort(maxB);
-    document.getElementById("yMid").textContent=fmtShort(maxB/2);
-    document.getElementById("xStart").textContent=age;
-    document.getElementById("xEnd").textContent=retAge;
+    drawChart(act,base,extra,age,retAge,finalBal,putIn,grow,income);
   }
-  ["age","retAge","balance","salary","extra","ret","fee","salGrow"].forEach(function(id){document.getElementById(id).addEventListener("input",calc);document.getElementById(id).addEventListener("change",calc);});calc();
+  function drawChart(act,base,extra,age,retAge,finalBal,putIn,grow,income){
+    var pL=56,pT=26,pR=14,pB=44,W=720,H=340,pw=W-pL-pR,ph=H-pT-pB, span=Math.max(1,retAge-age);
+    var maxB=1; act.yearly.forEach(function(d){if(d.bal>maxB)maxB=d.bal;});
+    function X(t){return pL+((t-age)/span)*pw;} function Y(v){return pT+ph-(v/maxB)*ph;}
+    var g='';
+    for(var i=0;i<=4;i++){var v=maxB*i/4, yy=Y(v);g+='<line class="gl" x1="'+pL+'" y1="'+yy.toFixed(1)+'" x2="'+(W-pR)+'" y2="'+yy.toFixed(1)+'" opacity="'+(i===0?1:.55)+'"/>';g+='<text class="axlbl" x="'+(pL-7)+'" y="'+(yy+4).toFixed(1)+'" text-anchor="end">'+fmtShort(v)+'</text>';}
+    var stepA=span<=15?3:5;
+    for(var t=age;t<=retAge+0.001;t+=stepA){g+='<text class="axlbl" x="'+X(t).toFixed(1)+'" y="'+(H-24)+'" text-anchor="middle">'+Math.round(t)+'</text>';}
+    g+='<text class="axlbl" x="'+((pL+W-pR)/2).toFixed(0)+'" y="'+(H-6)+'" text-anchor="middle" style="font-weight:600">Age</text>';
+    gid("gGrid").innerHTML=g;
+    var bY=pT+ph;
+    function areaD(field){var d="M"+X(age).toFixed(1)+","+bY; act.yearly.forEach(function(p){d+=" L"+X(p.age).toFixed(1)+","+Y(field==='bal'?p.bal:p.putIn).toFixed(1);}); d+=" L"+X(retAge).toFixed(1)+","+bY+" Z"; return d;}
+    gid("growthArea").setAttribute("d",areaD('bal'));
+    gid("contribArea").setAttribute("d",areaD('putIn'));
+    function pline(field){return act.yearly.map(function(p){return X(p.age).toFixed(1)+","+Y(field==='bal'?p.bal:p.putIn).toFixed(1);}).join(" ");}
+    gid("balLine").setAttribute("points",pline('bal'));
+    gid("putInLine").setAttribute("points",pline('putIn'));
+    var bl=gid("baseLine");
+    if(extra>0){bl.setAttribute("points",base.yearly.map(function(p){return X(p.age).toFixed(1)+","+Y(p.bal).toFixed(1);}).join(" "));bl.style.opacity="1";}else bl.style.opacity="0";
+    var mk='';
+    var fx=X(retAge), fy=Y(finalBal);
+    mk+='<circle cx="'+fx.toFixed(1)+'" cy="'+fy.toFixed(1)+'" r="4.5" fill="var(--ochre)" stroke="#fff" stroke-width="2"/>';
+    mk+='<text class="axlbl" x="'+Math.min(fx,W-pR-4).toFixed(1)+'" y="'+(fy-9).toFixed(1)+'" text-anchor="end" style="fill:var(--ochre);font-weight:700">'+fmtShort(finalBal)+' at '+retAge+'</text>';
+    var mils=[2000000,1000000,500000,250000], chosen=null;
+    for(var m=0;m<mils.length;m++){if(finalBal>=mils[m]){chosen=mils[m];break;}}
+    if(chosen){var hit=null; for(var j=1;j<act.yearly.length;j++){if(act.yearly[j].bal>=chosen){hit=act.yearly[j];break;}}
+      if(hit&&hit.age<retAge){var mx=X(hit.age),my=Y(hit.bal);mk+='<line x1="'+mx.toFixed(1)+'" y1="'+pT+'" x2="'+mx.toFixed(1)+'" y2="'+(pT+ph)+'" stroke="var(--ink-soft)" stroke-dasharray="4 4" opacity=".55"/>';mk+='<circle cx="'+mx.toFixed(1)+'" cy="'+my.toFixed(1)+'" r="3.5" fill="#17233F" stroke="#fff" stroke-width="1.5"/>';mk+='<text class="axlbl" x="'+mx.toFixed(1)+'" y="'+(pT+11)+'" text-anchor="middle">'+fmtShort(chosen)+' · age '+Math.round(hit.age)+'</text>';}}
+    gid("gMarkers").innerHTML=mk;
+    gid("cLegend").innerHTML='<span class="lg"><span style="width:12px;height:12px;border-radius:3px;background:#B08D3C"></span>Investment growth</span><span class="lg"><span style="width:12px;height:12px;border-radius:3px;background:#17233F"></span>Contributions + start</span>'+(extra>0?'<span class="lg"><span class="ln" style="border-color:var(--ink-soft);border-top-style:dashed"></span>Without extra</span>':'');
+    var cs='';function stat(k,v,cls){return '<div class="cs"><div class="k">'+k+'</div><div class="v '+(cls||'')+'">'+v+'</div></div>';}
+    cs+=stat("Balance at "+retAge,fmtShort(finalBal));
+    cs+=stat("You put in",fmtShort(putIn));
+    cs+=stat("Investment growth",fmtShort(Math.max(0,grow)),"good");
+    cs+=stat("Income ~5%/yr",fmt(income));
+    gid("cStats").innerHTML=cs;
+    var tb='<thead><tr><th>Age</th><th>Balance</th><th>Contributions</th><th>Growth</th><th>Growth share</th></tr></thead><tbody>';
+    act.yearly.forEach(function(d){var gr=Math.max(0,d.bal-d.putIn), share=d.bal>0?gr/d.bal*100:0;tb+='<tr'+(d.age===retAge?' class="paid"':'')+'><td>'+d.age+'</td><td>'+fmt(d.bal)+'</td><td>'+fmt(d.putIn)+'</td><td>'+fmt(gr)+'</td><td>'+share.toFixed(0)+'%</td></tr>';});
+    tb+='</tbody>'; gid("ytab").innerHTML=tb;
+    CH={X:X,Y:Y,pL:pL,pw:pw,span:span,age:age,retAge:retAge,yearly:act.yearly};
+  }
+  (function(){
+    var svg=gid("balChart"),wrap=svg.parentNode,tip=gid("tip"),hl=gid("hoverLine"),hd=gid("hoverDot"),hit=gid("hitArea");
+    function move(e){
+      if(!CH.yearly)return;
+      var sr=svg.getBoundingClientRect();
+      var vx=(e.clientX-sr.left)/sr.width*720;
+      var t=CH.age+(vx-CH.pL)/CH.pw*CH.span; if(t<CH.age)t=CH.age; if(t>CH.retAge)t=CH.retAge;
+      var best=CH.yearly[0],bd=1e9;
+      CH.yearly.forEach(function(d){var dd=Math.abs(d.age-t);if(dd<bd){bd=dd;best=d;}});
+      var px=CH.X(best.age),py=CH.Y(best.bal);
+      hl.setAttribute("x1",px);hl.setAttribute("x2",px);hl.style.opacity="1";
+      hd.setAttribute("cx",px);hd.setAttribute("cy",py);hd.style.opacity="1";
+      var wr=wrap.getBoundingClientRect(), sx=sr.width/720, sy=sr.height/300;
+      tip.style.display="block";tip.style.left=((sr.left+px*sx)-wr.left)+"px";tip.style.top=((sr.top+py*sy)-wr.top)+"px";
+      var gr=Math.max(0,best.bal-best.putIn);
+      tip.innerHTML='<span class="tk">Age '+best.age+'</span><br>Balance <b>'+fmt(best.bal)+'</b><br>Contributions <b>'+fmt(best.putIn)+'</b><br>Growth <b>'+fmt(gr)+'</b>';
+    }
+    function leave(){tip.style.display="none";hl.style.opacity="0";hd.style.opacity="0";}
+    hit.addEventListener("mousemove",move);hit.addEventListener("mouseleave",leave);
+  })();
+  ["age","retAge","balance","salary","extra","ret","fee","salGrow","infl"].forEach(function(id){gid(id).addEventListener("input",calc);gid(id).addEventListener("change",calc);});calc();
   </script>
   <section class="faq">
     <h2 class="gtitle">Common questions</h2>
     <details><summary><span class="q">How is my super projected?</span><span class="pm"></span></summary>
       <div class="a">Each year we add your employer contributions (12% of salary) plus any extra you contribute, minus the 15% contributions tax, then grow the whole balance by your return net of fees. Salary grows each year too. It runs until your chosen retirement age.</div></details>
     <details><summary><span class="q">Is the projected balance in today's dollars?</span><span class="pm"></span></summary>
-      <div class="a">No — it is in future dollars and not adjusted for inflation, so it looks larger than its real spending power. As a rough guide, money loses value over time, so the real value at retirement is meaningfully less than the headline figure.</div></details>
+      <div class="a">Yes. Following the same approach as ASIC's MoneySmart calculator, we show your balance in today's dollars — the projected future balance is discounted back by wage inflation (3.7% a year by default, editable under Advanced) so the figure reflects real spending power. Your salary and contributions are also assumed to grow with wage inflation, and the ASFA income comparison is likewise in today's dollars.</div></details>
     <details><summary><span class="q">How much super do I need to retire?</span><span class="pm"></span></summary>
       <div class="a">It depends on your lifestyle. The ASFA 'comfortable' standard for a single is roughly $52,000 a year, which combines super drawdowns and often a part Age Pension. This tool shows an indicative 5% drawdown so you can gauge whether you are on track.</div></details>
     <details><summary><span class="q">Should I add extra contributions?</span><span class="pm"></span></summary>
@@ -408,5 +564,6 @@ function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
   <script>/*navtoggle*/(function(){document.querySelectorAll("nav.top .gbtn").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var g=b.parentNode,was=g.classList.contains("open");document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});if(!was){g.classList.add("open");}b.setAttribute("aria-expanded",String(!was));});});document.addEventListener("click",function(){document.querySelectorAll("nav.top .grp.open").forEach(function(o){o.classList.remove("open");});});})();</script>
   <script>/*navburger*/(function(){document.querySelectorAll(".navburger").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var h=b.closest("header");var open=h.classList.toggle("nav-open");b.setAttribute("aria-expanded",String(open));});});})();</script>
   <script>/*polishjs*/(function(){var h=document.querySelector("header.site");if(h){var f=function(){h.classList.toggle("scrolled",window.scrollY>6);};window.addEventListener("scroll",f,{passive:true});f();}document.querySelectorAll(".bignum").forEach(function(el){try{var o=new MutationObserver(function(){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");});o.observe(el,{childList:true,characterData:true,subtree:true});}catch(e){}});})();</script>
+<script>/*mmtoggle*/(function(){var root=document.documentElement;try{if(localStorage.getItem("mm-theme")==="dark")root.setAttribute("data-theme","dark");}catch(e){}function make(){var host=document.querySelector("header.site")||document.querySelector("header");if(!host||host.querySelector(".mm-toggle"))return;var b=document.createElement("button");b.className="mm-toggle";b.type="button";b.setAttribute("role","switch");b.setAttribute("aria-label","Toggle dark mode");b.title="Toggle dark mode";b.innerHTML='<span class="mm-track"><span class="mm-knob"><span class="mm-ic mm-sun"><svg viewBox="0 0 20 20" width="12" height="12" fill="none"><circle cx="10" cy="10" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.8 4.8l1.3 1.3M13.9 13.9l1.3 1.3M15.2 4.8l-1.3 1.3M6.1 13.9l-1.3 1.3"/></g></svg></span><span class="mm-ic mm-moon"><svg viewBox="0 0 20 20" width="12" height="12" fill="none"><path d="M15.5 11.6A5.8 5.8 0 018.4 4.5a1 1 0 00-1.3-1.15A6.6 6.6 0 1016.65 12.9a1 1 0 00-1.15-1.3z" fill="currentColor"/></svg></span></span></span>';function sync(){b.setAttribute("aria-checked",root.getAttribute("data-theme")==="dark"?"true":"false");}sync();b.addEventListener("click",function(){var dark=root.getAttribute("data-theme")==="dark";if(dark)root.removeAttribute("data-theme");else root.setAttribute("data-theme","dark");try{localStorage.setItem("mm-theme",dark?"light":"dark");}catch(e){}sync();});host.appendChild(b);}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",make);else make();})();</script>
 </body>
 </html>
