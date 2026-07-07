@@ -297,7 +297,7 @@ td,th{overflow-wrap:anywhere}
 .brk{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.93rem}
 .brk:last-child{border-bottom:none}.brk b{font-weight:600}
 .brk.tot{border-top:2px solid var(--line);border-bottom:none;margin-top:2px;padding-top:11px;font-weight:600}
-.cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-top:6px}
 @media(max-width:640px){.cols{grid-template-columns:1fr}}
 .winner{border:2px solid var(--forest);position:relative}
 .winner::after{content:'Wins on take-home';position:absolute;top:-11px;left:16px;background:var(--forest);color:#fff;font-size:.68rem;padding:2px 10px;border-radius:20px;letter-spacing:.03em}
@@ -306,7 +306,7 @@ td,th{overflow-wrap:anywhere}
 .mini{font-size:.82rem;color:var(--ink-soft)}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Which job offer actually pays more?", "description": "Compare two or three job offers on real 2026-27 take-home pay after tax, Medicare, HECS and super — plus total package. Free Australian calculator.", "url": "https://moneymilestones.com.au/job-offer-comparison.html", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "AUD"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Should I pick the job with the higher salary or the higher super?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on your priorities. A higher salary gives you more cash now; higher super builds more for retirement (taxed lightly along the way). This tool shows both the take-home and the total package so you can weigh them."}}, {"@type": "Question", "name": "Can I compare three offers at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — switch on 'Compare a third offer' to add Offer C. The tool then ranks all three on take-home and flags the highest, and tells you if a different offer wins on total package."}}, {"@type": "Question", "name": "Does this include my HECS/HELP repayment?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — tick the HELP/HECS toggle and each offer's take-home will include the compulsory repayment based on 2026-27 thresholds, since a higher salary can mean a higher repayment."}}, {"@type": "Question", "name": "How is take-home calculated?", "acceptedAnswer": {"@type": "Answer", "text": "We apply the 2026-27 resident tax brackets, the Low Income Tax Offset, the 2% Medicare levy and, if selected, your HELP repayment. Super is shown separately as it is paid on top of your salary."}}]}</script></head>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Should I pick the job with the higher salary or the higher super?", "acceptedAnswer": {"@type": "Answer", "text": "It depends on your priorities. A higher salary gives you more cash now; higher super builds more for retirement (taxed lightly along the way). This tool shows both the take-home and the total package so you can weigh them."}}, {"@type": "Question", "name": "Can I compare three offers at once?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — switch on 'Compare a third offer' to add Offer C. The tool then ranks all three on take-home and flags the highest, and tells you if a different offer wins on total package."}}, {"@type": "Question", "name": "Does this include my HECS/HELP repayment?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — tick the HELP/HECS toggle and each offer's take-home will include the compulsory repayment based on 2026-27 thresholds, since a higher salary can mean a higher repayment."}}, {"@type": "Question", "name": "How is take-home calculated?", "acceptedAnswer": {"@type": "Answer", "text": "We apply the 2026-27 resident tax brackets, the Low Income Tax Offset, the 2% Medicare levy and, if selected, your HELP repayment. Super is shown separately as it is paid on top of your salary, and is taxed at just 15% in the fund rather than at your marginal rate — so a dollar of extra super is worth about 85c of retirement savings when weighing it against take-home cash."}}]}</script></head>
 <body>
 <div class="wrap">
   <header class="site">
@@ -328,7 +328,15 @@ td,th{overflow-wrap:anywhere}
     </nav>
   </header>
 
-  <style>.cols.three{grid-template-columns:repeat(3,1fr)}@media(max-width:760px){.cols.three{grid-template-columns:1fr}}</style>
+  <style>
+  .cols.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+  .cols.three .rescard{padding:15px 14px}
+  .cols.three .bignum{font-size:1.5rem}
+  .cols.three .brk{font-size:.85rem;gap:8px;padding:7px 0}
+  .cols.three .offer-h{font-size:.98rem}
+  .cols.three .winner::after{content:'Top take-home';font-size:.58rem;padding:2px 6px;left:12px}
+  @media(max-width:760px){.cols.three{grid-template-columns:1fr;gap:16px}.cols.three .rescard{padding:20px 22px}.cols.three .bignum{font-size:2.05rem}.cols.three .winner::after{content:'Wins on take-home';font-size:.68rem}}
+  </style>
   <section class="hero">
     <span class="eyebrow"><span class="dot"></span>Compare job offers · 2026-27</span>
     <h1>Which job offer <em>actually</em> pays more?</h1>
@@ -405,6 +413,7 @@ td,th{overflow-wrap:anywhere}
           </div>
         </div>
         </div>
+        <p class="mini" id="superNote" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--line)"></p>
         <div class="verdict" id="verdict"></div>
       </div>
     </div>
@@ -428,6 +437,9 @@ function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
     ['a','b'].concat(useC?['c']:[]).forEach(function(p){var o=one(+document.getElementById(p+'Sal').value||0,+document.getElementById(p+'Sup').value||0);fill(p,o);list.push({p:p,label:'Offer '+p.toUpperCase(),card:'card'+p.toUpperCase(),o:o});});
     var byNet=list.slice().sort(function(x,y){return y.o.net-x.o.net;});
     var byPkg=list.slice().sort(function(x,y){return y.o.pkg-x.o.pkg;});
+    var bySup=list.slice().sort(function(x,y){return y.o.sup-x.o.sup;});
+    var topSup=bySup[0];
+    document.getElementById('superNote').innerHTML='Super is paid <b>on top</b> of salary and taxed at just 15% in the fund — a dollar of extra super is worth about 85c of retirement savings, versus cash taxed at your marginal rate today. '+topSup.label+' puts the most into super (<b>'+fmt(topSup.o.sup)+'</b>/yr, ≈ '+fmt(topSup.o.sup*0.85)+' after the 15% contributions tax). Weigh take-home and total package together.';
     var allEq=byNet.every(function(x){return Math.round(x.o.net)===Math.round(byNet[0].o.net);});
     list.forEach(function(x){document.getElementById(x.card).classList.toggle('winner',!allEq && x.card===byNet[0].card);});
     var v;
@@ -446,7 +458,7 @@ function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
     <details><summary><span class="q">Does this include my HECS/HELP repayment?</span><span class="pm"></span></summary>
       <div class="a">Yes — tick the HELP/HECS toggle and each offer's take-home will include the compulsory repayment based on 2026-27 thresholds, since a higher salary can mean a higher repayment.</div></details>
     <details><summary><span class="q">How is take-home calculated?</span><span class="pm"></span></summary>
-      <div class="a">We apply the 2026-27 resident tax brackets, the Low Income Tax Offset, the 2% Medicare levy and, if selected, your HELP repayment. Super is shown separately as it is paid on top of your salary.</div></details>
+      <div class="a">We apply the 2026-27 resident tax brackets, the Low Income Tax Offset, the 2% Medicare levy and, if selected, your HELP repayment. Super is shown separately as it is paid on top of your salary, and is taxed at just 15% in the fund rather than at your marginal rate — so a dollar of extra super is worth about 85c of retirement savings when weighing it against take-home cash.</div></details>
 
   </section>
 
@@ -459,6 +471,4 @@ function fmt(n){return '$'+Math.round(n).toLocaleString('en-AU');}
 </div>
   <script>/*navburger*/(function(){document.querySelectorAll(".navburger").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var h=b.closest("header");var open=h.classList.toggle("nav-open");b.setAttribute("aria-expanded",String(open));});});})();</script>
   <script>/*polishjs*/(function(){var h=document.querySelector("header.site");if(h){var f=function(){h.classList.toggle("scrolled",window.scrollY>6);};window.addEventListener("scroll",f,{passive:true});f();}document.querySelectorAll(".bignum").forEach(function(el){try{var o=new MutationObserver(function(){el.classList.remove("pop");void el.offsetWidth;el.classList.add("pop");});o.observe(el,{childList:true,characterData:true,subtree:true});}catch(e){}});})();</script>
-<script>/*mmtoggle*/(function(){var root=document.documentElement;try{if(localStorage.getItem("mm-theme")==="dark")root.setAttribute("data-theme","dark");}catch(e){}function make(){var host=document.querySelector("header.site")||document.querySelector("header");if(!host||host.querySelector(".mm-toggle"))return;var b=document.createElement("button");b.className="mm-toggle";b.type="button";b.setAttribute("role","switch");b.setAttribute("aria-label","Toggle dark mode");b.title="Toggle dark mode";b.innerHTML='<span class="mm-track"><span class="mm-knob"><span class="mm-ic mm-sun"><svg viewBox="0 0 20 20" width="12" height="12" fill="none"><circle cx="10" cy="10" r="4" fill="currentColor"/><g stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M10 2.5v2M10 15.5v2M2.5 10h2M15.5 10h2M4.8 4.8l1.3 1.3M13.9 13.9l1.3 1.3M15.2 4.8l-1.3 1.3M6.1 13.9l-1.3 1.3"/></g></svg></span><span class="mm-ic mm-moon"><svg viewBox="0 0 20 20" width="12" height="12" fill="none"><path d="M15.5 11.6A5.8 5.8 0 018.4 4.5a1 1 0 00-1.3-1.15A6.6 6.6 0 1016.65 12.9a1 1 0 00-1.15-1.3z" fill="currentColor"/></svg></span></span></span>';function sync(){b.setAttribute("aria-checked",root.getAttribute("data-theme")==="dark"?"true":"false");}sync();b.addEventListener("click",function(){var dark=root.getAttribute("data-theme")==="dark";if(dark)root.removeAttribute("data-theme");else root.setAttribute("data-theme","dark");try{localStorage.setItem("mm-theme",dark?"light":"dark");}catch(e){}sync();});host.appendChild(b);}if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",make);else make();})();</script>
-</body>
-</html>
+<script>/*mmtoggle*/(function(){var root=document.documentElement;try{if(localStorage.getItem("mm-theme")==="dark")root.setAttribute("data-theme","dark")
